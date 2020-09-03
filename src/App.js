@@ -1,11 +1,11 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './simple-sidebar.css'
 import Button from "react-bootstrap/Button";
 import Popup from "./components/Popup";
-import {Visibility, Delete} from '@material-ui/icons';
+import MainTable from "./components/MainTable";
 
 function App() {
 
@@ -13,28 +13,6 @@ function App() {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    const myList = [
-        {
-            "elem_one": "1",
-            "elem_two": "1",
-            "elem_three": "1",
-            "elem_four": "1",
-        },
-        {
-            "elem_one": "1",
-            "elem_two": "1",
-            "elem_three": "1",
-            "elem_four": "1",
-        },
-        {
-            "elem_one": "1",
-            "elem_two": "1",
-            "elem_three": "1",
-            "elem_four": "1",
-        },
-    ]
-
 
     return (
         <div className="d-flex" id="wrapper">
@@ -73,58 +51,7 @@ function App() {
 
                 <Popup show={show} onHide={handleClose}/>
 
-                <table className="table">
-                    <thead className="thead-light">
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Run Date</th>
-                        <th scope="col">Created</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-                    {/*<tbody>*/}
-                    {/*<tr>*/}
-                    {/*    <th scope="row">1</th>*/}
-                    {/*    <td>Mark</td>*/}
-                    {/*    <td>Otto</td>*/}
-                    {/*    <td>Otto</td>*/}
-                    {/*    <Visibility>Larry</Visibility>*/}
-                    {/*    <Delete>@twitter</Delete>*/}
-                    {/*</tr>*/}
-                    {/*<tr>*/}
-                    {/*    <th scope="row">2</th>*/}
-                    {/*    <td>Jacob</td>*/}
-                    {/*    <td>Thornton</td>*/}
-                    {/*    <td>@fat</td>*/}
-                    {/*    <Visibility>Larry</Visibility>*/}
-                    {/*    <Delete>@twitter</Delete>*/}
-                    {/*</tr>*/}
-                    {/*<tr>*/}
-                    {/*    <th scope="row">3</th>*/}
-                    {/*    <td>the Bird</td>*/}
-                    {/*    <td>@twitter</td>*/}
-                    {/*    <td>@twitter</td>*/}
-                    {/*    <Visibility>Larry</Visibility>*/}
-                    {/*    <Delete>@twitter</Delete>*/}
-                    {/*</tr>*/}
-
-                    <tbody>
-                    {myList.map((item, i) => {
-                        return [
-                            <tr key={i}>
-                                <td>{item.elem_one}</td>
-                                <td>{item.elem_two}</td>
-                                <td>{item.elem_three}</td>
-                                <td>{item.elem_four}</td>
-                                <Visibility/>
-                                <Delete/>
-                            </tr>
-                        ];
-                    })}
-                    </tbody>
-
-                </table>
+                <MainTable/>
 
             </div>
 
