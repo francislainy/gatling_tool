@@ -3,8 +3,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './simple-sidebar.css'
-import Modal from 'react-bootstrap/Modal'
-import Button from "@material-ui/core/Button";
+import Button from "react-bootstrap/Button";
+import Popup from "./components/Popup";
 
 function App() {
 
@@ -48,25 +48,7 @@ function App() {
                     Import Gatling Report
                 </Button>
 
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Select Gatling Report Folder</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-
-
-                        Select Gatling Report Folder
-
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Cancel
-                        </Button>
-                        <Button variant="primary" onClick={handleClose}>
-                            OK
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+                <Popup show={show} onHide={handleClose}/>
 
                 <table className="table">
                     <thead className="thead-light">
