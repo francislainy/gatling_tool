@@ -7,8 +7,6 @@ import Button from "react-bootstrap/Button";
 import Popup from "./components/Popup";
 import MainTable from "./components/MainTable";
 import ToolDataService from './components/api/ToolDataService'
-import axios from 'axios';
-
 
 function App() {
 
@@ -19,24 +17,25 @@ function App() {
 
     const [data, setData] = useState({total: [], isFetching: false});
 
-
     useEffect(() => {
         const fetchUsers = async () => {
             try {
                 setData({total: data.total, isFetching: true});
-                const response = await axios.get('http://localhost:8081/gatling_tool/t');
-                console.log(response)
-                setData({total: response.data.total, isFetching: false});
+
+                ToolDataService.retrieveToolItem()
+                    .then(response => setData({total: response.data.total, isFetching: false}))
+
             } catch (e) {
                 console.log(e);
-                setData({users: data.users, isFetching: false});
+                setData({total: data.total, isFetching: false});
             }
         };
-        fetchUsers();
-    }, []);
+        fetchUsers().then(r => console.log(r))
+    });
 
-    ToolDataService.retrieveToolItem()
-        .then(response => console.log(response.data))
+
+    // ToolDataService.retrieveToolItem()
+    //     .then(response => setData({total: response.data.total, isFetching: false}))
 
     return (
         <div className="d-flex" id="wrapper">
