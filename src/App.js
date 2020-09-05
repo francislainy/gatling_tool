@@ -17,9 +17,15 @@ function App() {
     const handleShow = () => setShow(true);
 
     const [data, setData] = useState({total: [], isFetching: false});
-    const [dataTable, setDataTable] = useState({table_items: [], isFetching: false});
     // const [dataTableObj, setDataTableObj] = useState({table_items: {}, isFetching: false});
-    const [dataTableObj, setDataTableObj] = useState({table_items: {"name:": "name1", "created_date": "yesterday", "run_date":"today", "category": "my_cat"}, isFetching: false});
+    const [dataTableObj, setDataTableObj] = useState({
+        table_items: {
+            "name:": "name1",
+            "created_date": "yesterday",
+            "run_date": "today",
+            "category": "my_cat"
+        }, isFetching: false
+    });
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -42,41 +48,11 @@ function App() {
 
         ToolDataService.retrieveTable()
 
-            // .then(response => setData({total: response.data.total, isFetching: false}))
-            // .then(({data}) =>
-            // .then((response) =>
-            //     console.log(response.data.table_items
-            //     )
-            // )
-
-            // .then(({data}) =>
-            //     setDataTable({table_items: data.table_items[0], isFetching: true})
-            // )
-            //     dataTable.table_items.map( table_items => console.log(table_items))
-
-            // .then((response) =>
-            //     setDataTableObj({table_items: response.data.table_items, isFetching: true})
-            // )
-
-
             .then(({data}) =>
                 setDataTableObj({table_items: data.table_items, isFetching: true})
             )
 
     }, [])
-
-    if (dataTableObj !== undefined) {
-
-        if (dataTableObj.table_items[0] !== undefined) {
-            console.log("fr")
-
-            // dataTableObj.table_items.map(e => console.log(e.category))
-            // dataTableObj.table_items.map(e => ({"category": e.category}))
-            dataTableObj.table_items.map(e => ({"name": e.name, "created_date": e.created_date, "category": e.category, "run_date": e.run_date}))
-            console.log(dataTableObj.table_items.category)
-        }
-    }
-
 
     return (
         <div className="d-flex" id="wrapper">
@@ -91,8 +67,6 @@ function App() {
             </div>
 
             <div id="page-content-wrapper">
-                {/*{dataTable !== undefined && <h1>{dataTable.table_items.name}</h1>}*/}
-                {/*{dataTableObj !== undefined && <h1>{dataTableObj.table_items[0].name}</h1>}*/}
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                     <div><a href="#" className="navbar-brand">Gatling Reporting Tool</a></div>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
