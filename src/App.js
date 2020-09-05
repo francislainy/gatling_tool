@@ -7,7 +7,6 @@ import Button from "react-bootstrap/Button";
 import Popup from "./components/Popup";
 import MainTable from "./components/MainTable";
 import ToolDataService from './components/api/ToolDataService'
-import {Delete, Visibility} from "@material-ui/icons";
 
 function App() {
 
@@ -17,7 +16,6 @@ function App() {
     const handleShow = () => setShow(true);
 
     const [data, setData] = useState({total: [], isFetching: false});
-    // const [dataTableObj, setDataTableObj] = useState({table_items: {}, isFetching: false});
     const [dataTableObj, setDataTableObj] = useState({
         table_items: {
             "name:": "name1",
@@ -42,7 +40,6 @@ function App() {
         };
         fetchUsers().then(r => console.log(r))
     }, []);
-
 
     useEffect(() => {
 
@@ -91,36 +88,8 @@ function App() {
 
                 <Popup show={show} onHide={handleClose}/>
 
-                {/*<MainTable/>*/}
-
                 {dataTableObj !== undefined && dataTableObj.table_items[0] !== undefined &&
-                <table className="table">
-                    <thead className="thead-light">
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Run Date</th>
-                        <th scope="col">Created</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    {dataTableObj.table_items.map((item, i) => {
-                        return [
-                            <tr key={i}>
-                                <td>{item.name}</td>
-                                <td>{item.created_date}</td>
-                                <td>{item.category}</td>
-                                <td>{item.run_date}</td>
-                                <Visibility/>
-                                <Delete/>
-                            </tr>
-                        ];
-                    })}
-                    </tbody>
-
-                </table>
+                <MainTable dataTableObj={dataTableObj}/>
                 }
 
             </div>

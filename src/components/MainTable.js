@@ -1,7 +1,7 @@
 import React from "react";
 import {Delete, Visibility} from "@material-ui/icons";
 
-const MainTable = () => {
+const MainTable = ({dataTableObj}) => {
 
     const myList = [
         {
@@ -37,13 +37,13 @@ const MainTable = () => {
             </thead>
 
             <tbody>
-            {myList.map((item, i) => {
+            {dataTableObj.table_items.map((item, i) => {
                 return [
                     <tr key={i}>
-                        <td>{item.elem_one}</td>
-                        <td>{item.elem_two}</td>
-                        <td>{item.elem_three}</td>
-                        <td>{item.elem_four}</td>
+                        <td>{item.name}</td>
+                        <td>{item.created_date}</td>
+                        <td>{item.category}</td>
+                        <td>{item.run_date}</td>
                         <Visibility/>
                         <Delete/>
                     </tr>
