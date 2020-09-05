@@ -3,27 +3,6 @@ import {Delete, Visibility} from "@material-ui/icons";
 
 const MainTable = ({dataTableObj}) => {
 
-    const myList = [
-        {
-            "elem_one": "1",
-            "elem_two": "1",
-            "elem_three": "1",
-            "elem_four": "1",
-        },
-        {
-            "elem_one": "1",
-            "elem_two": "1",
-            "elem_three": "1",
-            "elem_four": "1",
-        },
-        {
-            "elem_one": "1",
-            "elem_two": "1",
-            "elem_three": "1",
-            "elem_four": "1",
-        },
-    ]
-
     return (
         <table className="table">
             <thead className="thead-light">

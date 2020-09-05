@@ -82,7 +82,6 @@ function App() {
                 </nav>
 
                 <Button variant="primary" onClick={handleShow}>
-                    {data.users}
                     Import Gatling Report
                 </Button>
 
