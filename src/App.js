@@ -7,13 +7,23 @@ import Button from "react-bootstrap/Button";
 import Popup from "./components/Popup";
 import MainTable from "./components/MainTable";
 import ToolDataService from './components/api/ToolDataService'
+import Report from "./components/Report";
+import {BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
 
-function App() {
+function Content() {
+    let history = useHistory();
+
+    function handleClick() {
+        history.push("/report");
+    }
 
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+
+        setShow(true);
+    }
 
     const [dataTableObj, setDataTableObj] = useState({
         table_items: {
@@ -36,49 +46,61 @@ function App() {
     }, [])
 
     return (
-        <div className="d-flex" id="wrapper">
 
-            <div className="bg-light border-right" id="sidebar-wrapper">
-                <div className="sidebar-heading">Start Bootstrap</div>
-                <div className="list-group list-group-flush">
-                    <a href="#" className="list-group-item list-group-item-action bg-light">Dashboard</a>
-                    <a href="#" className="list-group-item list-group-item-action bg-light">Shortcuts</a>
-                    <a href="#" className="list-group-item list-group-item-action bg-light">Overview</a>
+        <div>
+            <div>
+                <button onClick={handleClick}>Click me</button>
+            </div>
+
+            <div>
+                <div className="d-flex" id="wrapper">
+
+                    <div className="bg-light border-right" id="sidebar-wrapper">
+                        <div className="sidebar-heading">Start Bootstrap</div>
+                        <div className="list-group list-group-flush">
+                            <a href="#" className="list-group-item list-group-item-action bg-light">Dashboard</a>
+                            <a href="#" className="list-group-item list-group-item-action bg-light">Shortcuts</a>
+                            <a href="#" className="list-group-item list-group-item-action bg-light">Overview</a>
+                        </div>
+                    </div>
+
+                    <div id="page-content-wrapper">
+                        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                            <div><a href="#" className="navbar-brand">Gatling Reporting Tool</a></div>
+                            <button className="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"/>
+                            </button>
+                            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul className="navbar-nav mr-auto">
+                                    <li className="nav-item active">
+                                        <a className="nav-link" href="#">Dashboard</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <Button variant="primary" onClick={handleShow}>Import Gatling Report</Button>
+                        <Popup show={show} onHide={handleClose}/>
+                        {/*if at least one item we can try and populate the table..*/}
+                        {dataTableObj !== undefined && dataTableObj.table_items[0] !== undefined &&
+                        <MainTable dataTableObj={dataTableObj}/>
+                        }
+                    </div>
                 </div>
             </div>
-
-            <div id="page-content-wrapper">
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <div><a href="#" className="navbar-brand">Gatling Reporting Tool</a></div>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"/>
-                    </button>
-
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item active">
-                                <a className="nav-link" href="#">Dashboard</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-
-                <Button variant="primary" onClick={handleShow}>
-                    Import Gatling Report
-                </Button>
-
-                <Popup show={show} onHide={handleClose}/>
-                {/*if at least one item we can try and populate the table..*/}
-                {dataTableObj !== undefined && dataTableObj.table_items[0] !== undefined &&
-                <MainTable dataTableObj={dataTableObj}/>
-                }
-
-            </div>
-
         </div>
-    )
+    );
+}
+
+function App() {
+
+    return (
+        <Router>
+            <Route path="/report" exact component={Report}/>
+            <Route path="/" exact component={Content}/>
+        </Router>
+    );
 }
 
 export default App;

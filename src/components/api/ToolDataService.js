@@ -10,10 +10,6 @@ class ToolDataService {
         return axios.get('http://localhost:8081/gatling_tool/table_items')
     }
 
-    retrieveTable() {
-        return axios.get('http://localhost:8081/gatling_tool/table_items')
-    }
-
     deleteTable(id) {
         return axios.delete(`http://localhost:8081/gatling_tool?id=${id}`)
     }
