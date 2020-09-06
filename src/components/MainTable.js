@@ -1,7 +1,13 @@
 import React from "react";
 import {Delete, Visibility} from "@material-ui/icons";
+import {IconButton} from "@material-ui/core";
+import ToolDataService from "./api/ToolDataService";
 
 const MainTable = ({dataTableObj}) => {
+
+    const handleDelete = (id) => {
+        ToolDataService.deleteTable(id).then(r => console.log(r + ' deleted'))
+    }
 
     return (
         <table className="table">
@@ -20,11 +26,15 @@ const MainTable = ({dataTableObj}) => {
                 return [
                     <tr key={i}>
                         <td>{item.name}</td>
+                        <td>{item.run_date}</td>
                         <td>{item.created_date}</td>
                         <td>{item.category}</td>
-                        <td>{item.run_date}</td>
-                        <Visibility/>
-                        <Delete/>
+                        <IconButton>
+                            <Visibility/>
+                        </IconButton>
+                        <IconButton>
+                            <Delete onClick={() => handleDelete(item.id)}/>
+                        </IconButton>
                     </tr>
                 ];
             })}

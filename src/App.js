@@ -15,31 +15,15 @@ function App() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const [data, setData] = useState({total: [], isFetching: false});
     const [dataTableObj, setDataTableObj] = useState({
         table_items: {
+            "id": "1",
             "name:": "name1",
             "created_date": "yesterday",
             "run_date": "today",
             "category": "my_cat"
         }, isFetching: false
     });
-
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                setData({total: data.total, isFetching: true});
-
-                ToolDataService.retrieveToolItem()
-                    .then(response => setData({total: response.data.total, isFetching: false}))
-
-            } catch (e) {
-                console.log(e);
-                setData({total: data.total, isFetching: false});
-            }
-        };
-        fetchUsers().then(r => console.log(r))
-    }, []);
 
     useEffect(() => {
 
@@ -86,7 +70,7 @@ function App() {
                 </Button>
 
                 <Popup show={show} onHide={handleClose}/>
-
+                {/*if at least one item we can try and populate the table..*/}
                 {dataTableObj !== undefined && dataTableObj.table_items[0] !== undefined &&
                 <MainTable dataTableObj={dataTableObj}/>
                 }
