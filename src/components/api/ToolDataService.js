@@ -18,8 +18,8 @@ class ToolDataService {
         return axios.get('http://localhost:8081/gatling-tool/get-categories')
     }
 
-    createCategory(category) {
-        return axios.post('http://localhost:8081/gatling-tool/create-category', category)
+    createCategory(payload) {
+        return axios.post('http://localhost:8081/gatling-tool/create-category', payload)
     }
 
 }
