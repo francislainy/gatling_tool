@@ -1,8 +1,7 @@
 import React from "react";
-import {withRouter} from "react-router-dom";
 
-const Report = () => {
-    return <div>Hello from report</div>;
+const Report = ({match}) => {
+    return <div>Hello from report - {match.params.id}</div>;
 };
 
-export default withRouter(Report);
+export default Report;
