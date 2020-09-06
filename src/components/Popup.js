@@ -1,20 +1,40 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import ToolDataService from "./api/ToolDataService";
 
 const Popup = (props) => {
+
+    const [data, setData] = useState({categories: [], isFetching: false});
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setData({categories: data.categories, isFetching: true});
+
+                ToolDataService.retrieveCategories()
+                    .then(response => setData({categories: response.data.categories, isFetching: false}))
+
+            } catch (e) {
+                console.log(e);
+                setData({categories: data.categories, isFetching: false});
+            }
+        };
+        fetchData().then(r => console.log(r))
+    }, []);
+
 
     return (
         <Modal show={props.show} onHide={props.onHide}>
             <Modal.Header closeButton>
-                <Modal.Title>Select Gatling Report Folder</Modal.Title>
+                <Modal.Title>Select Gatling Report Folder {data.categories[0]}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
 
                 <select style={{width: "100%"}}>Report Category
-                    <option>Blended Performance</option>
-                    <option>CRS</option>
-                    <option>None</option>
+                    {data.categories.map((item, i) => {
+                        return <option>{item}</option>
+                    })}
                 </select>
 
             </Modal.Body>
