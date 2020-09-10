@@ -7,9 +7,7 @@ import FileDialogue from "./MyFilePicker";
 const Popup = (props) => {
 
     const [data, setData] = useState({categories: [], isFetching: false});
-    const [res, setRes] = useState({data: null, isLoading: false});
     const [input, setInput] = useState('');
-    const [show, setShow] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,10 +47,6 @@ const Popup = (props) => {
         console.log(e.currentTarget.value)
     }
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(!show);
-
-
     return (
         <Modal show={props.show} onHide={props.onHide}>
             <Modal.Header closeButton>
@@ -60,9 +54,7 @@ const Popup = (props) => {
             </Modal.Header>
             <Modal.Body>
 
-                <Button onClick={handleShow}>File picker</Button>
-
-                {show && <FileDialogue show={show} onHide={handleClose}/>}
+                <FileDialogue/>
 
                 <select style={{width: "100%"}}>Report Category
                     {data.categories.map((item, i) => {
@@ -70,8 +62,8 @@ const Popup = (props) => {
                     })}
                 </select>
 
-                <button onClick={(input) => {
-                    apiMethod(input)
+                <button onClick={() => {
+                    apiMethod()
                 }} type="button">Submit data
                 </button>
 

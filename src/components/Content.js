@@ -1,17 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {useHistory} from "react-router-dom";
 import ToolDataService from "../api/ToolDataService";
 import Button from "react-bootstrap/Button";
 import Popup from "./Popup";
 import MainTable from "./MainTable";
 
 function Content() {
-    let history = useHistory();
-
-    function handleClick() {
-        history.push("/report");
-    }
-
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -43,10 +36,6 @@ function Content() {
     return (
 
         <div>
-            {/*<div>*/}
-            {/*    <button onClick={handleClick}>Click me</button>*/}
-            {/*</div>*/}
-
             <div>
                 <div className="d-flex" id="wrapper">
 
