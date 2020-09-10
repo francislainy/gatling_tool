@@ -30,11 +30,14 @@ const Popup = (props) => {
 
         const callAPI = useCallback(() => {
             setRes(prevState => ({...prevState, isLoading: true}));
-            ToolDataService.createCategory(payload).then(res => {
-                setRes({data: res.data, isLoading: false});
-            }).catch((error) => {
-                setRes({data: null, isLoading: false});
-            })
+
+            if (payload.category_name !== '') {
+                ToolDataService.createCategory(payload).then(res => {
+                    setRes({data: res.data, isLoading: false});
+                }).catch((error) => {
+                    setRes({data: null, isLoading: false});
+                })
+            }
         }, [payload])
         return [res, callAPI];
     }
