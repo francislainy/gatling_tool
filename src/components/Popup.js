@@ -39,7 +39,7 @@ const Popup = (props) => {
         return [res, callAPI];
     }
 
-    const [resp, apiMethod] = useFetchData({payload: {"category_name": `${input}`}});
+    const [resp, addCategory] = useFetchData({payload: {"category_name": `${input}`}});
 
     const handleChange = (e) => {
 
@@ -53,21 +53,17 @@ const Popup = (props) => {
                 <Modal.Title>Select Gatling Report Folder {data.categories[0]}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-
                 <FileDialogue/>
-
                 <select style={{width: "100%"}}>Report Category
                     {data.categories.map((item, i) => {
                         return <option>{item}</option>
                     })}
                 </select>
-
-                <button onClick={() => {
-                    apiMethod()
-                }} type="button">Submit data
-                </button>
-
                 <input type="text" onChange={handleChange}/>
+                <button onClick={() => {
+                    addCategory()
+                }} type="button">+
+                </button>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="outline-secondary" onClick={props.onHide}>
@@ -77,9 +73,7 @@ const Popup = (props) => {
                     OK
                 </Button>
             </Modal.Footer>
-
         </Modal>
-
     );
 }
 

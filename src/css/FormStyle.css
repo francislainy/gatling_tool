@@ -30,17 +30,7 @@ input[type=file]:valid + .file-dummy {
     background-color: rgba(0, 255, 0, 0.3);
 }
 
-
-/* ===================== BASIC STYLING ===================== */
-
-* {
-    box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
-}
-
-
 .form-group {
     max-width: 500px;
-    margin: auto;
-    margin-bottom: 30px;
+    margin: auto auto 30px;
 }
