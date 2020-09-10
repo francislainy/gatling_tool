@@ -1,0 +1,7 @@
+*:focus {
+    outline: none;
+}
+
+.IconButton:focus {
+    outline: none;
+}

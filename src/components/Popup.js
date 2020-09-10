@@ -1,13 +1,15 @@
 import React, {useCallback, useEffect, useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import ToolDataService from "./api/ToolDataService";
+import ToolDataService from "../api/ToolDataService";
+import FileDialogue from "./MyFilePicker";
 
 const Popup = (props) => {
 
     const [data, setData] = useState({categories: [], isFetching: false});
     const [res, setRes] = useState({data: null, isLoading: false});
     const [input, setInput] = useState('');
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,31 +26,6 @@ const Popup = (props) => {
         };
         fetchData().then(r => console.log(r))
     }, []);
-
-
-    // useEffect(() => {
-    //     const fetchData = async (payload) => {
-    //         try {
-    //             ToolDataService.createCategory(payload)
-    //                 .then(res => {
-    //                     setRes({data: res.data, isLoading: false});
-    //                 })
-    //         } catch (e) {
-    //             console.log(e);
-    //             setRes({data: null, isLoading: false});
-    //         }
-    //     };
-    //     fetchData({payload: {"category_name": "Spring Boot5: Up and Running"}}).then(r => console.log(r + " create category"))
-    // }, []);
-
-
-    // const apiMethod = (input) => {
-    //
-    //     console.log(input)
-    //
-    //     setRes({ "category_name": "spring"})
-    //     console.log(res)
-    // }
 
     const useFetchData = ({payload}) => {
         const [res, setRes] = useState({data: null, isLoading: false});
@@ -68,11 +45,13 @@ const Popup = (props) => {
 
     const handleChange = (e) => {
 
-        // setInput(e.currentTarget.value);
         setInput(e.currentTarget.value);
         console.log(e.currentTarget.value)
-        // setRes({ "category_name": "Spring Boot5: Up and Running"})
     }
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(!show);
+
 
     return (
         <Modal show={props.show} onHide={props.onHide}>
@@ -80,6 +59,10 @@ const Popup = (props) => {
                 <Modal.Title>Select Gatling Report Folder {data.categories[0]}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+
+                <Button onClick={handleShow}>File picker</Button>
+
+                {show && <FileDialogue show={show} onHide={handleClose}/>}
 
                 <select style={{width: "100%"}}>Report Category
                     {data.categories.map((item, i) => {

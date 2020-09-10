@@ -1,7 +1,7 @@
 import React from "react";
 import {Delete, Visibility} from "@material-ui/icons";
 import {IconButton} from "@material-ui/core";
-import ToolDataService from "./api/ToolDataService";
+import ToolDataService from "../api/ToolDataService";
 import {useHistory} from "react-router-dom";
 
 const MainTable = ({dataTableObj}) => {

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
-import ToolDataService from "./api/ToolDataService";
+import ToolDataService from "../api/ToolDataService";
 import Button from "react-bootstrap/Button";
 import Popup from "./Popup";
 import MainTable from "./MainTable";
@@ -43,9 +43,9 @@ function Content() {
     return (
 
         <div>
-            <div>
-                <button onClick={handleClick}>Click me</button>
-            </div>
+            {/*<div>*/}
+            {/*    <button onClick={handleClick}>Click me</button>*/}
+            {/*</div>*/}
 
             <div>
                 <div className="d-flex" id="wrapper">
