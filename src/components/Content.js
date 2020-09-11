@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import Popup from "./Popup";
 import MainTable from "./MainTable";
 import ToolDataService from "../api/ToolDataService";
-import Modal from "react-bootstrap/Modal";
 
 function Content() {
     const [show, setShow] = useState(false);
@@ -65,7 +64,9 @@ function Content() {
                                 </ul>
                             </div>
                         </nav>
-                        <Button variant="outline-secondary" onClick={handleShow}>Import Gatling Report</Button>
+                        <div style={{padding: 10}}>
+                            <Button variant="warning" onClick={handleShow}>Import Gatling Report</Button>
+                        </div>
                         <Popup show={show} onHide={handleClose}/>
                         {/*if at least one item we can try and populate the table..*/}
                         {dataTableObj !== undefined && dataTableObj.table_items[0] !== undefined &&
@@ -77,6 +78,5 @@ function Content() {
         </div>
     );
 }
-
 
 export default Content

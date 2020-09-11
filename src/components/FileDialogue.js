@@ -1,5 +1,6 @@
 import React from "react";
 import '../css/FormStyle.css'
+import {FolderOpen} from "@material-ui/icons";
 
 function buildFileSelector() {
     const fileSelector = document.createElement('input');
@@ -24,11 +25,12 @@ class FileDialogue extends React.Component {
                 <form action method="post">
                     <div className="form-group">
                         <div className="form-group file-area">
-                            <input type="file" name="images" id="images" required="required" multiple="multiple"/>
+                            <input type="file"/>
                         </div>
                         <div className="file-dummy">
+                            <FolderOpen style={{ width: 60, height: 60}}/>
                             <div className="default">
-                                Please select some files
+                                Click to upload Gatling simulation folder
                             </div>
                         </div>
                     </div>

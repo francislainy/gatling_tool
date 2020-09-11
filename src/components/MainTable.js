@@ -36,7 +36,7 @@ const MainTable = ({dataTableObj}) => {
                         <td>{item.created_date}</td>
                         <td>{item.category}</td>
                         <IconButton>
-                            <Visibility onClick={() => handleClick(item.id)} />
+                            <Visibility onClick={() => handleClick(item.id)}/>
                         </IconButton>
                         <IconButton>
                             <Delete onClick={() => handleDelete(item.id)}/>
