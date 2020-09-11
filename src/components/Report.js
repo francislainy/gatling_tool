@@ -3,8 +3,12 @@ import {Card} from "react-bootstrap";
 import {Settings} from "@material-ui/icons";
 import '../css/CustomStyle.css'
 import MyIconButton from "./MyIconButton";
+import TableReport from "./TableReport";
+import simulation from "../helper/simulation.json"
 
 const Report = ({match}) => {
+
+    const data = simulation
 
     const handleClick = () => {
         console.log("clicked")
@@ -32,6 +36,9 @@ const Report = ({match}) => {
                 </Card.Text>
             </Card.Body>
         </Card>
+
+        <TableReport data={data}/>
+
     </div>;
 };
 
