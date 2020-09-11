@@ -1,44 +1,49 @@
 import React from 'react';
 
 export default function TableReport(props) {
-    
-    const getKeys = function () {
-        return Object.keys(props.data[0]);
-    }
 
     const getHeader = function () {
-        const keys = getKeys();
-        return keys.map((key, index) => {
-            return <th key={key}>{key.toUpperCase()}</th>
-        })
+        return (
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Request</th>
+                <th scope="col">Endpoint</th>
+                <th scope="col">Path</th>
+                <th scope="col">RPS</th>
+                <th scope="col">95th Percentile</th>
+                <th scope="col">99th Percentile</th>
+                <th scope="col">Total Requests</th>
+                <th scope="col">Failed Requests</th>
+                <th scope="col">Actions</th>
+            </tr>
+        )
     }
 
     const getRowsData = function () {
-        const items = props.data;
-        const keys = getKeys();
-        return items.map((row, index) => {
-            return <tr key={index}><RenderRow key={index} data={row} keys={keys}/></tr>
-        })
+        return (
+            <tr>
+                <td scope="col">{props.data.stats.minResponseTime.total}</td>
+                <td scope="col">{props.data.contents.group_login.stats.name}</td>
+                <td scope="col">{props.data.stats.minResponseTime.total}</td>
+                <td scope="col">{props.data.stats.minResponseTime.total}</td>
+                <td scope="col">{props.data.stats.minResponseTime.total}</td>
+                <td scope="col">{props.data.stats.percentiles3.total}</td>
+                <td scope="col">{props.data.stats.percentiles4.total}</td>
+                <td scope="col">{props.data.contents.group_login.stats.numberOfRequests.total}</td>
+                <td scope="col">{props.data.contents.group_login.stats.numberOfRequests.ko}</td>
+                <td scope="col">{props.data.contents.group_login.stats.numberOfRequests.ko}</td>
+            </tr>
+        )
     }
 
     return (
-        <div>
-            <table>
-                <thead>
-                <tr>{getHeader()}</tr>
-                </thead>
-                <tbody>
-                {getRowsData()}
-                </tbody>
-            </table>
-        </div>
-
+        <table className="table">
+            <thead className="thead-light">
+            {getHeader()}
+            </thead>
+            <tbody>
+            {getRowsData()}
+            </tbody>
+        </table>
     );
-
-}
-
-const RenderRow = (props) => {
-    return props.keys.map((key, index) => {
-        return <td key={props.data[key]}>{props.data[key]}</td>
-    })
 }
