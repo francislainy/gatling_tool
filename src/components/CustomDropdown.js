@@ -51,7 +51,7 @@ export function CustomDropdown() {
         const callAPI = useCallback(() => {
             setRes(prevState => ({...prevState, isLoading: true}));
 
-            if (payload.category_name !== '') {
+            if (payload.categoryTitle !== '') {
                 ToolDataService.createCategory(payload).then(res => {
                     setRes({data: res.data, isLoading: false});
                 }).catch((error) => {
@@ -87,9 +87,7 @@ export function CustomDropdown() {
     const [data, setData] = useState({categories: [], isFetching: false});
     const [input, setInput] = useState('');
 
-    const [, addCategory] = useFetchData({payload: {"category_name": `${input}`}});
-
-    console.log(data)
+    const [, addCategory] = useFetchData({payload: {"categoryTitle": `${input}`}});
 
     return (
         <Dropdown>
