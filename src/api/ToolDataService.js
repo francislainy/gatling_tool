@@ -14,8 +14,12 @@ class ToolDataService {
         return axios.delete(`http://localhost:8081/gatling-tool?id=${id}`)
     }
 
+    // retrieveCategories() {
+    //     return axios.get('http://localhost:8081/gatling-tool/get-categories')
+    // }
+
     retrieveCategories() {
-        return axios.get('http://localhost:8081/gatling-tool/get-categories')
+        return axios.get('http://localhost:8081/api/gatling-tool/category')
     }
 
     createCategory(payload) {

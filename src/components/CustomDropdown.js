@@ -87,7 +87,9 @@ export function CustomDropdown() {
     const [data, setData] = useState({categories: [], isFetching: false});
     const [input, setInput] = useState('');
 
-    const [resp, addCategory] = useFetchData({payload: {"category_name": `${input}`}});
+    const [, addCategory] = useFetchData({payload: {"category_name": `${input}`}});
+
+    console.log(data)
 
     return (
         <Dropdown>
@@ -97,7 +99,7 @@ export function CustomDropdown() {
 
             <Dropdown.Menu as={CustomMenu}>
                 {data.categories.map((item, i) => {
-                    return <Dropdown.Item>{item}</Dropdown.Item>
+                    return <Dropdown.Item>{item.categoryTitle}</Dropdown.Item>
                 })}
                 <div style={{margin: "10px"}}>
                     <input type="text" onChange={handleChange}/>
