@@ -28,13 +28,13 @@ const MainTable = ({dataTableObj}) => {
             </thead>
 
             <tbody>
-            {dataTableObj.table_items.map((item, i) => {
+            {dataTableObj.reports.map((item, i) => {
                 return [
                     <tr key={i}>
-                        <td>{item.name}</td>
-                        <td>{item.run_date}</td>
-                        <td>{item.created_date}</td>
-                        <td>{item.category}</td>
+                        <td>{item.reportTitle}</td>
+                        <td>{item.runDate}</td>
+                        <td>{item.createdDate}</td>
+                        <td>{item.categoryTitle}</td>
                         <IconButton>
                             <Visibility onClick={() => handleClick(item.id)}/>
                         </IconButton>

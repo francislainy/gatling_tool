@@ -14,12 +14,13 @@ function Content() {
     }
 
     const [dataTableObj, setDataTableObj] = useState({
-        table_items: {
+        reports: {
             "id": "1",
-            "name:": "name1",
+            "reportTitle:": "name1",
             "created_date": "yesterday",
             "run_date": "today",
-            "category": "my_cat"
+            "categoryTitle:": "name1",
+            "categoryId": "my_cat"
         }, isFetching: false
     });
 
@@ -28,7 +29,7 @@ function Content() {
         ToolDataService.retrieveTable()
 
             .then(({data}) =>
-                setDataTableObj({table_items: data.table_items, isFetching: true})
+                setDataTableObj({reports: data.reports, isFetching: true})
             )
 
     }, [])
@@ -69,7 +70,7 @@ function Content() {
                         </div>
                         <Popup show={show} onHide={handleClose}/>
                         {/*if at least one item we can try and populate the table..*/}
-                        {dataTableObj !== undefined && dataTableObj.table_items[0] !== undefined &&
+                        {dataTableObj !== undefined && dataTableObj.reports[0] !== undefined &&
                         <MainTable dataTableObj={dataTableObj}/>
                         }
                     </div>
