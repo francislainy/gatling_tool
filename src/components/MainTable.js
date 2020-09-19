@@ -34,7 +34,7 @@ const MainTable = ({dataTableObj}) => {
                         <td>{item.reportTitle}</td>
                         <td>{item.runDate}</td>
                         <td>{item.createdDate}</td>
-                        <td>{item.categoryTitle}</td>
+                        <td>{item.category.categoryTitle}</td>
                         <IconButton>
                             <Visibility onClick={() => handleClick(item.id)}/>
                         </IconButton>

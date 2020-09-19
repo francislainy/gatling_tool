@@ -19,8 +19,10 @@ function Content() {
             "reportTitle:": "name1",
             "created_date": "yesterday",
             "run_date": "today",
-            "categoryTitle:": "name1",
-            "categoryId": "my_cat"
+            "category": {
+                "id": "25a030ad-ebc7-4749-bd3c-edd004628807",
+                "categoryTitle:": "name1"
+            }
         }, isFetching: false
     });
 
