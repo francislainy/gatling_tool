@@ -97,7 +97,7 @@ export function CustomDropdown() {
 
             <Dropdown.Menu as={CustomMenu}>
                 {data.categories.map((item, i) => {
-                    return <Dropdown.Item>{item.categoryTitle}</Dropdown.Item>
+                    return <Dropdown.Item>{item.title}</Dropdown.Item>
                 })}
                 <div style={{margin: "10px"}}>
                     <input type="text" onChange={handleChange}/>

@@ -16,12 +16,12 @@ function Content() {
     const [dataTableObj, setDataTableObj] = useState({
         reports: {
             "id": "1",
-            "reportTitle:": "name1",
+            "title:": "name1",
             "created_date": "yesterday",
             "run_date": "today",
             "category": {
                 "id": "25a030ad-ebc7-4749-bd3c-edd004628807",
-                "categoryTitle:": "name1"
+                "title:": "name1"
             }
         }, isFetching: false
     });
