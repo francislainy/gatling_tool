@@ -6,6 +6,7 @@ import MyIconButton from "./MyIconButton";
 import TableReport from "./TableReport";
 import simulation from "../helper/simulation.json"
 import ToolDataService from "../api/ToolDataService";
+import ReportPopup from "./ReportPopup";
 
 const Report = ({match}) => {
 
@@ -24,6 +25,14 @@ const Report = ({match}) => {
         }, isFetching: false
     });
 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => {
+
+        setShow(true);
+    }
+
     useEffect(() => {
 
         ToolDataService.retrieveReportItem(match.params.id)
@@ -35,17 +44,15 @@ const Report = ({match}) => {
 
     }, [])
 
-    const handleClick = () => {
-        console.log("clicked")
-    }
 
     return <div>Hello from report - {match.params.id}
         <Card style={{width: '18rem'}}>
             <Card.Body>
                 <Card.Title>Report Details
                     <MyIconButton className="IconButton">
-                        <Settings onClick={() => handleClick()}/>
+                        <Settings onClick={() => handleShow()}/>
                     </MyIconButton>
+                    <ReportPopup show={show} onHide={handleClose}/>
                 </Card.Title>
                 <Card.Text>
                     Report name: {report.report.title}
