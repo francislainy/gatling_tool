@@ -1,14 +1,39 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Card} from "react-bootstrap";
 import {Settings} from "@material-ui/icons";
 import '../css/CustomStyle.css'
 import MyIconButton from "./MyIconButton";
 import TableReport from "./TableReport";
 import simulation from "../helper/simulation.json"
+import ToolDataService from "../api/ToolDataService";
 
 const Report = ({match}) => {
 
     const data = simulation
+
+    const [report, setReport] = useState({
+        report: {
+            "id": "1051f092-f5fa-438c-8912-7124d1262871",
+            "title": "My hardcoded report",
+            "runDate": "today",
+            "createdDate": "today",
+            "category": {
+                "id": "25a030ad-ebc7-4749-bd3c-edd004628807",
+                "title": "My new category"
+            }
+        }, isFetching: false
+    });
+
+    useEffect(() => {
+
+        ToolDataService.retrieveReportItem(match.params.id)
+
+            .then(({data}) =>
+
+                setReport({report: data, isFetching: true})
+            )
+
+    }, [])
 
     const handleClick = () => {
         console.log("clicked")
@@ -23,16 +48,16 @@ const Report = ({match}) => {
                     </MyIconButton>
                 </Card.Title>
                 <Card.Text>
-                    Report name: N/A
+                    Report name: {report.report.title}
                 </Card.Text>
                 <Card.Text>
-                    Time Run: 08/09/2020, 03:35:22
+                    Time Run: {report.report.runDate}
                 </Card.Text>
                 <Card.Text>
-                    Time Imported: 08/09/2020, 08:43:11A
+                    Time Imported: {report.report.createdDate}
                 </Card.Text>
                 <Card.Text>
-                    Category: Blended Performance
+                    Category: {report.report.category.title}
                 </Card.Text>
             </Card.Body>
         </Card>
