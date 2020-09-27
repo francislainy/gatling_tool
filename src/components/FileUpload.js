@@ -1,17 +1,18 @@
 import React, {useState} from 'react';
 import ToolDataService from "../api/ToolDataService";
+import {FolderOpen} from "@material-ui/icons";
 
-function FileUpload() {
+function FileUpload(props) {
 
     const [selectedFile, setSelectedFile] = useState(null)
+
+    const [show, setShow] = useState(props.show)
 
     const onFileChange = event => {
         setSelectedFile(event.target.files[0])
     };
 
     const onFileUpload = () => {
-
-        console.log('entered here')
 
         const formData = new FormData();
 
@@ -29,17 +30,14 @@ function FileUpload() {
             console.log('error submitting file ' + error)
         })
 
+        setShow(!show)
     };
 
-    // File content to be displayed after
-    // file upload is complete
     const fileData = () => {
-
         if (selectedFile) {
-
             return (
                 <div>
-                    <h2>File Details:</h2>
+                    <h5>File Details:</h5>
                     <p>File Name: {selectedFile.name}</p>
                     <p>File Type: {selectedFile.type}</p>
                     <p>
@@ -47,40 +45,33 @@ function FileUpload() {
                         {selectedFile.lastModifiedDate.toDateString()}
                     </p>
                     <button onClick={onFileUpload}>
-                        Upload Second
+                        Confirm
                     </button>
 
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <br/>
-                    <h4>Choose before Pressing the Upload button</h4>
                 </div>
             );
         }
     };
 
     function upload() {
-        document.getElementById("selectImage").click()
+        document.getElementById("selectFile").click()
     }
 
     return (
         <div>
-            <h1>
-                GeeksforGeeks
-            </h1>
-            <h3>
-                File Upload using React!
-            </h3>
             <div>
-                {/*<input type="file" onChange={this.onFileChange}/>*/}
-                <input id='selectImage' hidden type="file" onChange={onFileChange}/>
+                <div className="form-group">
+                    <div className="form-group file-area">
+                        <input id='selectFile' hidden type="file" onChange={onFileChange}/>
+                    </div>
+                </div>
             </div>
-            <button onClick={upload}>
-                Upload!
-            </button>
+            <div onClick={upload} className="file-dummy">
+                <FolderOpen style={{width: 60, height: 60}}/>
+                <div className="default">
+                    Click to upload Gatling simulation folder
+                </div>
+            </div>
             {fileData()}
         </div>
     );

@@ -5,46 +5,30 @@ import FileDialogue from "./FileDialogue";
 import {CustomDropdown} from "./CustomDropdown";
 import FileUpload from "./FileUpload";
 
-
 const Popup = (props) => {
 
     const [data, setData] = useState({categories: [], isFetching: false});
-    const [show, setShow] = useState(false)
 
     const hide = props.onHide
-
-    const handleImportFile = () => {
-
-        setShow(prevState => !prevState)
-    }
-
-    const handleOkay = () => {
-
-
-
-        hide()
-    }
+    const show = props.show
 
     return (
-        <Modal show={props.show} onHide={props.onHide}>
+        <Modal show={props.show} onHide={hide}>
             <Modal.Header closeButton>
                 <Modal.Title>Select Gatling Report Folder {data.categories[0]}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <FileDialogue/>
+                <FileUpload handleShow={props}/>
+                <br/>
                 <CustomDropdown/>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="outline-secondary" onClick={props.onHide}>
+                <Button variant="outline-secondary" onClick={hide}>
                     Cancel
                 </Button>
-                <Button variant="outline-primary" onClick={() => handleOkay(props)}>
+                <Button variant="outline-primary" onClick={hide}>
                     OK
                 </Button>
-                <Button variant="outline-primary" onClick={handleImportFile}>
-                    Import
-                </Button>
-                <FileUpload onClike={props.hide}/>
             </Modal.Footer>
         </Modal>
     );

@@ -5,6 +5,10 @@ import {FolderOpen} from "@material-ui/icons";
 
 function FileDialogue() {
 
+
+
+
+
     function buildFileSelector() {
         const fileSelector = document.createElement('input');
         fileSelector.setAttribute('type', 'file');
