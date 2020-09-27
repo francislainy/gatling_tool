@@ -70,7 +70,7 @@ function Content() {
                         <div style={{padding: 10}}>
                             <Button variant="warning" onClick={handleShow}>Import Gatling Report</Button>
                         </div>
-                        <Popup show={show} onHide={handleClose}/>
+                        <Popup show={show} handleClose={handleClose}/>
                         {/*if at least one item we can try and populate the table..*/}
                         {dataTableObj !== undefined && dataTableObj.reports[0] !== undefined &&
                         <MainTable dataTableObj={dataTableObj}/>

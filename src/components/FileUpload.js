@@ -6,13 +6,11 @@ function FileUpload(props) {
 
     const [selectedFile, setSelectedFile] = useState(null)
 
-    const [show, setShow] = useState(props.show)
-
     const onFileChange = event => {
         setSelectedFile(event.target.files[0])
     };
 
-    const onFileUpload = () => {
+    const onFileUpload = (props) => {
 
         const formData = new FormData();
 
@@ -26,11 +24,14 @@ function FileUpload(props) {
 
         ToolDataService.submitFile(formData).then(res => {
             console.log('File submitted')
+
+            props.onClick()
+
         }).catch((error) => {
             console.log('error submitting file ' + error)
         })
 
-        setShow(!show)
+
     };
 
     const fileData = () => {
@@ -44,10 +45,9 @@ function FileUpload(props) {
                         Last Modified:{" "}
                         {selectedFile.lastModifiedDate.toDateString()}
                     </p>
-                    <button onClick={onFileUpload}>
+                    <button onClick={() => onFileUpload(props)}>
                         Confirm
                     </button>
-
                 </div>
             );
         }
