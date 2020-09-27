@@ -22,6 +22,15 @@ class ToolDataService {
         return axios.post('http://localhost:8081/api/gatling-tool/category', payload)
     }
 
+    submitFile(file) {
+        console.log('entered submit file')
+        return axios.post('http://localhost:8081/api/csv/upload', file, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    }
+
 }
 
 export default new ToolDataService()
