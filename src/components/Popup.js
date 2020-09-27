@@ -31,7 +31,7 @@ const Popup = (props) => {
                 <Modal.Title>Select Gatling Report Folder {data.categories[0]}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {/*<FileDialogue/>*/}
+                <FileDialogue/>
                 <CustomDropdown/>
             </Modal.Body>
             <Modal.Footer>
@@ -45,9 +45,6 @@ const Popup = (props) => {
                     Import
                 </Button>
                 <FileUpload onClike={props.hide}/>
-
-
-
             </Modal.Footer>
         </Modal>
     );

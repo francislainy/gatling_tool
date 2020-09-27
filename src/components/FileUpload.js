@@ -1,41 +1,27 @@
-
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import ToolDataService from "../api/ToolDataService";
 
-class FileUpload extends Component {
+function FileUpload() {
 
-    state = {
+    const [selectedFile, setSelectedFile] = useState(null)
 
-        // Initially, no file is selected
-        selectedFile: null
+    const onFileChange = event => {
+        setSelectedFile(event.target.files[0])
     };
 
-    // On file select (from the pop up)
-    onFileChange = event => {
-
-        // Update the state
-        this.setState({selectedFile: event.target.files[0]});
-
-    };
-
-    // On file upload (click the upload button)
-    onFileUpload = () => {
+    const onFileUpload = () => {
 
         console.log('entered here')
 
-        // Create an object of formData
         const formData = new FormData();
 
-
-        // Update the formData object
         formData.append(
             "file",
-            this.state.selectedFile,
-            this.state.selectedFile.name
+            selectedFile,
+            selectedFile.name
         );
 
-        // Details of the uploaded file
-        console.log(this.state.selectedFile);
+        console.log(selectedFile);
 
         ToolDataService.submitFile(formData).then(res => {
             console.log('File submitted')
@@ -47,20 +33,20 @@ class FileUpload extends Component {
 
     // File content to be displayed after
     // file upload is complete
-    fileData = () => {
+    const fileData = () => {
 
-        if (this.state.selectedFile) {
+        if (selectedFile) {
 
             return (
                 <div>
                     <h2>File Details:</h2>
-                    <p>File Name: {this.state.selectedFile.name}</p>
-                    <p>File Type: {this.state.selectedFile.type}</p>
+                    <p>File Name: {selectedFile.name}</p>
+                    <p>File Type: {selectedFile.type}</p>
                     <p>
                         Last Modified:{" "}
-                        {this.state.selectedFile.lastModifiedDate.toDateString()}
+                        {selectedFile.lastModifiedDate.toDateString()}
                     </p>
-                    <button onClick={this.onFileUpload}>
+                    <button onClick={onFileUpload}>
                         Upload Second
                     </button>
 
@@ -76,31 +62,29 @@ class FileUpload extends Component {
         }
     };
 
-    upload() {
+    function upload() {
         document.getElementById("selectImage").click()
     }
 
-    render() {
-
-        return (
+    return (
+        <div>
+            <h1>
+                GeeksforGeeks
+            </h1>
+            <h3>
+                File Upload using React!
+            </h3>
             <div>
-                <h1>
-                    GeeksforGeeks
-                </h1>
-                <h3>
-                    File Upload using React!
-                </h3>
-                <div>
-                    {/*<input type="file" onChange={this.onFileChange}/>*/}
-                    <input id='selectImage' hidden type="file" onChange={this.onFileChange}/>
-                </div>
-                <button onClick={this.upload}>
-                    Upload!
-                </button>
-                {this.fileData()}
+                {/*<input type="file" onChange={this.onFileChange}/>*/}
+                <input id='selectImage' hidden type="file" onChange={onFileChange}/>
             </div>
-        );
-    }
+            <button onClick={upload}>
+                Upload!
+            </button>
+            {fileData()}
+        </div>
+    );
+
 }
 
 export default FileUpload;
