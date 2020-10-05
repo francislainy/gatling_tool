@@ -69,7 +69,7 @@ const Report = ({match}) => {
             </Card.Body>
         </Card>
 
-        <TableReport data={data}/>
+        <TableReport data={data} match={match}/>
 
     </div>;
 };

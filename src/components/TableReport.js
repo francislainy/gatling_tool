@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ToolDataService from "../api/ToolDataService";
 
-export default function TableReport(props) {
+export default function TableReport({match}) {
 
     const [stats, setStats] = useState({
         stats: {
@@ -27,7 +27,7 @@ export default function TableReport(props) {
 
     useEffect(() => {
 
-        ToolDataService.retrieveStatsForReport()
+        ToolDataService.retrieveStatsForReport(match.params.id)
 
             .then(({data}) =>
 
