@@ -1,6 +1,43 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import ToolDataService from "../api/ToolDataService";
 
 export default function TableReport(props) {
+
+    const [stats, setStats] = useState({
+        stats: {
+            "stats": [
+                {
+                    "name": "name",
+                    "id": "id",
+                    "report_id": "report_id",
+                    "percentiles3": {
+                        "total": 0,
+                        "ok": 0,
+                        "ko": 0
+                    },
+                    "percentiles4": {
+                        "total": 0,
+                        "ok": 0,
+                        "ko": 0
+                    }
+                }
+            ]
+        }, isFetching: false
+    });
+
+    useEffect(() => {
+
+        ToolDataService.retrieveStatsForReport()
+
+            .then(({data}) =>
+
+                setStats({stats: data, isFetching: true})
+            )
+
+        console.log(stats.stats[0])
+
+    }, [])
+
 
     const getHeader = function () {
         return (
@@ -19,31 +56,34 @@ export default function TableReport(props) {
         )
     }
 
-    const getRowsData = function () {
-        return (
-            <tr>
-                <td scope="col">{props.data.stats.minResponseTime.total}</td>
-                <td scope="col">{props.data.contents.group_login.stats.name}</td>
-                <td scope="col">{props.data.stats.minResponseTime.total}</td>
-                <td scope="col">{props.data.stats.minResponseTime.total}</td>
-                <td scope="col">{props.data.stats.minResponseTime.total}</td>
-                <td scope="col">{props.data.stats.percentiles3.total}</td>
-                <td scope="col">{props.data.stats.percentiles4.total}</td>
-                <td scope="col">{props.data.contents.group_login.stats.numberOfRequests.total}</td>
-                <td scope="col">{props.data.contents.group_login.stats.numberOfRequests.ko}</td>
-                <td scope="col">{props.data.contents.group_login.stats.numberOfRequests.ko}</td>
-            </tr>
-        )
+    const getRowsData = () => {
+        return stats.stats.stats.map(stats => {
+            return <>
+                <tbody>
+                <tr>
+                    <td scope="col">Set category name here</td>
+                    <td scope="col">{stats.name}</td>
+                    <td scope="col">Set endpoint</td>
+                    <td scope="col">Set path</td>
+                    <td scope="col">Set RPS</td>
+                    <td scope="col">{stats.percentiles3.ok}</td>
+                    <td scope="col">{stats.percentiles4.ok}</td>
+                    {/*<td scope="col">{props.data.contents.group_login.stats.numberOfRequests.total}</td>*/}
+                    {/*<td scope="col">{props.data.contents.group_login.stats.numberOfRequests.ko}</td>*/}
+                    {/*<td scope="col">{props.data.contents.group_login.stats.numberOfRequests.ko}</td>*/}
+                </tr>
+                </tbody>
+            </>;
+        })
     }
+
 
     return (
         <table className="table">
             <thead className="thead-light">
             {getHeader()}
             </thead>
-            <tbody>
             {getRowsData()}
-            </tbody>
         </table>
     );
 }
