@@ -9,7 +9,7 @@ export default function TableReport({match}) {
                 {
                     "name": "name",
                     "id": "id",
-                    "report_id": "report_id",
+                    "reportId": "reportId",
                     "percentiles3": {
                         "total": 0,
                         "ok": 0,

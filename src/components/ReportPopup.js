@@ -1,17 +1,18 @@
 import React, {useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import FileDialogue from "./FileDialogue";
-import {CustomDropdown} from "./CustomDropdown";
 
 const Popup = (props) => {
 
+    const reportTitle = props.report.report.title
+    const categoryTitle = props.report.report.category.title
+
     const [inputValues, setInputValues] = useState({
-        name: '', category: ''
+
+        name: reportTitle, category: categoryTitle
     });
 
     const onChangeHandler = event => {
-        // setInputValue(event.target.value);
         const {name, value} = event.target;
         setInputValues({...inputValues, [name]: value});
     };

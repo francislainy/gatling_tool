@@ -52,7 +52,7 @@ const Report = ({match}) => {
                     <MyIconButton className="IconButton">
                         <Settings onClick={() => handleShow()}/>
                     </MyIconButton>
-                    <ReportPopup show={show} onHide={handleClose}/>
+                    <ReportPopup show={show} onHide={handleClose} report={report}/>
                 </Card.Title>
                 <Card.Text>
                     Report name: {report.report.title}
