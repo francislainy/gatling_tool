@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Card} from "react-bootstrap";
 import {Settings} from "@material-ui/icons";
 import '../css/CustomStyle.css'
@@ -11,23 +11,52 @@ import ReportPopup from "./ReportPopup";
 const Report = ({match}) => {
 
     const data = simulation
+    const isInitialMount = useRef(true);
 
     const [report, setReport] = useState({
-        report: {
-            "id": "1051f092-f5fa-438c-8912-7124d1262871",
-            "title": "My hardcoded report",
-            "runDate": "today",
-            "createdDate": "today",
-            "category": {
-                "id": "25a030ad-ebc7-4749-bd3c-edd004628807",
-                "title": "My new category"
-            }
+        "id": "",
+        "title": "",
+        "runDate": "",
+        "createdDate": "",
+        "category": {
+            "id": "",
+            "title": ""
+
         }, isFetching: false
     });
 
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = (inputValues) => {
+        setShow(false)
+
+        let updatedValues = {
+            "id": report.id,
+            "title": inputValues.reportTitle,
+            "runDate": report.runDate,
+            "createdDate": report.createdDate,
+            "category": {
+                "id": report.category.id,
+                "title": inputValues.categoryTitle
+
+            }, isFetching: false
+        }
+
+        setReport(prevState => {
+            return {...prevState, ...updatedValues};
+        });
+
+        ToolDataService.updateReport(match.params.id) //todo: pass payload here
+
+            .then(() => {
+
+                    // setReport(report);
+
+                    console.log('report updated')
+                }
+            );
+    }
+
     const handleShow = () => {
 
         setShow(true);
@@ -37,37 +66,46 @@ const Report = ({match}) => {
 
         ToolDataService.retrieveReportItem(match.params.id)
 
-            .then(({data}) =>
+            .then(({data}) => {
 
-                setReport({report: data, isFetching: true})
+                    setReport({...data, isFetching: true})
+                    isInitialMount.current = false;
+
+                    console.log(report.category.title)
+                }
             )
-
-    }, [])
-
+    }, [report.id])
 
     return <div>Hello from report - {match.params.id}
+
         <Card style={{width: '18rem'}}>
+            {isInitialMount !== true && report.id !== '' &&
             <Card.Body>
                 <Card.Title>Report Details
                     <MyIconButton className="IconButton">
                         <Settings onClick={() => handleShow()}/>
                     </MyIconButton>
-                    <ReportPopup show={show} onHide={handleClose} report={report}/>
+                    <ReportPopup
+                        show={show}
+                        onHide={handleClose}
+                        report={report}/>
                 </Card.Title>
                 <Card.Text>
-                    Report name: {report.report.title}
+                    Report name: {report.title}
                 </Card.Text>
                 <Card.Text>
-                    Time Run: {report.report.runDate}
+                    Time Run: {report.runDate}
                 </Card.Text>
                 <Card.Text>
-                    Time Imported: {report.report.createdDate}
+                    Time Imported: {report.createdDate}
                 </Card.Text>
                 <Card.Text>
-                    Category: {report.report.category.title}
+                    Category: {report.category.title}
                 </Card.Text>
             </Card.Body>
+            }
         </Card>
+
 
         <TableReport data={data} match={match}/>
 

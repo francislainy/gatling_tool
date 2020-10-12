@@ -26,6 +26,10 @@ class ToolDataService {
         return axios.post('http://localhost:8081/api/gatling-tool/category', payload)
     }
 
+    updateReport(id, payload) {
+        return axios.put('http://localhost:8081/api/gatling-tool/report/68b2acc7-2905-443e-881e-20cc627a3f34', payload)
+    }
+
     submitFile(file) {
         console.log('entered submit file')
         return axios.post('http://localhost:8081/api/gatling-tool/csv/upload', file, {

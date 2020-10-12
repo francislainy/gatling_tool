@@ -4,12 +4,12 @@ import Button from "react-bootstrap/Button";
 
 const Popup = (props) => {
 
-    const reportTitle = props.report.report.title
-    const categoryTitle = props.report.report.category.title
+    const reportTitle = props.report.title
+    const categoryTitle = props.report.category.title
 
     const [inputValues, setInputValues] = useState({
 
-        name: reportTitle, category: categoryTitle
+        reportTitle: reportTitle, categoryTitle: categoryTitle
     });
 
     const onChangeHandler = event => {
@@ -23,17 +23,17 @@ const Popup = (props) => {
                 <Modal.Title>Edit Report</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <input name={"name"} style={{width: "100%", marginBottom: "20px"}}
+                <input name={"reportTitle"} style={{width: "100%", marginBottom: "20px"}}
                        onChange={onChangeHandler}
-                       value={inputValues.name}
+                       value={inputValues.reportTitle}
                 />
-                <input name={"category"} style={{width: "100%"}}
+                <input name={"categoryTitle"} style={{width: "100%"}}
                        onChange={onChangeHandler}
-                       value={inputValues.category}
+                       value={inputValues.categoryTitle}
                 />
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="outline-primary" onClick={props.onHide}>
+                <Button variant="outline-primary" onClick={() => props.onHide(inputValues)}>
                     Confirm
                 </Button>
             </Modal.Footer>
