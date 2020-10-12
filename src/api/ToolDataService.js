@@ -27,7 +27,7 @@ class ToolDataService {
     }
 
     updateReport(id, payload) {
-        return axios.put('http://localhost:8081/api/gatling-tool/report/68b2acc7-2905-443e-881e-20cc627a3f34', payload)
+        return axios.put(`http://localhost:8081/api/gatling-tool/report/${id}`, payload)
     }
 
     submitFile(file) {

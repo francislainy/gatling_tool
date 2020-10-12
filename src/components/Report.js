@@ -42,19 +42,26 @@ const Report = ({match}) => {
             }, isFetching: false
         }
 
-        setReport(prevState => {
-            return {...prevState, ...updatedValues};
+        ToolDataService.updateReport(match.params.id, updatedValues)
+
+            .then((response) => {
+
+                    setReport(prevState => {
+                        return {...prevState, ...updatedValues};
+                    });
+
+                    console.log(response)
+                }
+            ).catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
         });
 
-        ToolDataService.updateReport(match.params.id) //todo: pass payload here
 
-            .then(() => {
-
-                    // setReport(report);
-
-                    console.log('report updated')
-                }
-            );
+        ;
     }
 
     const handleShow = () => {
