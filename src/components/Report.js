@@ -59,9 +59,6 @@ const Report = ({match}) => {
                 console.log(error.response.headers);
             }
         });
-
-
-        ;
     }
 
     const handleShow = () => {

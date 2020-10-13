@@ -45,6 +45,11 @@ const CustomMenu = React.forwardRef(
 
 export function CustomDropdown() {
 
+    const [data, setData] = useState({categories: [], isFetching: false});
+    const [input, setInput] = useState('');
+
+    const[testInput, setTestInput] = useState('initial')
+
     const useFetchData = ({payload}) => {
         const [res, setRes] = useState({data: null, isLoading: false});
 
@@ -84,30 +89,37 @@ export function CustomDropdown() {
         console.log(e.currentTarget.value)
     }
 
-    const [data, setData] = useState({categories: [], isFetching: false});
-    const [input, setInput] = useState('');
+    const handleChangeTest = (title) => {
+
+        setTestInput(title);
+
+    }
 
     const [, addCategory] = useFetchData({payload: {"categoryTitle": `${input}`}});
 
     return (
-        <Dropdown>
-            <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                Report Category
-            </Dropdown.Toggle>
+        <div>
+            <input type="text" value={testInput} onChange={handleChangeTest}/>
 
-            <Dropdown.Menu as={CustomMenu}>
-                {data.categories.map((item, i) => {
-                    return <Dropdown.Item>{item.title}</Dropdown.Item>
-                })}
-                <div style={{margin: "10px"}}>
-                    <input type="text" onChange={handleChange}/>
-                    <button style={{backgroundColor: "orange", color: "white"}} onClick={() => {
-                        addCategory()
-                    }} type="button">+
-                    </button>
-                </div>
-            </Dropdown.Menu>
-        </Dropdown>
+            <Dropdown>
+                <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+                    Report Category
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu as={CustomMenu}>
+                    {data.categories.map((item, i) => {
+                        return <Dropdown.Item onClick={() => handleChangeTest(item.title)}>{item.title}</Dropdown.Item>
+                    })}
+                    <div style={{margin: "10px"}}>
+                        <input type="text" onChange={handleChange}/>
+                        <button style={{backgroundColor: "orange", color: "white"}} onClick={() => {
+                            addCategory()
+                        }} type="button">+
+                        </button>
+                    </div>
+                </Dropdown.Menu>
+            </Dropdown>
+        </div>
     );
 
 }

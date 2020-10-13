@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import {CustomDropdown} from "./CustomDropdown";
 
 const Popup = (props) => {
 
@@ -31,6 +32,7 @@ const Popup = (props) => {
                        onChange={onChangeHandler}
                        value={inputValues.categoryTitle}
                 />
+                <CustomDropdown />
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="outline-primary" onClick={() => props.onHide(inputValues)}>
