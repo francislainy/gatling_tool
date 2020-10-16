@@ -27,7 +27,7 @@ export default function TableReport({match}) {
 
     useEffect(() => {
 
-        ToolDataService.retrieveStatsForReport(match.params.id)
+        new ToolDataService().retrieveStatsForReport(match.params.id)
 
             .then(({data}) =>
 

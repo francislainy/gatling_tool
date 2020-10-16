@@ -12,7 +12,7 @@ const MainTable = ({dataTableObj}) => {
     }
 
     const handleDelete = (id) => {
-        ToolDataService.deleteTable(id).then(r => console.log(r + ' deleted'))
+        new ToolDataService().deleteTable(id).then(r => console.log(r + ' deleted'))
     }
 
     return (

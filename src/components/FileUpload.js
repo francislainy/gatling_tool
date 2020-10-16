@@ -22,7 +22,7 @@ function FileUpload(props) {
 
         console.log(selectedFile);
 
-        ToolDataService.submitFile(formData).then(res => {
+        new ToolDataService().submitFile(formData).then(res => {
             console.log('File submitted')
 
             props.onClick()

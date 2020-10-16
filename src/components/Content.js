@@ -28,7 +28,7 @@ function Content() {
 
     useEffect(() => {
 
-        ToolDataService.retrieveTable()
+        new ToolDataService().retrieveTable()
 
             .then(({data}) =>
                 setDataTableObj({reports: data.reports, isFetching: true})

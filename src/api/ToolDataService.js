@@ -1,9 +1,18 @@
-import axios from 'axios';
+const axios = require('axios')
+const Category = require("../model/Category");
 
 class ToolDataService {
 
+    constructor(url) {
+        this.url = url
+    }
+
     retrieveTable() {
         return axios.get('http://localhost:8081/api/gatling-tool/report')
+    }
+
+    retrieveCategory(id) {
+        return axios.get(`${this.url}/api/gatling-tool/category/${id}`).then(r => new Category(r.data.id, r.data.name));
     }
 
     retrieveReportItem(id) {
@@ -41,4 +50,4 @@ class ToolDataService {
 
 }
 
-export default new ToolDataService()
+module.exports = ToolDataService

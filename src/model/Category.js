@@ -4,6 +4,4 @@ class Category {
         this.name = name
     }
 }
-module.exports = {
-    Category
-}
+module.exports = Category

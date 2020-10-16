@@ -43,7 +43,7 @@ const Report = ({match}) => {
             }, isFetching: false
         }
 
-        ToolDataService.updateReport(match.params.id, updatedValues)
+        new ToolDataService().updateReport(match.params.id, updatedValues)
 
             .then((response) => {
 
@@ -70,7 +70,7 @@ const Report = ({match}) => {
 
     useEffect(() => {
 
-        ToolDataService.retrieveReportItem(match.params.id)
+        new ToolDataService().retrieveReportItem(match.params.id)
 
             .then(({data}) => {
 
