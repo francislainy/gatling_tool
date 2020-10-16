@@ -11,7 +11,6 @@ import ReportPopup from "./ReportPopup";
 const Report = ({match}) => {
 
     const data = simulation
-    const isInitialMount = useRef(true);
 
     const [report, setReport] = useState({
         "id": "",
@@ -29,7 +28,6 @@ const Report = ({match}) => {
     const handleClose = () => {
         setShow(false)
     }
-
 
     const onHandleUpdate = (inputValues) => {
         setShow(false)
@@ -77,7 +75,6 @@ const Report = ({match}) => {
             .then(({data}) => {
 
                     setReport({...data, isFetching: true})
-                    isInitialMount.current = false;
 
                     console.log(report.category.title)
                 }
@@ -87,7 +84,7 @@ const Report = ({match}) => {
     return <div>Hello from report - {match.params.id}
 
         <Card style={{width: '18rem'}}>
-            {isInitialMount !== true && report.id !== '' &&
+            {report.id !== '' &&
             <Card.Body>
                 <Card.Title>Report Details
                     <MyIconButton className="IconButton">

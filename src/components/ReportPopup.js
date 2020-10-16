@@ -25,8 +25,8 @@ const Popup = (props) => {
         setCategoryTitle(title);
 
         let newInputValues = {
-            reportTitle: reportTitle,
-            categoryTitle: categoryTitle,
+            reportTitle: inputValues.reportTitle,
+            categoryTitle: title,
             categoryId: categoryId
         }
         setInputValues(newInputValues)
