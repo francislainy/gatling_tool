@@ -27,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "test:consumer": "mocha --exit --timeout 30000 consumer.pact.spec.js",
+    "test:consumer": "mocha --exit --timeout 30000 src/pact/consumer.pact.spec.js",
     "test:provider": "mocha --exit --timeout 30000 provider.pact.spec.js",
     "publish": "npx pact-broker publish ./pacts --consumer-app-version 1.0.0-someconsumersha --tag master",
     "can-deploy:consumer": "npx pact-broker can-i-deploy --pacticipant katacoda-consumer --version 1.0.0-someconsumersha --to prod",
@@ -51,9 +51,10 @@
     ]
   },
   "devDependencies": {
-    "react-router-dom": "^5.2.0",
     "@pact-foundation/pact": "^9.9.12",
     "chai": "^4.2.0",
-    "mocha": "^8.1.3"
+    "jest-pact": "^0.8.1",
+    "mocha": "^8.1.3",
+    "react-router-dom": "^5.2.0"
   }
 }

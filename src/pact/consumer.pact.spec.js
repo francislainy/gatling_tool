@@ -15,9 +15,9 @@ const mockProvider = new Pact({
 
 describe('Products API test', () => {
     // (3) Setup Pact lifecycle hooks
-    beforeEach(() => mockProvider.setup());
+    before(() => mockProvider.setup());
     afterEach(() => mockProvider.verify());
-    afterEach(() => mockProvider.finalize());
+    after(() => mockProvider.finalize());
 
     it('get product by ID', async () => {
         // (4) Arrange
