@@ -43,12 +43,10 @@ const CustomMenu = React.forwardRef(
     },
 );
 
-export function CustomDropdown() {
+export function CustomDropdown(props) {
 
     const [data, setData] = useState({categories: [], isFetching: false});
     const [input, setInput] = useState('');
-
-    const[testInput, setTestInput] = useState('initial')
 
     const useFetchData = ({payload}) => {
         const [res, setRes] = useState({data: null, isLoading: false});
@@ -89,17 +87,11 @@ export function CustomDropdown() {
         console.log(e.currentTarget.value)
     }
 
-    const handleChangeTest = (title) => {
-
-        setTestInput(title);
-
-    }
-
     const [, addCategory] = useFetchData({payload: {"categoryTitle": `${input}`}});
 
     return (
         <div>
-            <input type="text" value={testInput} onChange={handleChangeTest}/>
+            {/*<input type="text" value={testInput} onChange={handleChangeTest}/>*/}
 
             <Dropdown>
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
@@ -108,7 +100,7 @@ export function CustomDropdown() {
 
                 <Dropdown.Menu as={CustomMenu}>
                     {data.categories.map((item, i) => {
-                        return <Dropdown.Item onClick={() => handleChangeTest(item.title)}>{item.title}</Dropdown.Item>
+                        return <Dropdown.Item onClick={() => props.onHandleChangeCategory(item.title, item.id)}>{item.title}</Dropdown.Item>
                     })}
                     <div style={{margin: "10px"}}>
                         <input type="text" onChange={handleChange}/>

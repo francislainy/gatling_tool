@@ -21,13 +21,17 @@ const Report = ({match}) => {
         "category": {
             "id": "",
             "title": ""
-
         }, isFetching: false
     });
 
     const [show, setShow] = useState(false);
 
-    const handleClose = (inputValues) => {
+    const handleClose = () => {
+        setShow(false)
+    }
+
+
+    const onHandleUpdate = (inputValues) => {
         setShow(false)
 
         let updatedValues = {
@@ -36,9 +40,8 @@ const Report = ({match}) => {
             "runDate": report.runDate,
             "createdDate": report.createdDate,
             "category": {
-                "id": report.category.id,
+                "id": inputValues.categoryId,
                 "title": inputValues.categoryTitle
-
             }, isFetching: false
         }
 
@@ -60,6 +63,7 @@ const Report = ({match}) => {
             }
         });
     }
+
 
     const handleShow = () => {
 
@@ -92,6 +96,7 @@ const Report = ({match}) => {
                     <ReportPopup
                         show={show}
                         onHide={handleClose}
+                        onHandleUpdate={onHandleUpdate}
                         report={report}/>
                 </Card.Title>
                 <Card.Text>

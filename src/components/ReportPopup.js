@@ -5,18 +5,32 @@ import {CustomDropdown} from "./CustomDropdown";
 
 const Popup = (props) => {
 
+    const [categoryTitle, setCategoryTitle] = useState(props.report.category.title)
+
     const reportTitle = props.report.title
-    const categoryTitle = props.report.category.title
+    const categoryId = props.report.category.id
 
     const [inputValues, setInputValues] = useState({
 
-        reportTitle: reportTitle, categoryTitle: categoryTitle
+        reportTitle: reportTitle, categoryTitle: categoryTitle, categoryId: categoryId
     });
 
     const onChangeHandler = event => {
         const {name, value} = event.target;
         setInputValues({...inputValues, [name]: value});
     };
+
+    const onHandleChangeCategory = (title, categoryId) => {
+
+        setCategoryTitle(title);
+
+        let newInputValues = {
+            reportTitle: reportTitle,
+            categoryTitle: categoryTitle,
+            categoryId: categoryId
+        }
+        setInputValues(newInputValues)
+    }
 
     return (
         <Modal show={props.show} onHide={props.onHide}>
@@ -28,14 +42,14 @@ const Popup = (props) => {
                        onChange={onChangeHandler}
                        value={inputValues.reportTitle}
                 />
-                <input name={"categoryTitle"} style={{width: "100%"}}
+                <input name={"categoryTitle"} style={{width: "100%", marginBottom: "20px"}}
                        onChange={onChangeHandler}
-                       value={inputValues.categoryTitle}
+                       value={categoryTitle}
                 />
-                <CustomDropdown />
+                <CustomDropdown onHandleChangeCategory={onHandleChangeCategory}/>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="outline-primary" onClick={() => props.onHide(inputValues)}>
+                <Button variant="outline-primary" onClick={() => props.onHandleUpdate(inputValues)}>
                     Confirm
                 </Button>
             </Modal.Footer>
