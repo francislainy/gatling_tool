@@ -13,12 +13,11 @@ const mockProvider = new Pact({
     cors: true // needed for katacoda environment
 });
 
-
 describe('Products API test', () => {
     // (3) Setup Pact lifecycle hooks
-    before(() => mockProvider.setup());
+    beforeEach(() => mockProvider.setup());
     afterEach(() => mockProvider.verify());
-    after(() => mockProvider.finalize());
+    afterEach(() => mockProvider.finalize());
 
     it('get product by ID', async () => {
         // (4) Arrange
