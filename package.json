@@ -18,13 +18,22 @@
     "react-dom": "^16.13.1",
     "react-dragger": "^1.3.0",
     "react-scripts": "3.4.3",
-    "startbootstrap-simple-sidebar": "^5.1.2"
+    "startbootstrap-simple-sidebar": "^5.1.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:consumer": "mocha --exit --timeout 30000 consumer.pact.spec.js",
+    "test:provider": "mocha --exit --timeout 30000 provider.pact.spec.js",
+    "publish": "npx pact-broker publish ./pacts --consumer-app-version 1.0.0-someconsumersha --tag master",
+    "can-deploy:consumer": "npx pact-broker can-i-deploy --pacticipant katacoda-consumer --version 1.0.0-someconsumersha --to prod",
+    "can-deploy:provider": "npx pact-broker can-i-deploy --pacticipant katacoda-provider --version 1.0.0-someprovidersha --to prod",
+    "deploy:consumer": "npx pact-broker create-version-tag --pacticipant katacoda-consumer --version 1.0.0-someconsumersha --tag prod",
+    "deploy:provider": "npx pact-broker create-version-tag --pacticipant katacoda-provider --version 1.0.0-someprovidersha --tag prod"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,6 +51,9 @@
     ]
   },
   "devDependencies": {
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "@pact-foundation/pact": "^9.9.12",
+    "chai": "^4.2.0",
+    "mocha": "^8.1.3"
   }
 }
