@@ -2,12 +2,7 @@ import React, {useEffect, useState} from "react";
 import '../css/FormStyle.css'
 import {FolderOpen} from "@material-ui/icons";
 
-
 function FileDialogue() {
-
-
-
-
 
     function buildFileSelector() {
         const fileSelector = document.createElement('input');
@@ -27,7 +22,6 @@ function FileDialogue() {
         e.preventDefault();
         fileSelector.click();
     }
-
 
     return (
         <div onClick={handleFileSelect}>
