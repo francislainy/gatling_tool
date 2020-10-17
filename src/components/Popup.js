@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import {CustomDropdown} from "./CustomDropdown";
@@ -6,15 +6,13 @@ import FileUpload from "./FileUpload";
 
 const Popup = (props) => {
 
-    const [data, setData] = useState({categories: [], isFetching: false});
-
-    const onHide = props.handleClose
+    const onHide = props.onHide
     const show = props.show
 
     return (
         <Modal show={show} onHide={onHide}>
             <Modal.Header closeButton>
-                <Modal.Title>Select Gatling Report Folder {data.categories[0]}</Modal.Title>
+                <Modal.Title>Select Gatling Report Folder</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <FileUpload onClick={onHide}/>

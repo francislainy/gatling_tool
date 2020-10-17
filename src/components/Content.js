@@ -7,8 +7,8 @@ import api from "../api/api";
 function Content() {
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => {
+    const onHide = () => setShow(false);
+    const onShow = () => {
 
         setShow(true);
     }
@@ -68,9 +68,9 @@ function Content() {
                             </div>
                         </nav>
                         <div style={{padding: 10}}>
-                            <Button variant="warning" onClick={handleShow}>Import Gatling Report</Button>
+                            <Button variant="warning" onClick={onShow}>Import Gatling Report</Button>
                         </div>
-                        <Popup show={show} handleClose={handleClose}/>
+                        <Popup show={show} onHide={onHide}/>
                         {/*if at least one item we can try and populate the table..*/}
                         {dataTableObj !== undefined && dataTableObj.reports[0] !== undefined &&
                         <MainTable dataTableObj={dataTableObj}/>
