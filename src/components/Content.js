@@ -4,6 +4,39 @@ import Popup from "./Popup";
 import MainTable from "./MainTable";
 import api from "../api/api";
 
+class Navbar extends React.Component {
+    render() {
+        return <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div><a href="#" className="navbar-brand">Gatling Reporting Tool</a></div>
+            <button className="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"/>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul className="navbar-nav mr-auto">
+                    <li className="nav-item active">
+                        <a className="nav-link" href="#">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>;
+    }
+}
+
+class Sidebar extends React.Component {
+    render() {
+        return <div className="bg-light border-right" id="sidebar-wrapper">
+            <div className="sidebar-heading">Start Bootstrap</div>
+            <div className="list-group list-group-flush">
+                <a href="#" className="list-group-item list-group-item-action bg-light">Dashboard</a>
+                <a href="#" className="list-group-item list-group-item-action bg-light">Shortcuts</a>
+                <a href="#" className="list-group-item list-group-item-action bg-light">Overview</a>
+            </div>
+        </div>;
+    }
+}
+
 function Content() {
     const [show, setShow] = useState(false);
 
@@ -68,32 +101,9 @@ function Content() {
         <div>
             <div>
                 <div className="d-flex" id="wrapper">
-
-                    <div className="bg-light border-right" id="sidebar-wrapper">
-                        <div className="sidebar-heading">Start Bootstrap</div>
-                        <div className="list-group list-group-flush">
-                            <a href="#" className="list-group-item list-group-item-action bg-light">Dashboard</a>
-                            <a href="#" className="list-group-item list-group-item-action bg-light">Shortcuts</a>
-                            <a href="#" className="list-group-item list-group-item-action bg-light">Overview</a>
-                        </div>
-                    </div>
-
+                    <Sidebar/>
                     <div id="page-content-wrapper">
-                        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                            <div><a href="#" className="navbar-brand">Gatling Reporting Tool</a></div>
-                            <button className="navbar-toggler" type="button" data-toggle="collapse"
-                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                <span className="navbar-toggler-icon"/>
-                            </button>
-                            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul className="navbar-nav mr-auto">
-                                    <li className="nav-item active">
-                                        <a className="nav-link" href="#">Dashboard</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
+                        <Navbar/>
                         <div style={{padding: 10}}>
                             <Button variant="warning" onClick={onShow}>Import Gatling Report</Button>
                         </div>
