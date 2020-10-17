@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import api from "../api/api";
 import {FolderOpen} from "@material-ui/icons";
 
 function FileUpload(props) {
@@ -10,7 +9,7 @@ function FileUpload(props) {
         setSelectedFile(event.target.files[0])
     };
 
-    const onFileUpload = (props) => {
+    const onFileUpload = () => {
 
         const formData = new FormData();
 
@@ -22,16 +21,7 @@ function FileUpload(props) {
 
         console.log(selectedFile);
 
-        new api().submitJsonStats(formData).then(res => {
-            console.log('File submitted')
-
-            props.onClick()
-
-        }).catch((error) => {
-            console.log('error submitting file ' + error)
-        })
-
-
+        props.onFileAdded(formData)
     };
 
     const fileData = () => {
@@ -45,7 +35,7 @@ function FileUpload(props) {
                         Last Modified:{" "}
                         {selectedFile.lastModifiedDate.toDateString()}
                     </p>
-                    <button onClick={() => onFileUpload(props)}>
+                    <button onClick={() => onFileUpload()}>
                         Confirm
                     </button>
                 </div>

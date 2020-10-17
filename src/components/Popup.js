@@ -40,7 +40,7 @@ const Popup = (props) => {
                 <Modal.Title>Select Gatling Report Folder</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <FileUpload onClick={onHide}/>
+                <FileUpload onClick={onHide} onFileAdded={props.onFileAdded}/>
                 <br/>
                 <input name={"categoryTitle"} style={{width: "100%", marginBottom: "20px"}}
                        onChange={onChangeHandler}

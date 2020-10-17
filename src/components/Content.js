@@ -39,11 +39,20 @@ class Sidebar extends React.Component {
 
 function Content() {
     const [show, setShow] = useState(false);
+    const [file, setFile] = useState()
 
     const onHide = () => setShow(false);
     const onShow = () => {
 
         setShow(true);
+    }
+
+    const onFileAdded = (selectedFile) => {
+
+        if (selectedFile !== null) {
+            console.log('has file')
+            setFile(selectedFile)
+        }
     }
 
     const onConfirm = (inputValues) => {
@@ -60,6 +69,13 @@ function Content() {
         new api().createReport(values)
 
             .then((response) => {
+
+                    const reportId = response.data.valueOf()
+
+                    new api().submitJsonStats(reportId, file).then((response) => {
+                            console.log('report id: ' + reportId + ' successfully created')
+                        }
+                    )
 
                     onHide()
                 }
@@ -111,6 +127,7 @@ function Content() {
                             show={show}
                             onHide={onHide}
                             onConfirm={onConfirm}
+                            onFileAdded={onFileAdded}
                         />
                         {/*if at least one item we can try and populate the table..*/}
                         {dataTableObj !== undefined && dataTableObj.reports[0] !== undefined &&
