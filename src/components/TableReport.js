@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import ToolDataService from "../api/ToolDataService";
+import api from "../api/api";
 
 export default function TableReport({match}) {
 
@@ -27,7 +27,7 @@ export default function TableReport({match}) {
 
     useEffect(() => {
 
-        new ToolDataService().retrieveStatsForReport(match.params.id)
+        new api().retrieveStatsForReport(match.params.id)
 
             .then(({data}) =>
 
@@ -68,9 +68,6 @@ export default function TableReport({match}) {
                     <td scope="col">Set RPS</td>
                     <td scope="col">{stats.percentiles3.ok}</td>
                     <td scope="col">{stats.percentiles4.ok}</td>
-                    {/*<td scope="col">{props.data.contents.group_login.stats.numberOfRequests.total}</td>*/}
-                    {/*<td scope="col">{props.data.contents.group_login.stats.numberOfRequests.ko}</td>*/}
-                    {/*<td scope="col">{props.data.contents.group_login.stats.numberOfRequests.ko}</td>*/}
                 </tr>
                 </tbody>
             </>;

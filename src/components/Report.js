@@ -5,7 +5,7 @@ import '../css/CustomStyle.css'
 import MyIconButton from "./MyIconButton";
 import TableReport from "./TableReport";
 import simulation from "../helper/simulation.json"
-import ToolDataService from "../api/ToolDataService";
+import ToolDataService from "../api/api";
 import ReportPopup from "./ReportPopup";
 
 const Report = ({match}) => {

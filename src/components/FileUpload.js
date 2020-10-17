@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import ToolDataService from "../api/ToolDataService";
+import api from "../api/api";
 import {FolderOpen} from "@material-ui/icons";
 
 function FileUpload(props) {
@@ -22,7 +22,7 @@ function FileUpload(props) {
 
         console.log(selectedFile);
 
-        new ToolDataService().submitFile(formData).then(res => {
+        new api().submitFile(formData).then(res => {
             console.log('File submitted')
 
             props.onClick()

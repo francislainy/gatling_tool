@@ -1,6 +1,6 @@
 // (1) Import the pact library and matching methods
 const { Pact } = require ('@pact-foundation/pact');
-const { ProductApiClient } = require ('../api/api');
+const { ProductApiClient } = require ('../api/api_pact');
 const { Product } = require ('../model/Product');
 const { like, regex } = require ('@pact-foundation/pact/dsl/matchers');
 const chai = require("chai")

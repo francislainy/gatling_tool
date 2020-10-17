@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import Dropdown from "react-bootstrap/Dropdown";
-import ToolDataService from "../api/ToolDataService";
+import api from "../api/api";
 
 // The forwardRef is important!!
 // Dropdown needs access to the DOM node in order to position the Menu
@@ -55,7 +55,7 @@ export function CustomDropdown(props) {
             setRes(prevState => ({...prevState, isLoading: true}));
 
             if (payload.categoryTitle !== '') {
-                new ToolDataService().createCategory(payload).then(res => {
+                new api().createCategory(payload).then(res => {
                     setRes({data: res.data, isLoading: false});
                 }).catch((error) => {
                     setRes({data: null, isLoading: false});
@@ -70,7 +70,7 @@ export function CustomDropdown(props) {
             try {
                 setData({categories: data.categories, isFetching: true});
 
-                new ToolDataService().retrieveCategories()
+                new api().retrieveCategories()
                     .then(response => setData({categories: response.data.categories, isFetching: false}))
 
             } catch (e) {

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Button from "react-bootstrap/Button";
 import Popup from "./Popup";
 import MainTable from "./MainTable";
-import ToolDataService from "../api/ToolDataService";
+import api from "../api/api";
 
 function Content() {
     const [show, setShow] = useState(false);
@@ -28,7 +28,7 @@ function Content() {
 
     useEffect(() => {
 
-        new ToolDataService().retrieveTable()
+        new api().retrieveTable()
 
             .then(({data}) =>
                 setDataTableObj({reports: data.reports, isFetching: true})
