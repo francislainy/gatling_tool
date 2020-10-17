@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import {CustomDropdown} from "./CustomDropdown";
 
-const Popup = (props) => {
+const ReportPopup = (props) => {
 
     const [categoryTitle, setCategoryTitle] = useState(props.report.category.title)
 
@@ -57,4 +57,4 @@ const Popup = (props) => {
     );
 }
 
-export default Popup
+export default ReportPopup

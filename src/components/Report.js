@@ -5,7 +5,7 @@ import '../css/CustomStyle.css'
 import MyIconButton from "./MyIconButton";
 import TableReport from "./TableReport";
 import simulation from "../helper/simulation.json"
-import ToolDataService from "../api/api";
+import api from "../api/api";
 import ReportPopup from "./ReportPopup";
 
 const Report = ({match}) => {
@@ -43,7 +43,7 @@ const Report = ({match}) => {
             }, isFetching: false
         }
 
-        new ToolDataService().updateReport(match.params.id, updatedValues)
+        new api().updateReport(match.params.id, updatedValues)
 
             .then((response) => {
 
@@ -70,7 +70,7 @@ const Report = ({match}) => {
 
     useEffect(() => {
 
-        new ToolDataService().retrieveReportItem(match.params.id)
+        new api().retrieveReportItem(match.params.id)
 
             .then(({data}) => {
 

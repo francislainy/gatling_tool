@@ -13,6 +13,33 @@ function Content() {
         setShow(true);
     }
 
+    const onConfirm = (inputValues) => {
+
+        let values = {
+            "title": 'na',
+            "runDate": 'today',
+            "createdDate": 'today',
+            "category": {
+                "id": inputValues.categoryId,
+            }
+        }
+
+        new api().createReport(values)
+
+            .then((response) => {
+
+                    onHide()
+                }
+            ).catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
+        });
+
+    }
+
     const [dataTableObj, setDataTableObj] = useState({
         reports: {
             "id": "1",
@@ -70,7 +97,11 @@ function Content() {
                         <div style={{padding: 10}}>
                             <Button variant="warning" onClick={onShow}>Import Gatling Report</Button>
                         </div>
-                        <Popup show={show} onHide={onHide}/>
+                        <Popup
+                            show={show}
+                            onHide={onHide}
+                            onConfirm={onConfirm}
+                        />
                         {/*if at least one item we can try and populate the table..*/}
                         {dataTableObj !== undefined && dataTableObj.reports[0] !== undefined &&
                         <MainTable dataTableObj={dataTableObj}/>

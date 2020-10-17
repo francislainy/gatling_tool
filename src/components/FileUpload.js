@@ -22,7 +22,7 @@ function FileUpload(props) {
 
         console.log(selectedFile);
 
-        new api().submitFile(formData).then(res => {
+        new api().submitJsonStats(formData).then(res => {
             console.log('File submitted')
 
             props.onClick()

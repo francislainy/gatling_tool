@@ -23,6 +23,10 @@ class Api {
         return axios.put(`http://localhost:8081/api/gatling-tool/report/${id}`, payload)
     }
 
+    createReport(payload) {
+        return axios.post('http://localhost:8081/api/gatling-tool/report', payload)
+    }
+
     retrieveStatsForReport(id) {
         return axios.get(`http://localhost:8081/api/gatling-tool/stats/report/${id}`)
     }
@@ -42,6 +46,15 @@ class Api {
     submitFile(file) {
         console.log('entered submit file')
         return axios.post('http://localhost:8081/api/gatling-tool/csv/upload', file, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    }
+
+    submitJsonStats(file) {
+        console.log('entered submit file')
+        return axios.post('http://localhost:8081/api/gatling-tool/json/import', file, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
