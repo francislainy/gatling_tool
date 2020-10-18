@@ -5,6 +5,8 @@ import api from "../api/api";
 import {useHistory} from "react-router-dom";
 import ConfirmationModal from './ConfirmationModal';
 
+const moment = require("moment");
+
 const MainTable = ({dataTableObj}) => {
 
     const [reports, setReports] = useState(dataTableObj.reports)
@@ -37,6 +39,13 @@ const MainTable = ({dataTableObj}) => {
         })
     }
 
+    function getDateFormatted(dateTimeStamp) {
+
+        const date = moment(dateTimeStamp).format('MM-DD-YYYY HH:mm:ss');
+
+        return <> {date}</>;
+    }
+
     return (
         <div>
             <table className="table">
@@ -54,8 +63,8 @@ const MainTable = ({dataTableObj}) => {
                     return [
                         <tr key={item.id}>
                             <td>{item.title}</td>
-                            <td>{item.runDate}</td>
-                            <td>{item.createdDate}</td>
+                            <td>{getDateFormatted(item.runDate)}</td>
+                            <td>{getDateFormatted(item.createdDate)}</td>
                             <td>{item.category.title}</td>
                             <IconButton>
                                 <Visibility onClick={() => handleClick(item.id)}/>

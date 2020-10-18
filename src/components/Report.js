@@ -110,8 +110,7 @@ const Report = ({match}) => {
                     Report name: {report.title}
                 </Card.Text>
                 <Card.Text>
-                    Time
-                    Run: {getDateFormatted(report.runDate)}
+                    Time Run: {getDateFormatted(report.runDate)}
                 </Card.Text>
                 <Card.Text>
                     Time Imported: {getDateFormatted(report.createdDate)}
