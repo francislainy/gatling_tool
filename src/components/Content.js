@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Popup from "./Popup";
 import MainTable from "./MainTable";
 import api from "../api/api";
+
 const moment = require("moment");
 
 class Navbar extends React.Component {
@@ -93,15 +94,13 @@ function Content() {
     }
 
     const [dataTableObj, setDataTableObj] = useState({
-        reports: {
-            "id": "1",
-            "title:": "name1",
-            "created_date": "yesterday",
-            "run_date": "today",
-            "category": {
-                "id": "25a030ad-ebc7-4749-bd3c-edd004628807",
-                "title:": "name1"
-            }
+        "id": '',
+        "title:": '',
+        "created_date": '',
+        "run_date": '',
+        "category": {
+            "id": '',
+            "title:": ''
         }, isFetching: false
     });
 
@@ -110,7 +109,8 @@ function Content() {
         new api().retrieveTable()
 
             .then(({data}) =>
-                setDataTableObj({reports: data.reports, isFetching: true})
+                // setDataTableObj({reports: data.reports, isFetching: true})
+                setDataTableObj({...data, isFetching: true})
             )
 
     }, [])
@@ -133,7 +133,7 @@ function Content() {
                             onFileAdded={onFileAdded}
                         />
                         {/*if at least one item we can try and populate the table..*/}
-                        {dataTableObj !== undefined && dataTableObj.reports[0] !== undefined &&
+                        {dataTableObj !== undefined && dataTableObj.id !== '' &&
                         <MainTable dataTableObj={dataTableObj}/>
                         }
                     </div>
