@@ -110,10 +110,11 @@ const Report = ({match}) => {
                     Report name: {report.title}
                 </Card.Text>
                 <Card.Text>
-                    Time Run: {getDateFormatted(Number(report.runDate))} {/*todo: have backend return int rather than string so this conversation is no longer needed - 18/10/20 */}
+                    Time
+                    Run: {getDateFormatted(report.runDate)}
                 </Card.Text>
                 <Card.Text>
-                    Time Imported: {getDateFormatted(Number(report.createdDate))}
+                    Time Imported: {getDateFormatted(report.createdDate)}
                 </Card.Text>
                 <Card.Text>
                     Category: {report.category.title}
@@ -121,10 +122,7 @@ const Report = ({match}) => {
             </Card.Body>
             }
         </Card>
-
-
         <TableReport data={data} match={match}/>
-
     </div>;
 };
 
