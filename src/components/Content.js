@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Popup from "./Popup";
 import MainTable from "./MainTable";
 import api from "../api/api";
-import moment from "moment";
+const moment = require("moment");
 
 class Navbar extends React.Component {
     render() {
@@ -58,7 +58,7 @@ function Content() {
 
     const onConfirm = (inputValues) => {
 
-        const currentDateTimestamp = moment().unix()
+        const currentDateTimestamp = moment().valueOf()
 
         let values = {
             "title": 'na',
@@ -76,7 +76,7 @@ function Content() {
                     const reportId = response.data.valueOf()
 
                     new api().submitJsonStats(reportId, file).then((response) => {
-                            console.log('report id: ' + reportId + ' successfully created')
+                            console.log('report id ' + reportId + ' successfully created')
                         }
                     )
 

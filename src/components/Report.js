@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Card} from "react-bootstrap";
 import {Settings} from "@material-ui/icons";
 import '../css/CustomStyle.css'
@@ -7,6 +7,8 @@ import TableReport from "./TableReport";
 import simulation from "../helper/simulation.json"
 import api from "../api/api";
 import ReportPopup from "./ReportPopup";
+
+const moment = require("moment");
 
 const Report = ({match}) => {
 
@@ -31,6 +33,7 @@ const Report = ({match}) => {
 
     const onHandleUpdate = (inputValues) => {
         setShow(false)
+        console.log('entered handle update')
 
         let updatedValues = {
             "id": report.id,
@@ -81,6 +84,13 @@ const Report = ({match}) => {
             )
     }, [report.id])
 
+    function getDateFormatted(dateTimeStamp) {
+
+        const date = moment(dateTimeStamp).format('MM-DD-YYYY HH:mm:ss');
+
+        return <> {date}</>;
+    }
+
     return <div>Hello from report - {match.params.id}
 
         <Card style={{width: '18rem'}}>
@@ -100,10 +110,10 @@ const Report = ({match}) => {
                     Report name: {report.title}
                 </Card.Text>
                 <Card.Text>
-                    Time Run: {report.runDate}
+                    Time Run: {getDateFormatted(Number(report.runDate))} {/*todo: have backend return int rather than string so this conversation is no longer needed - 18/10/20 */}
                 </Card.Text>
                 <Card.Text>
-                    Time Imported: {report.createdDate}
+                    Time Imported: {getDateFormatted(Number(report.createdDate))}
                 </Card.Text>
                 <Card.Text>
                     Category: {report.category.title}
