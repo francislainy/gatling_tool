@@ -10,6 +10,16 @@ export default function TableReport({match}) {
                     "name": "name",
                     "id": "id",
                     "reportId": "reportId",
+                    "percentiles1": {
+                        "total": 0,
+                        "ok": 0,
+                        "ko": 0
+                    },
+                    "percentiles2": {
+                        "total": 0,
+                        "ok": 0,
+                        "ko": 0
+                    },
                     "percentiles3": {
                         "total": 0,
                         "ok": 0,
@@ -47,6 +57,8 @@ export default function TableReport({match}) {
                 <th scope="col">Endpoint</th>
                 <th scope="col">Path</th>
                 <th scope="col">RPS</th>
+                <th scope="col">50th Percentile</th>
+                <th scope="col">75th Percentile</th>
                 <th scope="col">95th Percentile</th>
                 <th scope="col">99th Percentile</th>
                 <th scope="col">Total Requests</th>
@@ -66,6 +78,8 @@ export default function TableReport({match}) {
                     <td scope="col">Set endpoint</td>
                     <td scope="col">Set path</td>
                     <td scope="col">Set RPS</td>
+                    <td scope="col">{stats.percentiles1.ok}</td>
+                    <td scope="col">{stats.percentiles2.ok}</td>
                     <td scope="col">{stats.percentiles3.ok}</td>
                     <td scope="col">{stats.percentiles4.ok}</td>
                 </tr>
