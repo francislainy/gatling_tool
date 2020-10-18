@@ -5,7 +5,7 @@ import api from "../api/api";
 import {useHistory} from "react-router-dom";
 import ConfirmationModal from './ConfirmationModal';
 
-const moment = require("moment");
+const moment = require("moment")
 
 const MainTable = ({dataTableObj}) => {
 
