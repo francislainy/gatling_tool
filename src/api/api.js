@@ -55,7 +55,15 @@ class Api {
     submitJsonStats(id, file) {
         console.log('entered submit file')
 
-        return axios.post(`http://localhost:8081/api/gatling-tool/json/import/${id}`, file, {
+        const formData = new FormData();
+
+        formData.append(
+            "file",
+            file,
+            file.name
+        );
+
+        return axios.post(`http://localhost:8081/api/gatling-tool/json/import/${id}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

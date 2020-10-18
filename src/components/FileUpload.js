@@ -11,17 +11,7 @@ function FileUpload(props) {
 
     const onFileUpload = () => {
 
-        const formData = new FormData();
-
-        formData.append(
-            "file",
-            selectedFile,
-            selectedFile.name
-        );
-
-        console.log(selectedFile);
-
-        props.onFileAdded(formData)
+        props.onFileAdded(selectedFile)
     };
 
     const fileData = () => {

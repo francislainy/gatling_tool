@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Popup from "./Popup";
 import MainTable from "./MainTable";
 import api from "../api/api";
+import moment from "moment";
 
 class Navbar extends React.Component {
     render() {
@@ -57,10 +58,12 @@ function Content() {
 
     const onConfirm = (inputValues) => {
 
+        const currentDateTimestamp = moment().unix()
+
         let values = {
             "title": 'na',
-            "runDate": 'today',
-            "createdDate": 'today',
+            "runDate": file.lastModified,
+            "createdDate": currentDateTimestamp,
             "category": {
                 "id": inputValues.categoryId,
             }
