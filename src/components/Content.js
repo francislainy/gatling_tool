@@ -113,11 +113,14 @@ function Content() {
 
         new api().retrieveTable()
 
-            .then(({data}) =>
-                setDataTableObj({...data, isFetching: true})
-            )
+            .then(({data}) => {
+                    setDataTableObj({...data, isFetching: true})
+                }
+            ).catch(reason => {
+            console.log(reason + ' reason for failure on retrieving report table items')
+        })
 
-    }, [])
+    }, [dataTableObj.reports])
 
     return (
         <div>
@@ -136,7 +139,7 @@ function Content() {
                             onFileAdded={onFileAdded}
                         />
                         {/*if at least one item we can try and populate the table..*/}
-                        {dataTableObj.reports !== undefined && dataTableObj.reports[0].id !== '' &&
+                        {dataTableObj.reports[0].id !== '' &&
                         <MainTable dataTableObj={dataTableObj}/>
                         }
                     </div>

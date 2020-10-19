@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Delete, Visibility} from "@material-ui/icons";
 import {IconButton} from "@material-ui/core";
 import api from "../api/api";
@@ -13,6 +13,12 @@ const MainTable = ({dataTableObj}) => {
     const [showConfirmationModal, setShowConfirmationModal] = useState(false)
 
     const onHide = () => setShowConfirmationModal(false);
+
+    useEffect(() => {
+
+        setReports(dataTableObj.reports)
+
+    }, [dataTableObj.reports]);
 
     const [idSelected, setIdSelected] = useState(0);
 
@@ -29,7 +35,7 @@ const MainTable = ({dataTableObj}) => {
         setShowConfirmationModal(true)
     }
 
-    const onConfirm = () => {
+    const onConfirmDelete = () => {
         new api().deleteReport(idSelected).then(() => {
 
             const del = reports.filter(report => idSelected !== report.id)
@@ -81,7 +87,7 @@ const MainTable = ({dataTableObj}) => {
                 showHeader={false}
                 show={showConfirmationModal}
                 onHide={onHide}
-                onConfirm={onConfirm}
+                onConfirm={onConfirmDelete}
                 ok={'OK'}
                 cancel={'Cancel'}
                 body={'Are you sure you want to delete this item?'}
