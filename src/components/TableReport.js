@@ -10,6 +10,11 @@ export default function TableReport({match}) {
                     "name": "name",
                     "id": "id",
                     "reportId": "reportId",
+                    "numberOfRequests": {
+                        "total": 2683,
+                        "ok": 2683,
+                        "ko": 0
+                    },
                     "percentiles1": {
                         "total": 0,
                         "ok": 0,
@@ -82,6 +87,8 @@ export default function TableReport({match}) {
                     <td scope="col">{stats.percentiles2.ok}</td>
                     <td scope="col">{stats.percentiles3.ok}</td>
                     <td scope="col">{stats.percentiles4.ok}</td>
+                    <td scope="col">{stats.numberOfRequests.total}</td>
+                    <td scope="col">{stats.numberOfRequests.ko}</td>
                 </tr>
                 </tbody>
             </>;
