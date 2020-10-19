@@ -43,6 +43,22 @@ function Content() {
     const [show, setShow] = useState(false);
     const [file, setFile] = useState()
 
+    const [dataTableObj, setDataTableObj] = useState({
+        "reports": [
+            {
+                "id": "",
+                "title": "",
+                "createdDate": "",
+                "runDate": "",
+                "category": {
+                    "id": "",
+                    "title:": ""
+                }
+            }
+        ]
+        , isFetching: false
+    });
+
     const onHide = () => setShow(false);
     const onShow = () => {
 
@@ -93,30 +109,17 @@ function Content() {
 
     }
 
-    const [dataTableObj, setDataTableObj] = useState({
-        "id": '',
-        "title:": '',
-        "created_date": '',
-        "run_date": '',
-        "category": {
-            "id": '',
-            "title:": ''
-        }, isFetching: false
-    });
-
     useEffect(() => {
 
         new api().retrieveTable()
 
             .then(({data}) =>
-                // setDataTableObj({reports: data.reports, isFetching: true})
                 setDataTableObj({...data, isFetching: true})
             )
 
     }, [])
 
     return (
-
         <div>
             <div>
                 <div className="d-flex" id="wrapper">
@@ -133,7 +136,7 @@ function Content() {
                             onFileAdded={onFileAdded}
                         />
                         {/*if at least one item we can try and populate the table..*/}
-                        {dataTableObj !== undefined && dataTableObj.id !== '' &&
+                        {dataTableObj.reports !== undefined && dataTableObj.reports[0].id !== '' &&
                         <MainTable dataTableObj={dataTableObj}/>
                         }
                     </div>
