@@ -4,7 +4,6 @@ import api from "../api/api";
 export default function TableReport({match, onRetrieveInfo}) {
 
     const [stats, setStats] = useState({
-        stats: {
             "stats": [
                 {
                     "name": "name",
@@ -37,7 +36,7 @@ export default function TableReport({match, onRetrieveInfo}) {
                     }
                 }
             ]
-        }, isFetching: false
+        , isFetching: false
     });
 
     useEffect(() => {
@@ -79,7 +78,7 @@ export default function TableReport({match, onRetrieveInfo}) {
     }
 
     const getRowsData = () => {
-        return stats.stats.stats.map((stats, i) => {
+        return stats.stats.map((stats, i) => {
             return <>
                 <tbody>
                 {/*First item is the global info already displayed on the top of the page*/}
