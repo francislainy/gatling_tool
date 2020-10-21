@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import api from "../api/api";
 
-export default function TableReport({match}) {
+export default function TableReport({match, onRetrieveInfo}) {
 
     const [stats, setStats] = useState({
         stats: {
@@ -44,15 +44,20 @@ export default function TableReport({match}) {
 
         new api().retrieveStatsForReport(match.params.id)
 
-            .then(({data}) =>
+            .then(({data}) => {
 
-                setStats({stats: data, isFetching: true})
+                    const newData = {
+                        ...data
+
+                    }
+
+                    setStats({stats: newData, isFetching: true})
+
+                    onRetrieveInfo(data)
+                }
             )
 
-        console.log(stats.stats[0])
-
     }, [])
-
 
     const getHeader = function () {
         return (
@@ -74,9 +79,11 @@ export default function TableReport({match}) {
     }
 
     const getRowsData = () => {
-        return stats.stats.stats.map(stats => {
+        return stats.stats.stats.map((stats, i) => {
             return <>
                 <tbody>
+                {/*First item is the global info already displayed on the top of the page*/}
+                {i !== 0 &&
                 <tr>
                     <td scope="col">Set category name here</td>
                     <td scope="col">{stats.name}</td>
@@ -90,11 +97,11 @@ export default function TableReport({match}) {
                     <td scope="col">{stats.numberOfRequests.total}</td>
                     <td scope="col">{stats.numberOfRequests.ko}</td>
                 </tr>
+                }
                 </tbody>
             </>;
         })
     }
-
 
     return (
         <table className="table">

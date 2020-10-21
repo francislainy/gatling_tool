@@ -4,7 +4,6 @@ import {Settings} from "@material-ui/icons";
 import '../css/CustomStyle.css'
 import MyIconButton from "./MyIconButton";
 import TableReport from "./TableReport";
-import simulation from "../helper/simulation.json"
 import api from "../api/api";
 import ReportPopup from "./ReportPopup";
 
@@ -12,7 +11,7 @@ const moment = require("moment");
 
 const Report = ({match}) => {
 
-    const data = simulation
+    const [data, setData] = useState()
 
     const [report, setReport] = useState({
         "id": "",
@@ -65,7 +64,6 @@ const Report = ({match}) => {
         });
     }
 
-
     const handleShow = () => {
 
         setShow(true);
@@ -78,8 +76,6 @@ const Report = ({match}) => {
             .then(({data}) => {
 
                     setReport({...data, isFetching: true})
-
-                    console.log(report.category.title)
                 }
             )
     }, [report.id])
@@ -89,6 +85,18 @@ const Report = ({match}) => {
         const date = moment(dateTimeStamp).format('MM-DD-YYYY HH:mm:ss');
 
         return <> {date}</>;
+    }
+
+    function getGlobalStats(data) {
+        return <div>
+            {/*first of the list is the total global amount*/}
+            <div> Total Requests: {data.stats[0].numberOfRequests.total}</div>
+            <div>Total Failed Requests: {data.stats[0].numberOfRequests.ko}</div>
+        </div>;
+    }
+
+    const onRetrieveInfo = (data) => {
+        setData(data)
     }
 
     return <div>Hello from report - {match.params.id}
