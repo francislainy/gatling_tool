@@ -120,7 +120,7 @@ function Content() {
             console.log(reason + ' reason for failure on retrieving report table items')
         })
 
-    }, [dataTableObj.reports])
+    }, [show === false])
 
     return (
         <div>

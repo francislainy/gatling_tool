@@ -16,6 +16,7 @@ function FileUpload(props) {
 
     const fileData = () => {
         if (selectedFile) {
+            onFileUpload()
             return (
                 <div>
                     <h5>File Details:</h5>
@@ -25,9 +26,6 @@ function FileUpload(props) {
                         Last Modified:{" "}
                         {selectedFile.lastModifiedDate.toDateString()}
                     </p>
-                    <button onClick={() => onFileUpload()}>
-                        Confirm
-                    </button>
                 </div>
             );
         }
