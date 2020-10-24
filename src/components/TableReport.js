@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import api from "../api/api";
 import {IconButton} from "@material-ui/core";
-import {Edit, Delete, Visibility} from "@material-ui/icons";
+import {Edit, Delete} from "@material-ui/icons";
 import ConfirmationModal from "./ConfirmationModal";
 
 export default function TableReport({match, onRetrieveInfo}) {
@@ -12,6 +12,7 @@ export default function TableReport({match, onRetrieveInfo}) {
                 "name": "",
                 "id": "",
                 "reportId": "",
+                "endpoint": "",
                 "numberOfRequests": {
                     "total": 0,
                     "ok": 0,
@@ -60,41 +61,7 @@ export default function TableReport({match, onRetrieveInfo}) {
 
     const updateStats = (id) => {
 
-        setStats({
-            "stats": [
-                {
-                    "name": "",
-                    "id": "",
-                    "reportId": "",
-                    "numberOfRequests": {
-                        "total": 0,
-                        "ok": 0,
-                        "ko": 0
-                    },
-                    "percentiles1": {
-                        "total": 0,
-                        "ok": 0,
-                        "ko": 0
-                    },
-                    "percentiles2": {
-                        "total": 0,
-                        "ok": 0,
-                        "ko": 0
-                    },
-                    "percentiles3": {
-                        "total": 0,
-                        "ok": 0,
-                        "ko": 0
-                    },
-                    "percentiles4": {
-                        "total": 0,
-                        "ok": 0,
-                        "ko": 0
-                    }
-                }
-            ]
-            , isFetching: false
-        })
+
     }
 
 
@@ -144,7 +111,7 @@ export default function TableReport({match, onRetrieveInfo}) {
                 <tr>
                     {/*<td scope="col">Set category name here</td>*/}
                     <td scope="col">{stats.name}</td>
-                    <td scope="col">Set endpoint</td>
+                    <td scope="col">{stats.endpoint}</td>
                     <td scope="col">Set path</td>
                     <td scope="col">Set RPS</td>
                     <td scope="col">{stats.percentiles1.ok}</td>
