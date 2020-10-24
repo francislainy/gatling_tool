@@ -82,7 +82,7 @@ const Report = ({match}) => {
 
     function getDateFormatted(dateTimeStamp) {
 
-        const date = moment(dateTimeStamp).format('MM-DD-YYYY HH:mm:ss');
+        const date = moment(dateTimeStamp).format('DD-MMM-YYYY HH:mm:ss');
 
         return <> {date}</>;
     }
@@ -101,35 +101,53 @@ const Report = ({match}) => {
 
     return <div>Hello from report - {match.params.id}
 
-        <Card style={{width: '18rem'}}>
-            {report.id !== '' &&
-            <Card.Body>
-                <Card.Title>Report Details
-                    <MyIconButton className="IconButton">
-                        <Settings onClick={() => handleShow()}/>
-                    </MyIconButton>
-                    <ReportPopup
-                        show={show}
-                        onHide={handleClose}
-                        onHandleUpdate={onHandleUpdate}
-                        report={report}/>
-                </Card.Title>
-                <Card.Text>
-                    Report name: {report.title}
-                </Card.Text>
-                <Card.Text>
-                    Time Run: {getDateFormatted(report.runDate)}
-                </Card.Text>
-                <Card.Text>
-                    Time Imported: {getDateFormatted(report.createdDate)}
-                </Card.Text>
-                <Card.Text>
-                    Category: {report.category.title}
-                </Card.Text>
-            </Card.Body>
-            }
-        </Card>
-        <TableReport data={data} match={match}/>
+        <div style={{display: 'flex'}}>
+
+            <Card style={{width: '18rem'}}>
+                {report.id !== '' &&
+                <Card.Body>
+                    <Card.Title>Report Details
+                        <MyIconButton className="IconButton">
+                            <Settings onClick={() => handleShow()}/>
+                        </MyIconButton>
+                        <ReportPopup
+                            show={show}
+                            onHide={handleClose}
+                            onHandleUpdate={onHandleUpdate}
+                            report={report}/>
+                    </Card.Title>
+                    <Card.Text>
+                        Report name: {report.title}
+                    </Card.Text>
+                    <Card.Text>
+                        Time Run: {getDateFormatted(report.runDate)}
+                    </Card.Text>
+                    <Card.Text>
+                        Time Imported: {getDateFormatted(report.createdDate)}
+                    </Card.Text>
+                    <Card.Text>
+                        Category: {report.category.title}
+                    </Card.Text>
+                </Card.Body>
+                }
+            </Card>
+
+            <Card style={{width: '18rem'}}>
+                {report.id !== '' &&
+                <Card.Body>
+                    <Card.Title>Information</Card.Title>
+                    {data !== undefined &&
+                    <Card.Text>
+                        {getGlobalStats(data)}
+                    </Card.Text>
+                    }
+                    <Card.Text>
+                    </Card.Text>
+                </Card.Body>
+                }
+            </Card>
+        </div>
+        <TableReport match={match} onRetrieveInfo={onRetrieveInfo}/>
     </div>;
 };
 
