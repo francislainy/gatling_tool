@@ -75,6 +75,7 @@ export default function TableReport({match, onRetrieveInfo}) {
 
             .then((response) => {
                     setEndpoint(endpoint);
+                    setShowInputEndpoint(false)
                 }
             ).catch(function (error) {
             if (error.response) {
@@ -84,7 +85,6 @@ export default function TableReport({match, onRetrieveInfo}) {
             }
         });
 
-        setShowInputEndpoint(false)
     }
 
     const onConfirmDelete = () => {
