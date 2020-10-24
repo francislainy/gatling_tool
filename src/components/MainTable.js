@@ -11,6 +11,7 @@ const MainTable = ({dataTableObj}) => {
 
     const [reports, setReports] = useState(dataTableObj.reports)
     const [showConfirmationModal, setShowConfirmationModal] = useState(false)
+    const [idSelected, setIdSelected] = useState(0);
 
     const onHide = () => setShowConfirmationModal(false);
 
@@ -19,8 +20,6 @@ const MainTable = ({dataTableObj}) => {
         setReports(dataTableObj.reports)
 
     }, [dataTableObj.reports]);
-
-    const [idSelected, setIdSelected] = useState(0);
 
     let history = useHistory();
 
@@ -47,7 +46,7 @@ const MainTable = ({dataTableObj}) => {
 
     function getDateFormatted(dateTimeStamp) {
 
-        const date = moment(dateTimeStamp).format('MM-DD-YYYY HH:mm:ss');
+        const date = moment(dateTimeStamp).format('DD-MM-YYYY HH:mm:ss');
 
         return <> {date}</>;
     }

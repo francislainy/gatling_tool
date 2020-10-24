@@ -1,17 +1,74 @@
 import React, {useEffect, useState} from 'react';
 import api from "../api/api";
+import {IconButton} from "@material-ui/core";
+import {Edit, Delete, Visibility} from "@material-ui/icons";
+import ConfirmationModal from "./ConfirmationModal";
 
 export default function TableReport({match, onRetrieveInfo}) {
 
     const [stats, setStats] = useState({
+        "stats": [
+            {
+                "name": "",
+                "id": "",
+                "reportId": "",
+                "numberOfRequests": {
+                    "total": 0,
+                    "ok": 0,
+                    "ko": 0
+                },
+                "percentiles1": {
+                    "total": 0,
+                    "ok": 0,
+                    "ko": 0
+                },
+                "percentiles2": {
+                    "total": 0,
+                    "ok": 0,
+                    "ko": 0
+                },
+                "percentiles3": {
+                    "total": 0,
+                    "ok": 0,
+                    "ko": 0
+                },
+                "percentiles4": {
+                    "total": 0,
+                    "ok": 0,
+                    "ko": 0
+                }
+            }
+        ], isFetching: false
+    });
+    const [idSelected, setIdSelected] = useState(0);
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false)
+    const onHide = () => setShowConfirmationModal(false);
+
+    useEffect(() => {
+
+        new api().retrieveStatsForReport(match.params.id)
+
+            .then(({data}) => {
+
+                    setStats({stats: data.stats, isFetching: true})
+
+                    onRetrieveInfo(data)
+                }
+            )
+
+    }, [])
+
+    const updateStats = (id) => {
+
+        setStats({
             "stats": [
                 {
-                    "name": "name",
-                    "id": "id",
-                    "reportId": "reportId",
+                    "name": "",
+                    "id": "",
+                    "reportId": "",
                     "numberOfRequests": {
-                        "total": 2683,
-                        "ok": 2683,
+                        "total": 0,
+                        "ok": 0,
                         "ko": 0
                     },
                     "percentiles1": {
@@ -36,32 +93,33 @@ export default function TableReport({match, onRetrieveInfo}) {
                     }
                 }
             ]
-        , isFetching: false
-    });
+            , isFetching: false
+        })
+    }
 
-    useEffect(() => {
 
-        new api().retrieveStatsForReport(match.params.id)
+    const onConfirmDelete = () => {
+        new api().deleteStats(idSelected).then(() => {
 
-            .then(({data}) => {
+            const del = stats.stats.filter(stats => idSelected !== stats.id)
 
-                    const newData = {
-                        ...data
+            setStats({stats: del, isFetching: true});
 
-                    }
+            setShowConfirmationModal(false)
+        })
+    }
 
-                    setStats({stats: newData, isFetching: true})
+    const handleDeletePopUp = (id) => {
 
-                    onRetrieveInfo(data)
-                }
-            )
+        setIdSelected(id)
 
-    }, [])
+        setShowConfirmationModal(true)
+    }
 
     const getHeader = function () {
         return (
             <tr>
-                <th scope="col">Category</th>
+                {/*<th scope="col">Category</th>*/}
                 <th scope="col">Request</th>
                 <th scope="col">Endpoint</th>
                 <th scope="col">Path</th>
@@ -84,7 +142,7 @@ export default function TableReport({match, onRetrieveInfo}) {
                 {/*First item is the global info already displayed on the top of the page*/}
                 {i !== 0 &&
                 <tr>
-                    <td scope="col">Set category name here</td>
+                    {/*<td scope="col">Set category name here</td>*/}
                     <td scope="col">{stats.name}</td>
                     <td scope="col">Set endpoint</td>
                     <td scope="col">Set path</td>
@@ -95,6 +153,16 @@ export default function TableReport({match, onRetrieveInfo}) {
                     <td scope="col">{stats.percentiles4.ok}</td>
                     <td scope="col">{stats.numberOfRequests.total}</td>
                     <td scope="col">{stats.numberOfRequests.ko}</td>
+                    <IconButton>
+                        <Delete onClick={() => {
+                            handleDeletePopUp(stats.id)
+                        }}/>
+                    </IconButton>
+                    <IconButton>
+                        <Edit onClick={() => {
+                            updateStats(stats.id)
+                        }}/>
+                    </IconButton>
                 </tr>
                 }
                 </tbody>
@@ -103,11 +171,22 @@ export default function TableReport({match, onRetrieveInfo}) {
     }
 
     return (
-        <table className="table">
-            <thead className="thead-light">
-            {getHeader()}
-            </thead>
-            {getRowsData()}
-        </table>
+        <div>
+            <table className="table">
+                <thead className="thead-light">
+                {getHeader()}
+                </thead>
+                {getRowsData()}
+            </table>
+            <ConfirmationModal
+                showHeader={false}
+                show={showConfirmationModal}
+                onHide={onHide}
+                onConfirm={onConfirmDelete}
+                ok={'OK'}
+                cancel={'Cancel'}
+                body={'Are you sure you want to delete this item?'}
+            />
+        </div>
     );
 }
