@@ -35,6 +35,10 @@ class Api {
         return axios.delete(`http://localhost:8081/api/gatling-tool/stats/${id}`)
     }
 
+    updateStatsEndpoint(id, payload) {
+        return axios.put(`http://localhost:8081/api/gatling-tool/stats/${id}/endpoint`, payload)
+    }
+
     retrieveCategories() {
         return axios.get('http://localhost:8081/api/gatling-tool/category')
     }

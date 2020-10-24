@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import api from "../api/api";
 import {IconButton} from "@material-ui/core";
-import {Edit, Delete} from "@material-ui/icons";
+import {Edit, Delete, Save} from "@material-ui/icons";
 import ConfirmationModal from "./ConfirmationModal";
 
 export default function TableReport({match, onRetrieveInfo}) {
@@ -41,9 +41,12 @@ export default function TableReport({match, onRetrieveInfo}) {
             }
         ], isFetching: false
     });
+
+    const [endpoint, setEndpoint] = useState({"endpoint": ""});
     const [idSelected, setIdSelected] = useState(0);
     const [showConfirmationModal, setShowConfirmationModal] = useState(false)
     const onHide = () => setShowConfirmationModal(false);
+    const [showInputEndpoint, setShowInputEndpoint] = useState(false)
 
     useEffect(() => {
 
@@ -57,13 +60,32 @@ export default function TableReport({match, onRetrieveInfo}) {
                 }
             )
 
-    }, [])
+    }, [showInputEndpoint === false])
 
-    const updateStats = (id) => {
+    const handleShowUpdateStats = () => {
 
-
+        setShowInputEndpoint(true)
     }
 
+    const updateStats = (idSelected) => {
+
+        setShowInputEndpoint(true)
+
+        new api().updateStatsEndpoint(idSelected, endpoint)
+
+            .then((response) => {
+                    setEndpoint(endpoint);
+                }
+            ).catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
+        });
+
+        setShowInputEndpoint(false)
+    }
 
     const onConfirmDelete = () => {
         new api().deleteStats(idSelected).then(() => {
@@ -86,7 +108,7 @@ export default function TableReport({match, onRetrieveInfo}) {
     const getHeader = function () {
         return (
             <tr>
-                {/*<th scope="col">Category</th>*/}
+                <th scope="col">Category</th>
                 <th scope="col">Request</th>
                 <th scope="col">Endpoint</th>
                 <th scope="col">Path</th>
@@ -109,9 +131,9 @@ export default function TableReport({match, onRetrieveInfo}) {
                 {/*First item is the global info already displayed on the top of the page*/}
                 {i !== 0 &&
                 <tr>
-                    {/*<td scope="col">Set category name here</td>*/}
+                    <td scope="col">Set category name here</td>
                     <td scope="col">{stats.name}</td>
-                    <td scope="col">{stats.endpoint}</td>
+                    <td scope="col">{handleEndpoint(stats.endpoint)}</td>
                     <td scope="col">Set path</td>
                     <td scope="col">Set RPS</td>
                     <td scope="col">{stats.percentiles1.ok}</td>
@@ -127,6 +149,11 @@ export default function TableReport({match, onRetrieveInfo}) {
                     </IconButton>
                     <IconButton>
                         <Edit onClick={() => {
+                            handleShowUpdateStats()
+                        }}/>
+                    </IconButton>
+                    <IconButton>
+                        <Save onClick={() => {
                             updateStats(stats.id)
                         }}/>
                     </IconButton>
@@ -135,6 +162,21 @@ export default function TableReport({match, onRetrieveInfo}) {
                 </tbody>
             </>;
         })
+    }
+
+    const onChangeHandler = event => {
+        const {value} = event.target;
+
+        setEndpoint({endpoint: value});
+    };
+
+    const handleEndpoint = (endpoint) => {
+
+        if (showInputEndpoint) {
+            return <input defaultValue={endpoint} onChange={onChangeHandler}/>
+        } else {
+            return <span>{endpoint}</span>
+        }
     }
 
     return (
