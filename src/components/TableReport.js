@@ -147,16 +147,18 @@ export default function TableReport({match, onRetrieveInfo}) {
                     }}>
                         <Delete/>
                     </IconButton>
-                    <IconButton onClick={() => {
+                    {!showInputEndpoint && <IconButton onClick={() => {
                         handleShowUpdateStats()
                     }}>
                         <Edit/>
                     </IconButton>
-                    <IconButton onClick={() => {
+                    }
+                    {showInputEndpoint && <IconButton onClick={() => {
                         updateStats(stats.id)
                     }}>
                         <Save/>
                     </IconButton>
+                    }
                 </tr>
                 }
                 </tbody>
@@ -182,7 +184,7 @@ export default function TableReport({match, onRetrieveInfo}) {
     return (
         <div>
             <table className="table">
-                <thead className="thead-light">
+                <thead className="thead-dark">
                 {getHeader()}
                 </thead>
                 {getRowsData()}
