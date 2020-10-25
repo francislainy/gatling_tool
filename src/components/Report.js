@@ -6,7 +6,6 @@ import MyIconButton from "./MyIconButton";
 import TableStats from "./TableStats";
 import api from "../api/api";
 import ReportPopup from "./ReportPopup";
-import Button from "react-bootstrap/Button";
 import {CSVLink} from "react-csv";
 
 const moment = require("moment");
@@ -101,10 +100,6 @@ const Report = ({match}) => {
         setData(data)
     }
 
-    const generateCsv = () => {
-
-    }
-
     const headers = [
         {label: "id", key: "id"},
         {label: "reportId", key: "reportId"},
@@ -183,7 +178,6 @@ const Report = ({match}) => {
                 </Card.Body>
                 }
             </Card>
-
             <Card style={{width: '18rem', marginLeft: '10px', alignSelf: 'baseline'}}>
                 {report.id !== '' &&
                 <Card.Body>
@@ -196,17 +190,18 @@ const Report = ({match}) => {
                 </Card.Body>
                 }
             </Card>
-
             <Card style={{width: '18rem', marginLeft: '10px', alignSelf: 'baseline'}}>
                 {report.id !== '' &&
                 <Card.Body>
                     <Card.Title>Actions</Card.Title>
                     {data !== undefined &&
                     <Card.Text>
-                        <CSVLink data={data.stats} headers={headers}>
-                            Download me
+                        <CSVLink
+                            style={{textDecoration: 'none'}}
+                            className="button"
+                            data={data.stats} headers={headers}>
+                            Download CSV
                         </CSVLink>
-                        {/*<Button variant="warning" onClick={generateCsv}>Generate CSV</Button>*/}
                     </Card.Text>
                     }
                 </Card.Body>

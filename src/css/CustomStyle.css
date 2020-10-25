@@ -25,3 +25,12 @@ table, td, th, tr {
     text-align: center;
     vertical-align: middle;
 }
+
+.button {
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: #ffc107;
+    color: #333333;
+    padding: 8px 12px 8px 12px;
+    border: 1px solid #ffc107;
+}
