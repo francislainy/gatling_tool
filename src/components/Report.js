@@ -26,7 +26,7 @@ const Report = ({match}) => {
 
     const [show, setShow] = useState(false);
 
-    const handleClose = () => {
+    const handleHide = () => {
         setShow(false)
     }
 
@@ -89,9 +89,9 @@ const Report = ({match}) => {
 
     function getGlobalStats(data) {
         return <div>
-            {/*first of the list is the total global amount*/}
-            <div> Total Requests: {data.stats[0].numberOfRequests.total}</div>
-            <div>Total Failed Requests: {data.stats[0].numberOfRequests.ko}</div>
+            {/*last item of the list is the total global amount*/}
+            <div> Total Requests: {data.stats[data.stats.length-1].numberOfRequests.total}</div>
+            <div>Total Failed Requests: {data.stats[data.stats.length-1].numberOfRequests.ko}</div>
         </div>;
     }
 
@@ -99,10 +99,8 @@ const Report = ({match}) => {
         setData(data)
     }
 
-    return <div>Hello from report - {match.params.id}
-
-        <div style={{display: 'flex'}}>
-
+    return <div style={{margin: '10px 10px'}}>
+        <div style={{display: 'flex', marginBottom: '10px'}}>
             <Card style={{width: '18rem'}}>
                 {report.id !== '' &&
                 <Card.Body>
@@ -112,7 +110,7 @@ const Report = ({match}) => {
                         </MyIconButton>
                         <ReportPopup
                             show={show}
-                            onHide={handleClose}
+                            onHide={handleHide}
                             onHandleUpdate={onHandleUpdate}
                             report={report}/>
                     </Card.Title>
@@ -132,7 +130,7 @@ const Report = ({match}) => {
                 }
             </Card>
 
-            <Card style={{width: '18rem'}}>
+            <Card style={{width: '18rem', marginLeft: '10px', alignSelf: 'baseline'}}>
                 {report.id !== '' &&
                 <Card.Body>
                     <Card.Title>Information</Card.Title>
@@ -141,8 +139,6 @@ const Report = ({match}) => {
                         {getGlobalStats(data)}
                     </Card.Text>
                     }
-                    <Card.Text>
-                    </Card.Text>
                 </Card.Body>
                 }
             </Card>

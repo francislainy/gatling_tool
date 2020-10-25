@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import api from "../api/api";
 import {IconButton} from "@material-ui/core";
-import {Edit, Delete, Save} from "@material-ui/icons";
+import {Edit, Delete, Save, Cancel} from "@material-ui/icons";
 import ConfirmationModal from "./ConfirmationModal";
 
 export default function TableReport({match, onRetrieveInfo}) {
@@ -64,7 +64,7 @@ export default function TableReport({match, onRetrieveInfo}) {
 
     const handleShowUpdateStats = () => {
 
-        setShowInputEndpoint(true)
+        setShowInputEndpoint(!showInputEndpoint)
     }
 
     const updateStats = (idSelected) => {
@@ -108,7 +108,7 @@ export default function TableReport({match, onRetrieveInfo}) {
     const getHeader = function () {
         return (
             <tr>
-                <th scope="col">Category</th>
+                {/*<th scope="col">Category</th>*/}
                 <th scope="col">Request</th>
                 <th scope="col">Endpoint</th>
                 <th scope="col">Path</th>
@@ -129,9 +129,9 @@ export default function TableReport({match, onRetrieveInfo}) {
             return <>
                 <tbody>
                 {/*First item is the global info already displayed on the top of the page*/}
-                {i !== 0 &&
+                {stats.name !== 'Global Information' &&
                 <tr>
-                    <td scope="col">Set category name here</td>
+                    {/*<td scope="col">Set category name here</td>*/}
                     <td scope="col">{stats.name}</td>
                     <td scope="col">{handleEndpoint(stats.endpoint)}</td>
                     <td scope="col">Set path</td>
@@ -159,6 +159,12 @@ export default function TableReport({match, onRetrieveInfo}) {
                         <Save/>
                     </IconButton>
                     }
+                    {showInputEndpoint && <IconButton onClick={() => {
+                        handleShowUpdateStats()
+                    }}>
+                        <Cancel/>
+                    </IconButton>
+                    }
                 </tr>
                 }
                 </tbody>
@@ -183,7 +189,7 @@ export default function TableReport({match, onRetrieveInfo}) {
 
     return (
         <div>
-            <table className="table">
+            <table className="table-bordered table">
                 <thead className="thead-dark">
                 {getHeader()}
                 </thead>

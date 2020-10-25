@@ -5,3 +5,7 @@
 .IconButton:focus {
     outline: none;
 }
+
+table, td, th, tr {
+    border-collapse: collapse;
+}
