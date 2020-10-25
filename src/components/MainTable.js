@@ -71,11 +71,11 @@ const MainTable = ({dataTableObj}) => {
                             <td>{getDateFormatted(item.runDate)}</td>
                             <td>{getDateFormatted(item.createdDate)}</td>
                             <td>{item.category.title}</td>
-                            <IconButton>
-                                <Visibility onClick={() => handleClick(item.id)}/>
+                            <IconButton onClick={() => handleClick(item.id)}>
+                                <Visibility/>
                             </IconButton>
-                            <IconButton>
-                                <Delete onClick={() => handleDeletePopUp(item.id)}/>
+                            <IconButton onClick={() => handleDeletePopUp(item.id)}>
+                                <Delete/>
                             </IconButton>
                         </tr>
                     ];

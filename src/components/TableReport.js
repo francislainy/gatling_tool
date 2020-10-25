@@ -142,20 +142,20 @@ export default function TableReport({match, onRetrieveInfo}) {
                     <td scope="col">{stats.percentiles4.ok}</td>
                     <td scope="col">{stats.numberOfRequests.total}</td>
                     <td scope="col">{stats.numberOfRequests.ko}</td>
-                    <IconButton>
-                        <Delete onClick={() => {
-                            handleDeletePopUp(stats.id)
-                        }}/>
+                    <IconButton onClick={() => {
+                        handleDeletePopUp(stats.id)
+                    }}>
+                        <Delete/>
                     </IconButton>
-                    <IconButton>
-                        <Edit onClick={() => {
-                            handleShowUpdateStats()
-                        }}/>
+                    <IconButton onClick={() => {
+                        handleShowUpdateStats()
+                    }}>
+                        <Edit/>
                     </IconButton>
-                    <IconButton>
-                        <Save onClick={() => {
-                            updateStats(stats.id)
-                        }}/>
+                    <IconButton onClick={() => {
+                        updateStats(stats.id)
+                    }}>
+                        <Save/>
                     </IconButton>
                 </tr>
                 }
