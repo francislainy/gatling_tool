@@ -54,7 +54,7 @@ export function CustomDropdown(props) {
         const callAPI = useCallback(() => {
             setRes(prevState => ({...prevState, isLoading: true}));
 
-            if (payload.categoryTitle !== '') {
+            if (payload.title !== '') {
                 new api().createCategory(payload).then(res => {
                     setRes({data: res.data, isLoading: false});
                 }).catch((error) => {
@@ -87,7 +87,7 @@ export function CustomDropdown(props) {
         console.log(e.currentTarget.value)
     }
 
-    const [, addCategory] = useFetchData({payload: {"categoryTitle": `${input}`}});
+    const [, addCategory] = useFetchData({payload: {"title": `${input}`}});
 
     return (
         <div>

@@ -3,7 +3,7 @@ import {Card} from "react-bootstrap";
 import {Settings} from "@material-ui/icons";
 import '../css/CustomStyle.css'
 import MyIconButton from "./MyIconButton";
-import TableReport from "./TableReport";
+import TableStats from "./TableStats";
 import api from "../api/api";
 import ReportPopup from "./ReportPopup";
 
@@ -143,7 +143,7 @@ const Report = ({match}) => {
                 }
             </Card>
         </div>
-        <TableReport match={match} onRetrieveInfo={onRetrieveInfo}/>
+        <TableStats match={match} onRetrieveInfo={onRetrieveInfo}/>
     </div>;
 };
 

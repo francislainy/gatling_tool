@@ -53,8 +53,8 @@ const MainTable = ({dataTableObj}) => {
 
     return (
         <div>
-            <table className="table">
-                <thead className="thead-light">
+            <table className="table table-bordered margin10 tableReport">
+                <thead className="thead-dark">
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Run Date</th>
@@ -71,12 +71,13 @@ const MainTable = ({dataTableObj}) => {
                             <td>{getDateFormatted(item.runDate)}</td>
                             <td>{getDateFormatted(item.createdDate)}</td>
                             <td>{item.category.title}</td>
-                            <IconButton onClick={() => handleClick(item.id)}>
+                            <td><IconButton onClick={() => handleClick(item.id)}>
                                 <Visibility/>
                             </IconButton>
-                            <IconButton onClick={() => handleDeletePopUp(item.id)}>
-                                <Delete/>
-                            </IconButton>
+                                <IconButton onClick={() => handleDeletePopUp(item.id)}>
+                                    <Delete/>
+                                </IconButton>
+                            </td>
                         </tr>
                     ];
                 })}

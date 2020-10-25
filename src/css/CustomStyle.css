@@ -9,3 +9,19 @@
 table, td, th, tr {
     border-collapse: collapse;
 }
+
+.margin10 {
+    margin: 10px;
+}
+
+.tableReport td
+{
+    text-align: left;
+    vertical-align: middle;
+}
+
+.tableStats td
+{
+    text-align: center;
+    vertical-align: middle;
+}

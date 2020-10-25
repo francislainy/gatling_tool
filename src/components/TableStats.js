@@ -4,7 +4,7 @@ import {IconButton} from "@material-ui/core";
 import {Edit, Delete, Save, Cancel} from "@material-ui/icons";
 import ConfirmationModal from "./ConfirmationModal";
 
-export default function TableReport({match, onRetrieveInfo}) {
+export default function TableStats({match, onRetrieveInfo}) {
 
     const [stats, setStats] = useState({
         "stats": [
@@ -189,7 +189,7 @@ export default function TableReport({match, onRetrieveInfo}) {
 
     return (
         <div>
-            <table className="table-bordered table">
+            <table className="table-bordered table tableStats">
                 <thead className="thead-dark">
                 {getHeader()}
                 </thead>
