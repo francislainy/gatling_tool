@@ -1,7 +1,7 @@
 class Category {
-    constructor(id, name) {
+    constructor(id, title) {
         this.id = id
-        this.name = name
+        this.title = title
     }
 }
 module.exports = {

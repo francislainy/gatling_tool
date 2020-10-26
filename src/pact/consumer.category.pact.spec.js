@@ -7,7 +7,7 @@ const expect = chai.expect
 
 const mockProvider = new Pact({
     consumer: 'gatling-consumer',
-    provider: 'gatling-backend',
+    provider: 'gatling-provider',
     cors: true
 });
 
@@ -17,7 +17,7 @@ describe('Category API test', () => {
     afterEach(() => mockProvider.finalize());
 
     it('get category by ID', async () => {
-        const expectedCategory = { id: 'cdb02322-a8a6-4acf-9644-ddf8b24af9e6', name: 'My another category' }
+        const expectedCategory = { id: 'cdb02322-a8a6-4acf-9644-ddf8b24af9e6', title: 'My another category' }
 
         await mockProvider.addInteraction({
             state: 'a category with ID cdb02322-a8a6-4acf-9644-ddf8b24af9e6 exists',
@@ -29,7 +29,7 @@ describe('Category API test', () => {
             willRespondWith: {
                 status: 200,
                 headers: {
-                    'Content-Type': regex({generate: 'application/json; charset=utf-8', matcher: '^application\/json'}),
+                    'Content-Type': regex({generate: 'application/json', matcher: '^application\/json.*'}),
                 },
                 body: like(expectedCategory),
             },
