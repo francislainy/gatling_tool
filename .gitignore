@@ -24,3 +24,5 @@ yarn-error.log*
 /package-lock.json
 /pacts/
 /src/pact/draft/
+/src/pact/draft/provider.pact.spec.js
+/src/pact/draft/consumer.category.all.pact.spec.js
