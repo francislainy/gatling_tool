@@ -26,3 +26,4 @@ yarn-error.log*
 /src/pact/draft/
 /src/pact/draft/provider.pact.spec.js
 /src/pact/draft/consumer.category.all.pact.spec.js
+/logs/mockserver-integration.log
