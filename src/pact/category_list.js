@@ -72,7 +72,7 @@ describe("Category API test", () => {
                 port: port,
             }
             getMeCategories(urlAndPort).then(response => {
-                expect(response.data).to.eql(EXPECTED_BODY)
+                expect(response.status).to.eql(200)
                 done()
             }, done)
         })
