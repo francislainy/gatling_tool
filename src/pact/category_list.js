@@ -4,7 +4,7 @@ const expect = require("chai").expect
 const path = require("path")
 const {Pact} = require("@pact-foundation/pact")
 const {getMeCategories} = require("../api")
-const {eachLike, somethingLike} = require('@pact-foundation/pact/dsl/matchers');
+const {eachLike, uuid, string} = require('@pact-foundation/pact/dsl/matchers');
 
 
 describe("Category API test", () => {
@@ -25,8 +25,8 @@ describe("Category API test", () => {
         {
             "categories": eachLike(
                 {
-                    "id": "29bccad9-c27f-46d3-83cf-51c8bfe405bb",
-                    "title": "My 29 category"
+                    "id": uuid("29bccad9-c27f-46d3-83cf-51c8bfe405bb"),
+                    "title":string( "My 29 category"),
                 }
             )
         }

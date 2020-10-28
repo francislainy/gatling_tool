@@ -1,8 +1,7 @@
 "use strict"
 
 /**
- *  export PACT_BROKER_BASE_URL=https://fcampos.pactflow.io
- *  export PACT_BROKER_TOKEN=jBQLotqEIjcrzr8ybO_tBw
+ *  export PACT_BROKER_BASE_URL=https://fcampos.pactflow.io export PACT_BROKER_TOKEN=jBQLotqEIjcrzr8ybO_tBw
  *  npm run publish
  */
 
@@ -10,7 +9,7 @@ const expect = require("chai").expect
 const path = require("path")
 const {Pact} = require("@pact-foundation/pact")
 const {getMeCategory} = require("../api")
-const {somethingLike} = require('@pact-foundation/pact/dsl/matchers');
+const {uuid, string} = require('@pact-foundation/pact/dsl/matchers');
 
 describe("Category API test", () => {
     let url = "http://localhost"
@@ -27,8 +26,8 @@ describe("Category API test", () => {
     })
 
     const EXPECTED_BODY = {
-        id: somethingLike("58330784-983c-4ae9-a5a1-d8f8d2b70a59"),
-        title: somethingLike("My category")
+        id: uuid("58330784-983c-4ae9-a5a1-d8f8d2b70a59"),
+        title: string("My category")
     }
 
     // Setup the provider
