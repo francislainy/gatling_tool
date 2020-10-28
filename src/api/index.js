@@ -14,6 +14,18 @@ exports.getMeCategory = endpoint => {
     })
 }
 
+exports.getMeCategoryIncludeReports = endpoint => {
+    const url = endpoint.url
+    const port = endpoint.port
+
+    return axios.request({
+        method: "GET",
+        baseURL: `${url}:${port}`,
+        url: "/category/cdb02322-a8a6-4acf-9644-ddf8b24af9e6/include-reports",
+        headers: { Accept: "application/json" },
+    })
+}
+
 exports.getMeCategories = endpoint => {
     const url = endpoint.url
     const port = endpoint.port
