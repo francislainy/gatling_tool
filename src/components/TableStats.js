@@ -3,6 +3,10 @@ import api from "../api/api";
 import {IconButton} from "@material-ui/core";
 import {Edit, Delete, Save, Cancel} from "@material-ui/icons";
 import ConfirmationModal from "./ConfirmationModal";
+import {deleteStats, retrieveStatsForReport, updateStatsEndpoint} from "../api";
+
+const url = "http://localhost"
+const port = 8081
 
 export default function TableStats({match, onRetrieveInfo}) {
 
@@ -50,7 +54,13 @@ export default function TableStats({match, onRetrieveInfo}) {
 
     useEffect(() => {
 
-        new api().retrieveStatsForReport(match.params.id)
+        const urlAndPort = {
+            url: url,
+            port: port,
+            id: match.params.id
+        }
+
+        retrieveStatsForReport(urlAndPort)
 
             .then(({data}) => {
 
@@ -71,7 +81,14 @@ export default function TableStats({match, onRetrieveInfo}) {
 
         setShowInputEndpoint(true)
 
-        new api().updateStatsEndpoint(idSelected, endpoint)
+        const urlAndPort = {
+            url: url,
+            port: port,
+            id: idSelected,
+            payload: endpoint
+        }
+
+        updateStatsEndpoint(urlAndPort, endpoint)
 
             .then((response) => {
                     setEndpoint(endpoint);
@@ -88,7 +105,14 @@ export default function TableStats({match, onRetrieveInfo}) {
     }
 
     const onConfirmDelete = () => {
-        new api().deleteStats(idSelected).then(() => {
+
+        const urlAndPort = {
+            url: url,
+            port: port,
+            id: idSelected
+        }
+
+        deleteStats(urlAndPort).then(() => {
 
             const del = stats.stats.filter(stats => idSelected !== stats.id)
 

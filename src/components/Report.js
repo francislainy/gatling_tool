@@ -7,8 +7,11 @@ import TableStats from "./TableStats";
 import api from "../api/api";
 import ReportPopup from "./ReportPopup";
 import {CSVLink} from "react-csv";
+import {retrieveReportItem, updateReport} from "../api";
 
 const moment = require("moment");
+const url = "http://localhost"
+const port = 8081
 
 const Report = ({match}) => {
 
@@ -46,7 +49,14 @@ const Report = ({match}) => {
             }, isFetching: false
         }
 
-        new api().updateReport(match.params.id, updatedValues)
+        const urlAndPort = {
+            url: url,
+            port: port,
+            id: match.params.id,
+            payload: updatedValues
+        }
+
+        updateReport(urlAndPort)
 
             .then((response) => {
 
@@ -72,7 +82,13 @@ const Report = ({match}) => {
 
     useEffect(() => {
 
-        new api().retrieveReportItem(match.params.id)
+        const urlAndPort = {
+            url: url,
+            port: port,
+            id: match.params.id
+        }
+
+        retrieveReportItem(urlAndPort)
 
             .then(({data}) => {
 

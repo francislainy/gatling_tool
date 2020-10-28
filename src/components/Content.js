@@ -3,8 +3,11 @@ import Button from "react-bootstrap/Button";
 import Popup from "./Popup";
 import MainTable from "./MainTable";
 import api from "../api/api";
+import {createReport, retrieveTable} from "../api";
 
 const moment = require("moment");
+const url = "http://localhost"
+const port = 8081
 
 class Navbar extends React.Component {
     render() {
@@ -86,7 +89,13 @@ function Content() {
             }
         }
 
-        new api().createReport(values)
+        const urlAndPort = {
+            url: url,
+            port: port,
+            payload: values
+        }
+
+        createReport(urlAndPort)
 
             .then((response) => {
 
@@ -111,7 +120,12 @@ function Content() {
 
     useEffect(() => {
 
-        new api().retrieveTable()
+        const urlAndPort = {
+            url: url,
+            port: port,
+        }
+
+        retrieveTable(urlAndPort)
 
             .then(({data}) => {
                     setDataTableObj({...data, isFetching: true})

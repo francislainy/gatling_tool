@@ -1,6 +1,10 @@
 import React, {useCallback, useEffect, useState} from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import api from "../api/api";
+import {createCategory, retrieveCategories} from "../api";
+
+const url = "http://localhost"
+const port = 8081
 
 // The forwardRef is important!!
 // Dropdown needs access to the DOM node in order to position the Menu
@@ -55,7 +59,14 @@ export function CustomDropdown(props) {
             setRes(prevState => ({...prevState, isLoading: true}));
 
             if (payload.title !== '') {
-                new api().createCategory(payload).then(res => {
+
+                const urlAndPort = {
+                    url: url,
+                    port: port,
+                    payload: payload
+                }
+
+                createCategory(urlAndPort).then(res => {
                     setRes({data: res.data, isLoading: false});
                 }).catch((error) => {
                     setRes({data: null, isLoading: false});
@@ -70,7 +81,12 @@ export function CustomDropdown(props) {
             try {
                 setData({categories: data.categories, isFetching: true});
 
-                new api().retrieveCategories()
+                const urlAndPort = {
+                    url: url,
+                    port: port,
+                }
+
+                retrieveCategories(urlAndPort)
                     .then(response => setData({categories: response.data.categories, isFetching: false}))
 
             } catch (e) {
@@ -100,7 +116,8 @@ export function CustomDropdown(props) {
 
                 <Dropdown.Menu as={CustomMenu}>
                     {data.categories.map((item, i) => {
-                        return <Dropdown.Item onClick={() => props.onHandleChangeCategory(item.title, item.id)}>{item.title}</Dropdown.Item>
+                        return <Dropdown.Item
+                            onClick={() => props.onHandleChangeCategory(item.title, item.id)}>{item.title}</Dropdown.Item>
                     })}
                     <div style={{margin: "10px"}}>
                         <input type="text" onChange={handleChange}/>

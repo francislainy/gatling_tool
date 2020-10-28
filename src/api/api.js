@@ -1,6 +1,8 @@
 const axios = require('axios')
 const Category = require("../model/Category");
 
+const url = "http://localhost:8081"
+
 class Api {
 
     constructor(url) {
