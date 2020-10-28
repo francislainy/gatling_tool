@@ -4,6 +4,8 @@ const expect = require("chai").expect
 const path = require("path")
 const {Pact} = require("@pact-foundation/pact")
 const {getMeCategories} = require("../api")
+const {eachLike, somethingLike} = require('@pact-foundation/pact/dsl/matchers');
+
 
 describe("Category API test", () => {
     let url = "http://localhost"
@@ -19,22 +21,16 @@ describe("Category API test", () => {
         pactfileWriteMode: "merge",
     })
 
-    const EXPECTED_BODY = [
-
+    const EXPECTED_BODY =
         {
-            "categories": [
+            "categories": eachLike(
                 {
-                    id: "58330784-983c-4ae9-a5a1-d8f8d2b70a59",
-                    title: "My category"
-                },
-                {
-                    id: "58330784-983c-4ae9-a5a1-d8f8d2b70a59",
-                    title: "My category"
-                },
-            ],
-        },
+                    "id": "29bccad9-c27f-46d3-83cf-51c8bfe405bb",
+                    "title": "My 29 category"
+                }
+            )
+        }
 
-    ]
 
     // Setup the provider
     before(() => provider.setup())
