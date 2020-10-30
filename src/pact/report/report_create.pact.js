@@ -19,11 +19,11 @@ describe("Report API test", () => {
             }
         }
 
-    const payload = {
-        "title": "My title",
-        "runDate": 1591609820902,
-        "createdDate": 1591609820902,
-        "category": {
+    const REQUEST_BODY = {
+        title: "My title",
+        runDate: 1591609820902,
+        createdDate: 1591609820902,
+        category: {
             "id": "cdb02322-a8a6-4acf-9644-ddf8b24af9e6"
         }
     }
@@ -39,7 +39,7 @@ describe("Report API test", () => {
                     headers: {
                         Accept: "application/json",
                     },
-                    body: payload,
+                    body: REQUEST_BODY,
                 },
                 willRespondWith: {
                     status: 201,
@@ -59,7 +59,7 @@ describe("Report API test", () => {
             const axiosParams = {
                 url: url,
                 port: port,
-                payload: payload
+                payload: REQUEST_BODY
             }
 
             createReport(axiosParams).then(response => {

@@ -13,9 +13,9 @@ describe("Category API test", () => {
             title: string("My 29 category"),
         }
 
-    const payload = {
-        "id": "29bccad9-c27f-46d3-83cf-51c8bfe405bb",
-        "title": "My 29 category",
+    const REQUEST_BODY = {
+        id: "29bccad9-c27f-46d3-83cf-51c8bfe405bb",
+        title: "My 29 category",
     }
 
     describe("post /category", () => {
@@ -29,7 +29,7 @@ describe("Category API test", () => {
                     headers: {
                         Accept: "application/json",
                     },
-                    body: payload,
+                    body: REQUEST_BODY,
                 },
                 willRespondWith: {
                     status: 201,
@@ -49,7 +49,7 @@ describe("Category API test", () => {
             const axiosParams = {
                 url: url,
                 port: port,
-                payload: payload
+                payload: REQUEST_BODY
             }
 
             createCategory(axiosParams).then(response => {

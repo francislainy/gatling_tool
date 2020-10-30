@@ -18,12 +18,12 @@ describe("Report API test", () => {
         }
     }
 
-    const payload = {
-        "id": "87f2ebeb-880e-4541-bcf1-d317067b9e6b",
-        "title": "my title",
-        "runDate": 1591609820902,
-        "createdDate": 1604024543390,
-        "category": {"id": "9a820664-e2c4-4048-9060-c0c9ac2198ba"}
+    const REQUEST_BODY = {
+        id: "87f2ebeb-880e-4541-bcf1-d317067b9e6b",
+        title: "my title",
+        runDate: 1591609820902,
+        createdDate: 1604024543390,
+        category: {"id": "9a820664-e2c4-4048-9060-c0c9ac2198ba"}
     }
 
     describe("put /report/87f2ebeb-880e-4541-bcf1-d317067b9e6b", () => {
@@ -37,7 +37,7 @@ describe("Report API test", () => {
                     headers: {
                         Accept: "application/json",
                     },
-                    body: payload
+                    body: REQUEST_BODY
                 },
                 willRespondWith: {
                     status: 200,
@@ -56,8 +56,8 @@ describe("Report API test", () => {
             const axiosParams = {
                 url: url,
                 port: port,
-                id: payload.id,
-                payload: payload,
+                id: REQUEST_BODY.id,
+                payload: REQUEST_BODY,
             }
             updateReport(axiosParams).then(response => {
                 expect(response.status).to.eql(200)

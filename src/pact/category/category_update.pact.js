@@ -12,9 +12,9 @@ describe("Category API test", () => {
         title: string("My report"),
     }
 
-    const payload = {
-        "id": "58330784-983c-4ae9-a5a1-d8f8d2b70a59",
-        "title": "my title",
+    const REQUEST_BODY = {
+        id: "58330784-983c-4ae9-a5a1-d8f8d2b70a59",
+        title: "my title",
     }
 
     describe("put /category/58330784-983c-4ae9-a5a1-d8f8d2b70a59", () => {
@@ -28,7 +28,7 @@ describe("Category API test", () => {
                     headers: {
                         Accept: "application/json",
                     },
-                    body: payload
+                    body: REQUEST_BODY
                 },
                 willRespondWith: {
                     status: 200,
@@ -47,8 +47,8 @@ describe("Category API test", () => {
             const axiosParams = {
                 url: url,
                 port: port,
-                id: payload.id,
-                payload: payload,
+                id: REQUEST_BODY.id,
+                payload: REQUEST_BODY,
             }
             updateCategory(axiosParams).then(response => {
                 expect(response.status).to.eql(200)
