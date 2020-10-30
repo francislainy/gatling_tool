@@ -105,15 +105,26 @@ const Report = ({match}) => {
     }
 
     function getGlobalStats(data) {
-        return <div>
-            {/*last item of the list is the total global amount*/}
-            {data.stats && undefined &&
-            <div>
-                <div> Total Requests: {data.stats[data.stats.length - 1].numberOfRequests.total}</div>
-                <div>Total Failed Requests: {data.stats[data.stats.length - 1].numberOfRequests.ko}</div>
-            </div>
+
+        console.log(data)
+
+        let index
+        data.stats.forEach((stats, i) => {
+            if (stats.name === 'Global Information') {
+                index = i
             }
-        </div>;
+        })
+
+        return (
+            <div>
+                {data.stats !== undefined && index !== undefined &&
+                <div>
+                    <div> Total Requests: {data.stats[index].numberOfRequests.total}</div>
+                    <div>Total Failed Requests: {data.stats[index].numberOfRequests.ko}</div>
+                </div>
+                }
+            </div>
+        )
     }
 
     const onRetrieveInfo = (data) => {
