@@ -19,7 +19,7 @@ describe("Category API test", () => {
             reports: eachLike({
                 id: uuid("87f2ebeb-880e-4541-bcf1-d317067b9e6b"),
                 title: string("My report"),
-                runDate: integer(1591609820902), //todo: timestamp
+                runDate: integer(1591609820902), //todo: timestamp - 28/10/2020
                 createdDate: integer(1591609820902)
             })
         }
