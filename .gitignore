@@ -24,6 +24,4 @@ yarn-error.log*
 /package-lock.json
 /pacts/
 /src/draft/
-/src/draft/provider.pact.spec.js
-/src/draft/consumer.category.all.pact.spec.js
 /logs/mockserver-integration.log
