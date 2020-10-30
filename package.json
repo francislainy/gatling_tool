@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@pact-foundation/pact-node": "^10.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -28,9 +29,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "./node_modules/.bin/mocha 'src/pact/**/*.pact.js'",
     "eject": "react-scripts eject",
-    "test:consumer": "mocha --exit --timeout 30000 src/pact/draft/consumer.pact.spec.js",
+    "test:consumer": "mocha --exit --timeout 30000 src/draft/consumer.pact.spec.js",
     "test:provider": "mocha --exit --timeout 30000 provider.pact.spec.js",
     "publish": "npx pact-broker publish ./pacts --consumer-app-version 1.0.0-someconsumersha --tag master",
     "can-deploy:consumer": "npx pact-broker can-i-deploy --pacticipant gatling-consumer --version 1.0.0-someconsumersha --to prod",

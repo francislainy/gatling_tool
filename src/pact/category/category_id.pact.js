@@ -6,38 +6,17 @@
  */
 
 const expect = require("chai").expect
-const path = require("path")
 const {retrieveCategory} = require("../../api");
-const {Pact} = require("@pact-foundation/pact")
+const {provider, url, port} = require("../helper");
+
 const {uuid, string} = require('@pact-foundation/pact/dsl/matchers');
 
 describe("Category API test", () => {
-    let url = "http://localhost"
-    const port = 8992
-
-    const provider = new Pact({
-        port: port,
-        log: path.resolve(process.cwd(), "logs", "mockserver-integration.log"),
-        dir: path.resolve(process.cwd(), "pacts"),
-        spec: 2,
-        consumer: "FRONTEND",
-        provider: "BACKEND",
-        pactfileWriteMode: "merge",
-    })
 
     const EXPECTED_BODY = {
         id: uuid("58330784-983c-4ae9-a5a1-d8f8d2b70a59"),
         title: string("My category")
     }
-
-    // Setup the provider
-    before(() => provider.setup())
-
-    // Write Pact when all tests done
-    after(() => provider.finalize())
-
-    // verify with Pact, and reset expectations
-    afterEach(() => provider.verify())
 
     describe("get /category/58330784-983c-4ae9-a5a1-d8f8d2b70a59", () => {
         before(done => {
@@ -65,13 +44,13 @@ describe("Category API test", () => {
         })
 
         it("returns the correct response", done => {
-            const urlAndPort = {
+            const axiosParams = {
                 url: url,
                 port: port,
                 id: "58330784-983c-4ae9-a5a1-d8f8d2b70a59",
             }
 
-            retrieveCategory(urlAndPort).then(response => {
+            retrieveCategory(axiosParams).then(response => {
                 try {
                     expect(response.status).to.eql(200)
                 } catch (e) {

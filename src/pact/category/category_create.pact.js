@@ -1,40 +1,17 @@
 "use strict"
 
 const expect = require("chai").expect
-const path = require("path")
+const {provider, url, port} = require("../helper");
 const {createCategory} = require("../../api");
-const {Pact} = require("@pact-foundation/pact")
 const {uuid, string} = require('@pact-foundation/pact/dsl/matchers');
 
 describe("Category API test", () => {
-    let url = "http://localhost"
-    const port = 8992
-
-    const provider = new Pact({
-        port: port,
-        log: path.resolve(process.cwd(), "logs", "mockserver-integration.log"),
-        dir: path.resolve(process.cwd(), "pacts"),
-        spec: 2,
-        consumer: "FRONTEND",
-        provider: "BACKEND",
-        pactfileWriteMode: "merge",
-    })
 
     const EXPECTED_BODY =
         {
             id: uuid("29bccad9-c27f-46d3-83cf-51c8bfe405bb"),
             title: string("My 29 category"),
         }
-
-
-    // Setup the provider
-    before(() => provider.setup())
-
-    // Write Pact when all tests done
-    after(() => provider.finalize())
-
-    // verify with Pact, and reset expectations
-    afterEach(() => provider.verify())
 
     const payload = {
         "id": "29bccad9-c27f-46d3-83cf-51c8bfe405bb",
@@ -67,16 +44,15 @@ describe("Category API test", () => {
             })
         })
 
-
         it("returns the correct response", done => {
 
-            const urlAndPort = {
+            const axiosParams = {
                 url: url,
                 port: port,
                 payload: payload
             }
 
-            createCategory(urlAndPort).then(response => {
+            createCategory(axiosParams).then(response => {
                 expect(response.status).to.eql(201)
                 done()
             }, done)
