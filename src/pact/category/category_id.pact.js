@@ -9,7 +9,7 @@ const expect = require("chai").expect
 const {retrieveCategory} = require("../../api");
 const {provider, url, port} = require("../helper");
 
-const {uuid, string} = require('@pact-foundation/pact/dsl/matchers');
+const {uuid, string, regex} = require('@pact-foundation/pact/dsl/matchers');
 
 describe("Category API test", () => {
 
@@ -33,7 +33,7 @@ describe("Category API test", () => {
                 willRespondWith: {
                     status: 200,
                     headers: {
-                        "Content-Type": "application/json",
+                        'Content-Type': regex({generate: 'application/json', matcher: '^application\/json.*'}),
                     },
                     body: EXPECTED_BODY,
                 },
