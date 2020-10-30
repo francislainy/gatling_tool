@@ -1,14 +1,9 @@
 "use strict"
 
-/**
- *  export PACT_BROKER_BASE_URL=https://fcampos.pactflow.io export PACT_BROKER_TOKEN=jBQLotqEIjcrzr8ybO_tBw
- *  npm run publish
- */
-
 const expect = require("chai").expect
 const path = require("path")
+const {createCategory} = require("../../api");
 const {Pact} = require("@pact-foundation/pact")
-const {getMeCategory} = require("../api")
 const {uuid, string} = require('@pact-foundation/pact/dsl/matchers');
 
 describe("Category API test", () => {
@@ -25,10 +20,12 @@ describe("Category API test", () => {
         pactfileWriteMode: "merge",
     })
 
-    const EXPECTED_BODY = {
-        id: uuid("58330784-983c-4ae9-a5a1-d8f8d2b70a59"),
-        title: string("My category")
-    }
+    const EXPECTED_BODY =
+        {
+            id: uuid("29bccad9-c27f-46d3-83cf-51c8bfe405bb"),
+            title: string("My 29 category"),
+        }
+
 
     // Setup the provider
     before(() => provider.setup())
@@ -39,20 +36,26 @@ describe("Category API test", () => {
     // verify with Pact, and reset expectations
     afterEach(() => provider.verify())
 
-    describe("get /category/58330784-983c-4ae9-a5a1-d8f8d2b70a59", () => {
+    const payload = {
+        "id": "29bccad9-c27f-46d3-83cf-51c8bfe405bb",
+        "title": "My 29 category",
+    }
+
+    describe("post /category", () => {
         before(done => {
             const interaction = {
-                state: "a request for a single category",
-                uponReceiving: "a request for a single category",
+                state: "a request to create a category",
+                uponReceiving: "a request to create a category",
                 withRequest: {
-                    method: "GET",
-                    path: "/category/cdb02322-a8a6-4acf-9644-ddf8b24af9e6",
+                    method: "POST",
+                    path: "/api/gatling-tool/category",
                     headers: {
                         Accept: "application/json",
                     },
+                    body: payload,
                 },
                 willRespondWith: {
-                    status: 200,
+                    status: 201,
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -64,17 +67,17 @@ describe("Category API test", () => {
             })
         })
 
+
         it("returns the correct response", done => {
+
             const urlAndPort = {
                 url: url,
                 port: port,
+                payload: payload
             }
 
-            getMeCategory(urlAndPort).then(response => {
-                try {
-                    expect(response.status).to.eql(200)
-                } catch (e) {
-                }
+            createCategory(urlAndPort).then(response => {
+                expect(response.status).to.eql(201)
                 done()
             }, done)
         })

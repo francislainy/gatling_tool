@@ -106,8 +106,6 @@ const Report = ({match}) => {
 
     function getGlobalStats(data) {
 
-        console.log(data)
-
         let index
         data.stats.forEach((stats, i) => {
             if (stats.name === 'Global Information') {

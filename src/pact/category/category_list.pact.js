@@ -2,10 +2,9 @@
 
 const expect = require("chai").expect
 const path = require("path")
+const {retrieveCategories} = require("../../api");
 const {Pact} = require("@pact-foundation/pact")
-const {getMeCategories} = require("../api")
 const {eachLike, uuid, string} = require('@pact-foundation/pact/dsl/matchers');
-
 
 describe("Category API test", () => {
     let url = "http://localhost"
@@ -48,7 +47,7 @@ describe("Category API test", () => {
                 uponReceiving: "a request for all categories",
                 withRequest: {
                     method: "GET",
-                    path: "/category",
+                    path: "/api/gatling-tool/category",
                     headers: {
                         Accept: "application/json",
                     },
@@ -71,7 +70,7 @@ describe("Category API test", () => {
                 url: url,
                 port: port,
             }
-            getMeCategories(urlAndPort).then(response => {
+            retrieveCategories(urlAndPort).then(response => {
                 expect(response.status).to.eql(200)
                 done()
             }, done)

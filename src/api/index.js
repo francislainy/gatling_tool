@@ -21,7 +21,7 @@ exports.getMeCategoryIncludeReports = endpoint => {
     return axios.request({
         method: "GET",
         baseURL: `${url}:${port}`,
-        url: "/category/cdb02322-a8a6-4acf-9644-ddf8b24af9e6/include-reports",
+        url: "api/gatling-tool/category/58330784-983c-4ae9-a5a1-d8f8d2b70a59/include-reports",
         headers: {Accept: "application/json"},
     })
 }
@@ -168,6 +168,21 @@ exports.retrieveCategory = endpoint => {
     return axios.request({
         method: "GET",
         baseURL: `${url}:${port}`,
+        url: `api/gatling-tool/category/${id}`,
+        headers: {Accept: "application/json"},
+    })
+}
+
+exports.updateCategory = endpoint => {
+    const url = endpoint.url
+    const port = endpoint.port
+    const id = endpoint.id
+    const payload = endpoint.payload
+
+    return axios.request({
+        method: "PUT",
+        baseURL: `${url}:${port}`,
+        data: payload,
         url: `api/gatling-tool/category/${id}`,
         headers: {Accept: "application/json"},
     })
