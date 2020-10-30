@@ -107,8 +107,12 @@ const Report = ({match}) => {
     function getGlobalStats(data) {
         return <div>
             {/*last item of the list is the total global amount*/}
-            <div> Total Requests: {data.stats[data.stats.length - 1].numberOfRequests.total}</div>
-            <div>Total Failed Requests: {data.stats[data.stats.length - 1].numberOfRequests.ko}</div>
+            {data.stats && undefined &&
+            <div>
+                <div> Total Requests: {data.stats[data.stats.length - 1].numberOfRequests.total}</div>
+                <div>Total Failed Requests: {data.stats[data.stats.length - 1].numberOfRequests.ko}</div>
+            </div>
+            }
         </div>;
     }
 
