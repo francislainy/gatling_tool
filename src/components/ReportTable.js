@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Delete, Visibility} from "@material-ui/icons";
 import {IconButton} from "@material-ui/core";
-import {useHistory} from "react-router-dom";
+// import {useHistory} from "react-router-dom";
 import ConfirmationModal from './ConfirmationModal';
 import api from "../api/api";
 import {deleteReport} from "../api";
+const {useHistory} = require('react-router-dom')
 
 const moment = require("moment")
 const url = "http://localhost"
