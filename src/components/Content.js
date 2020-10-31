@@ -99,7 +99,7 @@ function Content() {
 
             .then((response) => {
 
-                    const reportId = response.data.valueOf()
+                    const reportId = response.data.id
 
                     new api().submitJsonStats(reportId, file).then((response) => {
                             console.log('report id ' + reportId + ' successfully created')
