@@ -10,7 +10,7 @@ const moment = require("moment")
 const url = "http://localhost"
 const port = 8081
 
-const MainTable = ({dataTableObj}) => {
+const ReportTable = ({dataTableObj}) => {
 
     const [reports, setReports] = useState(dataTableObj.reports)
     const [showConfirmationModal, setShowConfirmationModal] = useState(false)
@@ -107,4 +107,4 @@ const MainTable = ({dataTableObj}) => {
     )
 }
 
-export default MainTable
+export default ReportTable

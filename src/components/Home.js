@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Button from "react-bootstrap/Button";
 import Popup from "./Popup";
-import MainTable from "./MainTable";
+import ReportTable from "./ReportTable";
 import api from "../api/api";
 import {createReport, retrieveTable} from "../api";
 
@@ -42,7 +42,7 @@ class Sidebar extends React.Component {
     }
 }
 
-function Content() {
+function Home() {
     const [show, setShow] = useState(false);
     const [file, setFile] = useState()
 
@@ -154,7 +154,7 @@ function Content() {
                         />
                         {/*if at least one item we can try and populate the table..*/}
                         {dataTableObj.reports[0].id !== '' &&
-                        <MainTable dataTableObj={dataTableObj}/>
+                        <ReportTable dataTableObj={dataTableObj}/>
                         }
                     </div>
                 </div>
@@ -163,4 +163,4 @@ function Content() {
     );
 }
 
-export default Content
+export default Home

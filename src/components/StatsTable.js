@@ -8,7 +8,7 @@ import {deleteStats, retrieveStatsForReport, updateStatsEndpoint} from "../api";
 const url = "http://localhost"
 const port = 8081
 
-export default function TableStats({match, onRetrieveInfo}) {
+export default function StatsTable({match, onRetrieveInfo}) {
 
     const [stats, setStats] = useState({
         "stats": [

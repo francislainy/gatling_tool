@@ -105,7 +105,7 @@
 //                 willRespondWith: {
 //                     status: 200,
 //                     headers: {
-//                         'Content-Type': regex({generate: 'application/json', matcher: '^application\/json.*'}),
+//                         'Home-Type': regex({generate: 'application/json', matcher: '^application\/json.*'}),
 //                     },
 //                     body: EXPECTED_BODY,
 //                 },

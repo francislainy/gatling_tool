@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Card} from "react-bootstrap";
 import {Settings} from "@material-ui/icons";
 import '../css/CustomStyle.css'
-import TableStats from "./TableStats";
+import StatsTable from "./StatsTable";
 import ReportPopup from "./ReportPopup";
 import {CSVLink} from "react-csv";
 import {retrieveReportItem, updateReport} from "../api";
@@ -236,7 +236,7 @@ const Report = ({match}) => {
                 }
             </Card>
         </div>
-        <TableStats match={match} onRetrieveInfo={onRetrieveInfo}/>
+        <StatsTable match={match} onRetrieveInfo={onRetrieveInfo}/>
     </div>;
 };
 
