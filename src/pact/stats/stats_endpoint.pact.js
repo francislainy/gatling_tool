@@ -1,30 +1,35 @@
 "use strict"
 
+/**
+ export PACT_BROKER_BASE_URL=https://fcampos.pactflow.io export PACT_BROKER_TOKEN=jBQLotqEIjcrzr8ybO_tBw
+ npm run publish
+ */
+
 const expect = require("chai").expect
-const {updateCategory} = require("../../api");
-const {uuid, string, regex} = require('@pact-foundation/pact/dsl/matchers');
+const {updateStatsEndpoint} = require("../../api");
 const {provider, url, port} = require("../helper");
 
-describe("Category API test", () => {
+const {uuid, string, regex} = require('@pact-foundation/pact/dsl/matchers');
+
+describe("Stats API test", () => {
 
     const REQUEST_BODY = {
-        id: "58330784-983c-4ae9-a5a1-d8f8d2b70a59",
-        title: "my title",
+        endpoint: "/my-endpoint"
     }
 
     const EXPECTED_BODY = {
-        id: uuid("87f2ebeb-880e-4541-bcf1-d317067b9e6b"),
-        title: string("My report"),
+        id: uuid("0531c13b-a5ac-4314-bac6-fdfd89c9e0c2"),
+        endpoint: string("/my-updated-endpoint"),
     }
 
-    describe("put /category/58330784-983c-4ae9-a5a1-d8f8d2b70a59", () => {
+    describe("put /stats/0531c13b-a5ac-4314-bac6-fdfd89c9e0c2/endpoint", () => {
         before(done => {
             const interaction = {
-                state: "a request to update a category",
-                uponReceiving: "a request to update a category",
+                state: "a request to update a stats endpoint",
+                uponReceiving: "a request to update a stats endpoint",
                 withRequest: {
                     method: "PUT",
-                    path: "/api/gatling-tool/category/58330784-983c-4ae9-a5a1-d8f8d2b70a59",
+                    path: "/api/gatling-tool/stats/0531c13b-a5ac-4314-bac6-fdfd89c9e0c2/endpoint",
                     headers: {
                         Accept: "application/json",
                     },
@@ -47,11 +52,15 @@ describe("Category API test", () => {
             const axiosParams = {
                 url: url,
                 port: port,
-                id: REQUEST_BODY.id,
-                payload: REQUEST_BODY,
+                id: "0531c13b-a5ac-4314-bac6-fdfd89c9e0c2",
+                payload: REQUEST_BODY
             }
-            updateCategory(axiosParams).then(response => {
-                expect(response.status).to.eql(200)
+
+            updateStatsEndpoint(axiosParams).then(response => {
+                try {
+                    expect(response.status).to.eql(200)
+                } catch (e) {
+                }
                 done()
             }, done)
         })
