@@ -2,12 +2,11 @@ import React, {useEffect, useState} from "react";
 import {Card} from "react-bootstrap";
 import {Settings} from "@material-ui/icons";
 import '../css/CustomStyle.css'
-import MyIconButton from "./MyIconButton";
 import TableStats from "./TableStats";
-import api from "../api/api";
 import ReportPopup from "./ReportPopup";
 import {CSVLink} from "react-csv";
 import {retrieveReportItem, updateReport} from "../api";
+import IconButton from "@material-ui/core/IconButton";
 
 const moment = require("moment");
 const url = "http://localhost"
@@ -183,9 +182,9 @@ const Report = ({match}) => {
                 {report.id !== '' &&
                 <Card.Body>
                     <Card.Title>Report Details
-                        <MyIconButton className="IconButton">
-                            <Settings onClick={() => handleShow()}/>
-                        </MyIconButton>
+                        <IconButton className="IconButton" onClick={() => handleShow()}>
+                            <Settings/>
+                        </IconButton>
                         <ReportPopup
                             show={show}
                             onHide={handleHide}
