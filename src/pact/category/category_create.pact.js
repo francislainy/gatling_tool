@@ -7,15 +7,14 @@ const {uuid, string, regex} = require('@pact-foundation/pact/dsl/matchers');
 
 describe("Category API test", () => {
 
-    const EXPECTED_BODY =
-        {
-            id: uuid("29bccad9-c27f-46d3-83cf-51c8bfe405bb"),
-            title: string("My 29 category"),
-        }
-
     const REQUEST_BODY = {
         id: "29bccad9-c27f-46d3-83cf-51c8bfe405bb",
         title: "My 29 category",
+    }
+
+    const EXPECTED_BODY = {
+        id: uuid("29bccad9-c27f-46d3-83cf-51c8bfe405bb"),
+        title: string("My 29 category"),
     }
 
     describe("post /category", () => {

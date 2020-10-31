@@ -7,6 +7,14 @@ const {provider, url, port} = require("../helper");
 
 describe("Report API test", () => {
 
+    const REQUEST_BODY = {
+        id: "87f2ebeb-880e-4541-bcf1-d317067b9e6b",
+        title: "my title",
+        runDate: 1591609820902,
+        createdDate: 1604024543390,
+        category: {"id": "9a820664-e2c4-4048-9060-c0c9ac2198ba"}
+    }
+
     const EXPECTED_BODY = {
         id: uuid("87f2ebeb-880e-4541-bcf1-d317067b9e6b"),
         title: string("My report"),
@@ -16,14 +24,6 @@ describe("Report API test", () => {
             id: uuid("9a820664-e2c4-4048-9060-c0c9ac2198ba"),
             title: string("My title"),
         }
-    }
-
-    const REQUEST_BODY = {
-        id: "87f2ebeb-880e-4541-bcf1-d317067b9e6b",
-        title: "my title",
-        runDate: 1591609820902,
-        createdDate: 1604024543390,
-        category: {"id": "9a820664-e2c4-4048-9060-c0c9ac2198ba"}
     }
 
     describe("put /report/87f2ebeb-880e-4541-bcf1-d317067b9e6b", () => {
