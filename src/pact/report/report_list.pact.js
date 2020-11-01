@@ -1,7 +1,7 @@
 "use strict"
 
 const expect = require("chai").expect
-const {retrieveTable} = require("../../api");
+const {retrieveReports} = require("../../api");
 const {eachLike, uuid, string, integer, regex} = require('@pact-foundation/pact/dsl/matchers');
 const {provider, url, port} = require("../helper");
 
@@ -53,7 +53,7 @@ describe("Report API test", () => {
                 url: url,
                 port: port,
             }
-            retrieveTable(axiosParams).then(response => {
+            retrieveReports(axiosParams).then(response => {
                 expect(response.status).to.eql(200)
                 done()
             }, done)

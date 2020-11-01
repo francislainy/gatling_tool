@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Popup from "./Popup";
 import ReportTable from "./ReportTable";
 import api from "../api/api";
-import {createReport, retrieveTable} from "../api";
+import {createReport, retrieveReports} from "../api";
 
 const moment = require("moment");
 const url = "http://localhost"
@@ -125,7 +125,7 @@ function Home() {
             port: port,
         }
 
-        retrieveTable(urlAndPort)
+        retrieveReports(urlAndPort)
 
             .then(({data}) => {
                     setDataTableObj({...data, isFetching: true})

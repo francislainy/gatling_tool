@@ -26,7 +26,7 @@ exports.getMeCategoryIncludeReports = endpoint => {
     })
 }
 
-exports.retrieveTable = endpoint => {
+exports.retrieveReports = endpoint => {
     const url = endpoint.url
     const port = endpoint.port
 
