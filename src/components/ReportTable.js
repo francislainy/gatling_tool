@@ -7,7 +7,7 @@ import {columns} from '../dataSource';
 import * as PropTypes from "prop-types";
 
 const {useHistory} = require('react-router-dom')
-const {useTable, useSortBy, usePagination} = require('react-table')
+const {useTable, useSortBy, usePagination, useFilters, useGlobalFilter} = require('react-table')
 
 const moment = require("moment")
 const url = "http://localhost"
@@ -57,6 +57,30 @@ class TablePagination extends React.Component {
     }
 }
 
+const GlobalFilter = ({
+                          preGlobalFilteredRows,
+                          globalFilter,
+                          setGlobalFilter
+                      }) => {
+    const count = preGlobalFilteredRows && preGlobalFilteredRows.length;
+
+    return (
+        <span>
+      Search:{" "}
+            <input
+                value={globalFilter || ""}
+                onChange={e => {
+                    setGlobalFilter(e.target.value || undefined);
+                }}
+                placeholder={`${count} records...`}
+                style={{
+                    border: "0"
+                }}
+            />
+    </span>
+    );
+};
+
 TablePagination.propTypes = {
     onClick: PropTypes.func,
     canPreviousPage: PropTypes.any,
@@ -71,6 +95,7 @@ TablePagination.propTypes = {
     onChange1: PropTypes.func,
     callbackfn: PropTypes.func
 };
+
 const ReportTable = ({dataTableObj}) => {
 
     const [reports, setReports] = useState(dataTableObj.reports)
@@ -86,6 +111,45 @@ const ReportTable = ({dataTableObj}) => {
     }));
 
     const [data, setData] = useState(getInitialData)
+
+    const filterTypes = React.useMemo(
+        () => ({
+            text: (rows, id, filterValue) => {
+                return rows.filter(row => {
+                    const rowValue = row.values[id];
+                    return rowValue !== undefined
+                        ? String(rowValue)
+                            .toLowerCase()
+                            .startsWith(String(filterValue).toLowerCase())
+                        : true;
+                });
+            }
+        }),
+        []
+    );
+
+    const DefaultColumnFilter = ({
+                                     column: {filterValue, preFilteredRows, setFilter}
+                                 }) => {
+        const count = preFilteredRows.length;
+
+        return (
+            <input
+                value={filterValue || ""}
+                onChange={e => {
+                    setFilter(e.target.value || undefined);
+                }}
+                placeholder={`Search ${count} records...`}
+            />
+        );
+    };
+
+    const defaultColumn = React.useMemo(
+        () => ({
+            Filter: DefaultColumnFilter
+        }),
+        []
+    );
 
     const {
         getTableProps,
@@ -107,10 +171,15 @@ const ReportTable = ({dataTableObj}) => {
         {
             columns,
             data,
-            initialState: {pageIndex: 0}
+            initialState: {pageIndex: 0},
+            defaultColumn,
+            filterTypes
         },
+        useFilters,
+        useGlobalFilter,
         useSortBy,
-        usePagination);
+        usePagination,
+    );
 
     const onHide = () => setShowConfirmationModal(false);
 
@@ -167,6 +236,10 @@ const ReportTable = ({dataTableObj}) => {
                             <th {...column.getHeaderProps(column.getSortByToggleProps())}
                                 onClick={() => column.toggleSortBy(!column.isSortedDesc)}>
                                 {column.render('Header')}
+                                {
+                                    column.Header !== "Actions" &&
+                                    <div>{column.canFilter ? column.render("Filter") : null}</div>
+                                }
                                 <span>
                                     {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
                                 </span>
@@ -197,19 +270,22 @@ const ReportTable = ({dataTableObj}) => {
                 })}
                 </tbody>
             </table>
-            <TablePagination onClick={() => gotoPage(0)} canPreviousPage={canPreviousPage}
-                             onClick1={() => previousPage()} onClick2={() => nextPage()} canNextPage={canNextPage}
-                             onClick3={() => gotoPage(pageCount - 1)} pageIndex={pageIndex} pageOptions={pageOptions}
-                             onChange={e => {
-                                 const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                                 gotoPage(page);
-                             }} value={pageSize} onChange1={e => {
-                setPageSize(Number(e.target.value));
-            }} callbackfn={pageSize => (
-                <option key={pageSize} value={pageSize}>
-                    Show {pageSize}
-                </option>
-            )}/>
+            <div className="tablePagination">
+                <TablePagination onClick={() => gotoPage(0)} canPreviousPage={canPreviousPage}
+                                 onClick1={() => previousPage()} onClick2={() => nextPage()} canNextPage={canNextPage}
+                                 onClick3={() => gotoPage(pageCount - 1)} pageIndex={pageIndex}
+                                 pageOptions={pageOptions}
+                                 onChange={e => {
+                                     const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                                     gotoPage(page);
+                                 }} value={pageSize} onChange1={e => {
+                    setPageSize(Number(e.target.value));
+                }} callbackfn={pageSize => (
+                    <option key={pageSize} value={pageSize}>
+                        Show {pageSize}
+                    </option>
+                )}/>
+            </div>
             <ConfirmationModal
                 showHeader={false}
                 show={showConfirmationModal}

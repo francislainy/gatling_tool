@@ -42,3 +42,9 @@ button {
 select {
     background-color: #ffc107;
 }
+
+.tablePagination {
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+}
