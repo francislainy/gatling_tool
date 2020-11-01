@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {Delete, Visibility} from "@material-ui/icons";
 import {IconButton} from "@material-ui/core";
-// import {useHistory} from "react-router-dom";
 import ConfirmationModal from './ConfirmationModal';
-import api from "../api/api";
 import {deleteReport} from "../api";
+import {columns} from '../dataSource';
+
 const {useHistory} = require('react-router-dom')
+const {useTable, useSortBy} = require('react-table')
 
 const moment = require("moment")
 const url = "http://localhost"
@@ -16,6 +17,20 @@ const ReportTable = ({dataTableObj}) => {
     const [reports, setReports] = useState(dataTableObj.reports)
     const [showConfirmationModal, setShowConfirmationModal] = useState(false)
     const [idSelected, setIdSelected] = useState(0);
+
+    const getInitialData = () => reports.map(report => ({
+        name: report.title,
+        runDate: report.runDate,
+        createdDate: report.createdDate,
+        category: report.category.title,
+        actions: report.id,
+    }));
+
+    const [data, setData] = useState(getInitialData)
+
+    const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable(
+        {columns, data},
+        useSortBy);
 
     const onHide = () => setShowConfirmationModal(false);
 
@@ -55,7 +70,6 @@ const ReportTable = ({dataTableObj}) => {
         })
     }
 
-
     function getDateFormatted(dateTimeStamp) {
 
         const date = moment(dateTimeStamp).format('DD-MM-YYYY HH:mm:ss');
@@ -65,33 +79,41 @@ const ReportTable = ({dataTableObj}) => {
 
     return (
         <div>
-            <table className="table table-bordered margin10 tableReport">
+            <table {...getTableProps()} className="table table-bordered margin10 tableReport">
                 <thead className="thead-dark">
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Run Date</th>
-                    <th scope="col">Created</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Actions</th>
-                </tr>
+                {headerGroups.map(headerGroup => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map(column => (
+                            <th {...column.getHeaderProps(column.getSortByToggleProps())}
+                                onClick={() => column.toggleSortBy(!column.isSortedDesc)}>
+                                {column.render('Header')}
+                                <span>
+                                    {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
+                                </span>
+                            </th>
+                        ))}
+                    </tr>
+                ))}
                 </thead>
-                <tbody>
-                {reports.map((item) => {
-                    return [
-                        <tr key={item.id}>
-                            <td>{item.title}</td>
-                            <td>{getDateFormatted(item.runDate)}</td>
-                            <td>{getDateFormatted(item.createdDate)}</td>
-                            <td>{item.category.title}</td>
-                            <td><IconButton onClick={() => handleClick(item.id)}>
-                                <Visibility/>
-                            </IconButton>
-                                <IconButton onClick={() => handleDeletePopUp(item.id)}>
+                <tbody {...getTableBodyProps()}>
+                {rows.map((row, i) => {
+                    prepareRow(row)
+                    return (
+                        <tr {...row.getRowProps()}>
+                            <td>{row.original.name}</td>
+                            <td>{getDateFormatted(row.original.runDate)}</td>
+                            <td>{getDateFormatted(row.original.createdDate)}</td>
+                            <td>{row.original.category}</td>
+                            <td>
+                                <IconButton onClick={() => handleClick(row.original.actions)}>
+                                    <Visibility/>
+                                </IconButton>
+                                <IconButton onClick={() => handleDeletePopUp(row.original.actions)}>
                                     <Delete/>
                                 </IconButton>
                             </td>
                         </tr>
-                    ];
+                    )
                 })}
                 </tbody>
             </table>
