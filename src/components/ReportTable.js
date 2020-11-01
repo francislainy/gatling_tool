@@ -5,6 +5,7 @@ import ConfirmationModal from './ConfirmationModal';
 import {deleteReport} from "../api";
 import {columns} from '../dataSource';
 import {TablePagination} from "./TablePagination";
+import DefaultColumnFilter from "./FilterInputTable";
 
 const {useHistory} = require('react-router-dom')
 const {useTable, useSortBy, usePagination, useFilters, useGlobalFilter} = require('react-table')
@@ -44,22 +45,6 @@ const ReportTable = ({dataTableObj}) => {
         }),
         []
     );
-
-    const DefaultColumnFilter = ({
-                                     column: {filterValue, preFilteredRows, setFilter}
-                                 }) => {
-        const count = preFilteredRows.length;
-
-        return (
-            <input
-                value={filterValue || ""}
-                onChange={e => {
-                    setFilter(e.target.value || undefined);
-                }}
-                placeholder={`Search ${count} records...`}
-            />
-        );
-    };
 
     const defaultColumn = React.useMemo(
         () => ({
