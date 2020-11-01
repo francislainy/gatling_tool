@@ -41,6 +41,11 @@ export default function StatsTable({match, onRetrieveInfo}) {
                     "total": 0,
                     "ok": 0,
                     "ko": 0
+                },
+                "meanNumberOfRequestsPerSecond": {
+                    "total": 0,
+                    "ok": 0,
+                    "ko": 0
                 }
             }
         ], isFetching: false
@@ -135,7 +140,6 @@ export default function StatsTable({match, onRetrieveInfo}) {
                 {/*<th scope="col">Category</th>*/}
                 <th scope="col">Request</th>
                 <th scope="col">Endpoint</th>
-                <th scope="col">Path</th>
                 <th scope="col">RPS</th>
                 <th scope="col">50th Percentile</th>
                 <th scope="col">75th Percentile</th>
@@ -158,8 +162,7 @@ export default function StatsTable({match, onRetrieveInfo}) {
                     {/*<td scope="col">Set category name here</td>*/}
                     <td scope="col">{stats.name}</td>
                     <td scope="col">{handleEndpoint(stats.endpoint)}</td>
-                    <td scope="col">Set path</td>
-                    <td scope="col">Set RPS</td>
+                    <td scope="col">{stats.meanNumberOfRequestsPerSecond.total}</td>
                     <td scope="col">{stats.percentiles1.ok}</td>
                     <td scope="col">{stats.percentiles2.ok}</td>
                     <td scope="col">{stats.percentiles3.ok}</td>
