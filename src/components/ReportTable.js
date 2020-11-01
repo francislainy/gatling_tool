@@ -4,7 +4,7 @@ import {IconButton} from "@material-ui/core";
 import ConfirmationModal from './ConfirmationModal';
 import {deleteReport} from "../api";
 import {columns} from '../dataSource';
-import * as PropTypes from "prop-types";
+import {TablePagination} from "./TablePagination";
 
 const {useHistory} = require('react-router-dom')
 const {useTable, useSortBy, usePagination, useFilters, useGlobalFilter} = require('react-table')
@@ -12,89 +12,6 @@ const {useTable, useSortBy, usePagination, useFilters, useGlobalFilter} = requir
 const moment = require("moment")
 const url = "http://localhost"
 const port = 8081
-
-class TablePagination extends React.Component {
-    render() {
-        return <div>
-            <button className="paging" onClick={this.props.onClick} disabled={!this.props.canPreviousPage}>
-                {"<<"}
-            </button>
-            {" "}
-            <button onClick={this.props.onClick1} disabled={!this.props.canPreviousPage}>
-                {"<"}
-            </button>
-            {" "}
-            <button onClick={this.props.onClick2} disabled={!this.props.canNextPage}>
-                {">"}
-            </button>
-            {" "}
-            <button onClick={this.props.onClick3} disabled={!this.props.canNextPage}>
-                {">>"}
-            </button>
-            {" "}
-            <span>
-          Page{" "}
-                <strong>
-            {this.props.pageIndex + 1} of {this.props.pageOptions.length}
-          </strong>{" "}
-        </span>
-            <span>
-          | Go to page:{" "}
-                <input
-                    type="number"
-                    defaultValue={this.props.pageIndex + 1}
-                    onChange={this.props.onChange}
-                    style={{width: "100px"}}
-                />
-        </span>{" "}
-            <select
-                value={this.props.value}
-                onChange={this.props.onChange1}
-            >
-                {[5, 10, 20, 30, 40, 50].map(this.props.callbackfn)}
-            </select>
-        </div>;
-    }
-}
-
-const GlobalFilter = ({
-                          preGlobalFilteredRows,
-                          globalFilter,
-                          setGlobalFilter
-                      }) => {
-    const count = preGlobalFilteredRows && preGlobalFilteredRows.length;
-
-    return (
-        <span>
-      Search:{" "}
-            <input
-                value={globalFilter || ""}
-                onChange={e => {
-                    setGlobalFilter(e.target.value || undefined);
-                }}
-                placeholder={`${count} records...`}
-                style={{
-                    border: "0"
-                }}
-            />
-    </span>
-    );
-};
-
-TablePagination.propTypes = {
-    onClick: PropTypes.func,
-    canPreviousPage: PropTypes.any,
-    onClick1: PropTypes.func,
-    onClick2: PropTypes.func,
-    canNextPage: PropTypes.any,
-    onClick3: PropTypes.func,
-    pageIndex: PropTypes.any,
-    pageOptions: PropTypes.any,
-    onChange: PropTypes.func,
-    value: PropTypes.any,
-    onChange1: PropTypes.func,
-    callbackfn: PropTypes.func
-};
 
 const ReportTable = ({dataTableObj}) => {
 
@@ -191,7 +108,7 @@ const ReportTable = ({dataTableObj}) => {
 
     let history = useHistory();
 
-    function handleClick(id) {
+    const handleClick = (id) => {
         history.push(`/report/${id}`);
     }
 
@@ -219,7 +136,7 @@ const ReportTable = ({dataTableObj}) => {
         })
     }
 
-    function getDateFormatted(dateTimeStamp) {
+    const getDateFormatted = (dateTimeStamp) => {
 
         const date = moment(dateTimeStamp).format('DD-MM-YYYY HH:mm:ss');
 
@@ -236,13 +153,13 @@ const ReportTable = ({dataTableObj}) => {
                             <th {...column.getHeaderProps(column.getSortByToggleProps())}
                                 onClick={() => column.toggleSortBy(!column.isSortedDesc)}>
                                 {column.render('Header')}
+                                <span>
+                                    {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
+                                </span>
                                 {
                                     column.Header !== "Actions" &&
                                     <div>{column.canFilter ? column.render("Filter") : null}</div>
                                 }
-                                <span>
-                                    {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
-                                </span>
                             </th>
                         ))}
                     </tr>
