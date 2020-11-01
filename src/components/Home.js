@@ -140,7 +140,7 @@ function Home() {
         <div>
             <div>
                 <div className="d-flex" id="wrapper">
-                    <Sidebar/>
+                    {/*<Sidebar/>*/}
                     <div id="page-content-wrapper">
                         <Navbar/>
                         <div style={{padding: 10}}>

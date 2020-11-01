@@ -34,3 +34,11 @@ table, td, th, tr {
     padding: 8px 12px 8px 12px;
     border: 1px solid #ffc107;
 }
+
+button {
+    background-color: #ffc107;
+}
+
+select {
+    background-color: #ffc107;
+}

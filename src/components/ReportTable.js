@@ -4,14 +4,73 @@ import {IconButton} from "@material-ui/core";
 import ConfirmationModal from './ConfirmationModal';
 import {deleteReport} from "../api";
 import {columns} from '../dataSource';
+import * as PropTypes from "prop-types";
 
 const {useHistory} = require('react-router-dom')
-const {useTable, useSortBy} = require('react-table')
+const {useTable, useSortBy, usePagination} = require('react-table')
 
 const moment = require("moment")
 const url = "http://localhost"
 const port = 8081
 
+class TablePagination extends React.Component {
+    render() {
+        return <div>
+            <button className="paging" onClick={this.props.onClick} disabled={!this.props.canPreviousPage}>
+                {"<<"}
+            </button>
+            {" "}
+            <button onClick={this.props.onClick1} disabled={!this.props.canPreviousPage}>
+                {"<"}
+            </button>
+            {" "}
+            <button onClick={this.props.onClick2} disabled={!this.props.canNextPage}>
+                {">"}
+            </button>
+            {" "}
+            <button onClick={this.props.onClick3} disabled={!this.props.canNextPage}>
+                {">>"}
+            </button>
+            {" "}
+            <span>
+          Page{" "}
+                <strong>
+            {this.props.pageIndex + 1} of {this.props.pageOptions.length}
+          </strong>{" "}
+        </span>
+            <span>
+          | Go to page:{" "}
+                <input
+                    type="number"
+                    defaultValue={this.props.pageIndex + 1}
+                    onChange={this.props.onChange}
+                    style={{width: "100px"}}
+                />
+        </span>{" "}
+            <select
+                value={this.props.value}
+                onChange={this.props.onChange1}
+            >
+                {[5, 10, 20, 30, 40, 50].map(this.props.callbackfn)}
+            </select>
+        </div>;
+    }
+}
+
+TablePagination.propTypes = {
+    onClick: PropTypes.func,
+    canPreviousPage: PropTypes.any,
+    onClick1: PropTypes.func,
+    onClick2: PropTypes.func,
+    canNextPage: PropTypes.any,
+    onClick3: PropTypes.func,
+    pageIndex: PropTypes.any,
+    pageOptions: PropTypes.any,
+    onChange: PropTypes.func,
+    value: PropTypes.any,
+    onChange1: PropTypes.func,
+    callbackfn: PropTypes.func
+};
 const ReportTable = ({dataTableObj}) => {
 
     const [reports, setReports] = useState(dataTableObj.reports)
@@ -28,9 +87,30 @@ const ReportTable = ({dataTableObj}) => {
 
     const [data, setData] = useState(getInitialData)
 
-    const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable(
-        {columns, data},
-        useSortBy);
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+        page,
+        canPreviousPage,
+        canNextPage,
+        pageOptions,
+        pageCount,
+        gotoPage,
+        nextPage,
+        previousPage,
+        setPageSize,
+        state: {pageIndex, pageSize}
+    } = useTable(
+        {
+            columns,
+            data,
+            initialState: {pageIndex: 0}
+        },
+        useSortBy,
+        usePagination);
 
     const onHide = () => setShowConfirmationModal(false);
 
@@ -78,8 +158,8 @@ const ReportTable = ({dataTableObj}) => {
     }
 
     return (
-        <div>
-            <table {...getTableProps()} className="table table-bordered margin10 tableReport">
+        <div className="margin10">
+            <table {...getTableProps()} className="table table-bordered tableReport">
                 <thead className="thead-dark">
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
@@ -96,7 +176,7 @@ const ReportTable = ({dataTableObj}) => {
                 ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                {rows.map((row, i) => {
+                {page.map((row, i) => {
                     prepareRow(row)
                     return (
                         <tr {...row.getRowProps()}>
@@ -117,6 +197,19 @@ const ReportTable = ({dataTableObj}) => {
                 })}
                 </tbody>
             </table>
+            <TablePagination onClick={() => gotoPage(0)} canPreviousPage={canPreviousPage}
+                             onClick1={() => previousPage()} onClick2={() => nextPage()} canNextPage={canNextPage}
+                             onClick3={() => gotoPage(pageCount - 1)} pageIndex={pageIndex} pageOptions={pageOptions}
+                             onChange={e => {
+                                 const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                                 gotoPage(page);
+                             }} value={pageSize} onChange1={e => {
+                setPageSize(Number(e.target.value));
+            }} callbackfn={pageSize => (
+                <option key={pageSize} value={pageSize}>
+                    Show {pageSize}
+                </option>
+            )}/>
             <ConfirmationModal
                 showHeader={false}
                 show={showConfirmationModal}
