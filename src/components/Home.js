@@ -81,7 +81,7 @@ function Home() {
         const currentDateTimestamp = moment().valueOf()
 
         let values = {
-            "title": 'na',
+            "title": 'UNDEFINED',
             "runDate": file.lastModified,
             "createdDate": currentDateTimestamp,
             "category": {
