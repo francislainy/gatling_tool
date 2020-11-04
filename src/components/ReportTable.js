@@ -40,6 +40,9 @@ const MainTable = ({dataTableObj}) => {
 
     const onConfirmDelete = (id) => {
 
+        const url = "http://localhost"
+        const port = 8991
+
         const axiosParams = {
             url: url,
             port: port,
