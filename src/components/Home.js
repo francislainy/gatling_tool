@@ -132,10 +132,9 @@ function Home() {
 
                     new api().submitJsonStats(reportId, file).then((response) => {
                             console.log('report id ' + reportId + ' successfully created')
+                            onHide('import')
                         }
                     )
-
-                    onHide()
                 }
             ).catch(function (error) {
             if (error.response) {
