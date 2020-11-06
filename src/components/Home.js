@@ -3,7 +3,10 @@ import Button from "react-bootstrap/Button";
 import Popup from "./Popup";
 import ReportTable from "./ReportTable";
 import api from "../api/api";
-import {createReport, retrieveReports} from "../api";
+import {createReport, deleteReport, retrieveReports} from "../api";
+import ConfirmationModal from "./ConfirmationModal";
+
+const {useHistory} = require('react-router-dom')
 
 const moment = require("moment");
 const url = "http://localhost"
@@ -43,8 +46,22 @@ class Sidebar extends React.Component {
 }
 
 function Home() {
-    const [show, setShow] = useState(false);
+    let history = useHistory();
+
+    const [showImportModal, setShowImportModal] = useState(false);
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false)
     const [file, setFile] = useState()
+    const [idSelected, setIdSelected] = useState(0);
+    const handleClick = (id) => {
+        history.push(`/report/${id}`);
+    }
+
+    const handleDeletePopUp = (id) => {
+
+        setIdSelected(id)
+
+        setShowConfirmationModal(true)
+    }
 
     const [dataTableObj, setDataTableObj] = useState({
         "reports": [
@@ -62,10 +79,22 @@ function Home() {
         , isFetching: false
     });
 
-    const onHide = () => setShow(false);
-    const onShow = () => {
+    const [reports, setReports] = useState(dataTableObj.reports)
 
-        setShow(true);
+    const onHide = (section) => {
+
+        switch (section) {
+            case 'import':
+                setShowImportModal(false)
+                break
+            case 'delete':
+                setShowConfirmationModal(false)
+                break
+        }
+    }
+
+    const onShow = () => {
+        setShowImportModal(true);
     }
 
     const onFileAdded = (selectedFile) => {
@@ -118,6 +147,23 @@ function Home() {
 
     }
 
+    const onConfirmDelete = () => {
+
+        const urlAndPort = {
+            url: "http://localhost",
+            port: 8081,
+            id: idSelected
+        }
+
+        deleteReport(urlAndPort).then(() => {
+
+            const del = reports.filter(report => idSelected !== report.id)
+            setReports(del)
+
+            setShowConfirmationModal(false)
+        })
+    }
+
     useEffect(() => {
 
         const urlAndPort = {
@@ -134,7 +180,13 @@ function Home() {
             console.log(reason + ' reason for failure on retrieving report table items')
         })
 
-    }, [show === false])
+    }, [showImportModal === false])
+
+    useEffect(() => {
+
+        setReports(dataTableObj.reports)
+
+    }, [dataTableObj.reports.length])
 
     return (
         <div>
@@ -147,15 +199,28 @@ function Home() {
                             <Button variant="warning" onClick={onShow}>Import Gatling Report</Button>
                         </div>
                         <Popup
-                            show={show}
-                            onHide={onHide}
+                            show={showImportModal}
+                            onHide={() => onHide("import")}
                             onConfirm={onConfirm}
                             onFileAdded={onFileAdded}
                         />
                         {/*if at least one item we can try and populate the table..*/}
-                        {dataTableObj.reports[0].id !== '' &&
-                        <ReportTable dataTableObj={dataTableObj}/>
+                        {reports[0].id !== "" &&
+                        <ReportTable
+                            data={reports}
+                            handleClick={handleClick}
+                            handleDeletePopUp={handleDeletePopUp}
+                        />
                         }
+                        <ConfirmationModal
+                            showHeader={false}
+                            show={showConfirmationModal}
+                            onHide={() => onHide("delete")}
+                            onConfirm={onConfirmDelete}
+                            ok={'OK'}
+                            cancel={'Cancel'}
+                            body={'Are you sure you want to delete this item?'}
+                        />
                     </div>
                 </div>
             </div>

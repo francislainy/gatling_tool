@@ -1,34 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Delete, Visibility} from "@material-ui/icons";
 import {IconButton} from "@material-ui/core";
-import ConfirmationModal from './ConfirmationModal';
-import {deleteReport} from "../api";
 import {columns} from '../dataSource';
 import {TablePagination} from "./TablePagination";
 import DefaultColumnFilter from "./FilterInputTable";
 
-const {useHistory} = require('react-router-dom')
 const {useTable, useSortBy, usePagination, useFilters, useGlobalFilter} = require('react-table')
 
 const moment = require("moment")
-const url = "http://localhost"
-const port = 8081
 
-const ReportTable = ({dataTableObj}) => {
-
-    const [reports, setReports] = useState(dataTableObj.reports)
-    const [showConfirmationModal, setShowConfirmationModal] = useState(false)
-    const [idSelected, setIdSelected] = useState(0);
-
-    const getInitialData = () => reports.map(report => ({
-        name: report.title,
-        runDate: report.runDate,
-        createdDate: report.createdDate,
-        category: report.category.title,
-        actions: report.id,
-    }));
-
-    const [data, setData] = useState(getInitialData)
+const ReportTable = ({data, handleClick, handleDeletePopUp}) => {
 
     const filterTypes = React.useMemo(
         () => ({
@@ -83,44 +64,6 @@ const ReportTable = ({dataTableObj}) => {
         usePagination,
     );
 
-    const onHide = () => setShowConfirmationModal(false);
-
-    useEffect(() => {
-
-        setReports(dataTableObj.reports)
-
-    }, [dataTableObj.reports]);
-
-    let history = useHistory();
-
-    const handleClick = (id) => {
-        history.push(`/report/${id}`);
-    }
-
-    const handleDeletePopUp = (id) => {
-
-        setIdSelected(id)
-
-        setShowConfirmationModal(true)
-    }
-
-    const onConfirmDelete = () => {
-
-        const urlAndPort = {
-            url: url,
-            port: port,
-            id: idSelected
-        }
-
-        deleteReport(urlAndPort).then(() => {
-
-            const del = reports.filter(report => idSelected !== report.id)
-            setReports(del)
-
-            setShowConfirmationModal(false)
-        })
-    }
-
     const getDateFormatted = (dateTimeStamp) => {
 
         const date = moment(dateTimeStamp).format('DD-MM-YYYY HH:mm:ss');
@@ -155,15 +98,15 @@ const ReportTable = ({dataTableObj}) => {
                     prepareRow(row)
                     return (
                         <tr {...row.getRowProps()}>
-                            <td>{row.original.name}</td>
+                            <td>{row.original.title}</td>
                             <td>{getDateFormatted(row.original.runDate)}</td>
                             <td>{getDateFormatted(row.original.createdDate)}</td>
-                            <td>{row.original.category}</td>
+                            <td>{row.original.category.title}</td>
                             <td>
-                                <IconButton onClick={() => handleClick(row.original.actions)}>
+                                <IconButton onClick={() => handleClick(row.original.id)}>
                                     <Visibility/>
                                 </IconButton>
-                                <IconButton onClick={() => handleDeletePopUp(row.original.actions)}>
+                                <IconButton onClick={() => handleDeletePopUp(row.original.id)}>
                                     <Delete/>
                                 </IconButton>
                             </td>
@@ -188,15 +131,6 @@ const ReportTable = ({dataTableObj}) => {
                     </option>
                 )}/>
             </div>
-            <ConfirmationModal
-                showHeader={false}
-                show={showConfirmationModal}
-                onHide={onHide}
-                onConfirm={onConfirmDelete}
-                ok={'OK'}
-                cancel={'Cancel'}
-                body={'Are you sure you want to delete this item?'}
-            />
         </div>
     )
 }

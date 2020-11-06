@@ -3,7 +3,7 @@ import React from "react";
 export const columns = [
     {
         Header: 'Name',
-        accessor: 'name',
+        accessor: 'title',
         filter: "text"
     },
     {
