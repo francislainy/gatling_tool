@@ -24,7 +24,10 @@ const Report = ({match}) => {
         "category": {
             "id": "",
             "title": ""
-        }, isFetching: false
+        },
+        "numberOfUsers": '',
+        "duration": ''
+        , isFetching: false
     });
 
     const [show, setShow] = useState(false);
@@ -45,7 +48,10 @@ const Report = ({match}) => {
             "category": {
                 "id": inputValues.categoryId,
                 "title": inputValues.categoryTitle
-            }, isFetching: false
+            },
+            "numberOfUsers": report.numberOfUsers,
+            "duration": report.duration,
+            isFetching: false
         }
 
         const urlAndPort = {
@@ -118,6 +124,8 @@ const Report = ({match}) => {
                 <div>
                     <div> Total Requests: {data.stats[index].numberOfRequests.total}</div>
                     <div>Total Failed Requests: {data.stats[index].numberOfRequests.ko}</div>
+                    <div>Number of users: {report.numberOfUsers}</div>
+                    <div>Duration: {report.duration}</div>
                 </div>
                 }
             </div>

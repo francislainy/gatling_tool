@@ -1,8 +1,8 @@
 "use strict"
 
 /**
-   export PACT_BROKER_BASE_URL=https://fcampos.pactflow.io export PACT_BROKER_TOKEN=jBQLotqEIjcrzr8ybO_tBw
-   npm run publish
+ export PACT_BROKER_BASE_URL=https://fcampos.pactflow.io export PACT_BROKER_TOKEN=jBQLotqEIjcrzr8ybO_tBw
+ npm run publish
  */
 
 const expect = require("chai").expect
@@ -10,6 +10,8 @@ const {retrieveReportItem} = require("../../api");
 const {provider, url, port} = require("../helper");
 
 const {uuid, string, integer, regex} = require('@pact-foundation/pact/dsl/matchers');
+const {PactV3, MatchersV3} = require("@pact-foundation/pact/v3")
+const {number} = MatchersV3
 
 describe("Report API test", () => {
 
@@ -22,7 +24,9 @@ describe("Report API test", () => {
             category: {
                 id: uuid("227d1129-270a-4c66-b11e-35b6abe2b4c3"),
                 title: string("My title"),
-            }
+            },
+            numberOfUsers: integer(1),
+            duration: integer(398) //todo: update to use long instead
         }
 
     describe("get /report/87f2ebeb-880e-4541-bcf1-d317067b9e6b", () => {
