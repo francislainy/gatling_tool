@@ -111,7 +111,7 @@ function Home() {
 
         let values = {
             "title": 'UNDEFINED',
-            "runDate": file.lastModified,
+            "runDate": file[1].lastModified,
             "createdDate": currentDateTimestamp,
             "category": {
                 "id": inputValues.categoryId,
@@ -132,7 +132,11 @@ function Home() {
 
                     new api().submitJsonStats(reportId, file).then((response) => {
                             console.log('report id ' + reportId + ' successfully created')
-                            onHide('import')
+                            new api().submitHtmlIndex(reportId, file).then((response) => {
+                                    console.log('report id ' + reportId + ' successfully created')
+                                    onHide('import')
+                                }
+                            )
                         }
                     )
                 }

@@ -69,11 +69,29 @@ class Api {
 
         formData.append(
             "file",
-            file,
-            file.name
+            file[1],
+            file[1].name
         );
 
         return axios.post(`http://localhost:8081/api/gatling-tool/json/import/${id}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    }
+
+    submitHtmlIndex(id, file) {
+        console.log('entered submit file')
+
+        const formData = new FormData();
+
+        formData.append(
+            "file",
+            file[0],
+            file[0].name
+        );
+
+        return axios.post(`http://localhost:8081/api/gatling-tool/report/upload/html/${id}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

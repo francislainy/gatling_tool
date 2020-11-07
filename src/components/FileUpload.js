@@ -6,7 +6,7 @@ function FileUpload(props) {
     const [selectedFile, setSelectedFile] = useState(null)
 
     const onFileChange = event => {
-        setSelectedFile(event.target.files[0])
+        setSelectedFile(event.target.files)
     };
 
     const onFileUpload = () => {
@@ -17,15 +17,19 @@ function FileUpload(props) {
     const fileData = () => {
         if (selectedFile) {
             onFileUpload()
+
             return (
                 <div>
                     <h5>File Details:</h5>
-                    <p>File Name: {selectedFile.name}</p>
-                    <p>File Type: {selectedFile.type}</p>
+                    <p>File Name: {selectedFile[1].name}</p>
+                    <p>File Type: {selectedFile[1].type}</p>
                     <p>
                         Last Modified:{" "}
-                        {selectedFile.lastModifiedDate.toDateString()}
+                        {selectedFile[1].lastModifiedDate.toDateString()}
                     </p>
+
+                    <p>Index html {selectedFile[0].name}</p>
+
                 </div>
             );
         }
@@ -40,7 +44,7 @@ function FileUpload(props) {
             <div>
                 <div className="form-group">
                     <div className="form-group file-area">
-                        <input id='selectFile' hidden type="file" onChange={onFileChange}/>
+                        <input id='selectFile' multiple hidden type="file" onChange={onFileChange}/>
                     </div>
                 </div>
             </div>
