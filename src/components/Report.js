@@ -125,7 +125,7 @@ const Report = ({match}) => {
                     <div> Total Requests: {data.stats[index].numberOfRequests.total}</div>
                     <div>Total Failed Requests: {data.stats[index].numberOfRequests.ko}</div>
                     <div>Number of users: {report.numberOfUsers}</div>
-                    <div>Duration: {report.duration}</div>
+                    <div>Duration: {report.duration} seconds</div>
                 </div>
                 }
             </div>
