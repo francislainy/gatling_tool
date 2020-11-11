@@ -62,15 +62,21 @@ class Api {
         })
     }
 
-    submitJsonStats(id, file) {
+    submitJsonStats(id, files) {
         console.log('entered submit file')
 
-        const formData = new FormData()
+        let i;
+        files.forEach((file, index) => {
+            if (file.originFileObj.name === 'stats.json') {
+                i = index;
+            }
+        })
 
+        const formData = new FormData()
         formData.append(
             "file",
-            file[1].originFileObj,
-            file[1].originFileObj.name
+            files[i].originFileObj,
+            files[i].originFileObj.name
         );
 
         console.log('after formData')
@@ -86,15 +92,21 @@ class Api {
         })
     }
 
-    submitHtmlIndex(id, file) {
+    submitHtmlIndex(id, files) {
         console.log('entered submit file')
 
-        const formData = new FormData()
+        let i;
+        files.forEach((file, index) => {
+            if (file.originFileObj.name === 'index.html') {
+                i = index;
+            }
+        })
 
+        const formData = new FormData()
         formData.append(
             "file",
-            file[0].originFileObj,
-            file[0].originFileObj.name
+            files[i].originFileObj,
+            files[i].originFileObj.name
         );
 
         return axios.post(`http://localhost:8081/api/gatling-tool/report/upload/html/${id}`, formData, {

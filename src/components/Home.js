@@ -107,11 +107,12 @@ function Home() {
 
     const onConfirm = (inputValues) => {
 
+        console.log('here')
         const currentDateTimestamp = moment().valueOf()
 
         let values = {
             "title": 'UNDEFINED',
-            "runDate": file[1].lastModified,
+            "runDate": file[0].lastModified, // Any index, as all the files are modified on the same test run
             "createdDate": currentDateTimestamp,
             "category": {
                 "id": inputValues.categoryId,
