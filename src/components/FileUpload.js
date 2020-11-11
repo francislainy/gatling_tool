@@ -18,6 +18,7 @@ function FileUpload(props) {
             const {status} = info.file;
             if (status !== 'uploading') {
                 console.log(info.file, info.fileList);
+                props.onFileAdded(info.fileList)
             }
             if (status === 'done') {
                 props.onFileAdded(info.fileList)

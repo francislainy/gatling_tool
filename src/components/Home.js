@@ -136,9 +136,13 @@ function Home() {
                                     console.log('report id ' + reportId + ' successfully created')
                                     onHide('import')
                                 }
-                            )
+                            ).catch(reason => {
+                                console.log(reason + ' reason here')
+                            })
                         }
-                    )
+                    ).catch(reason => {
+                        console.log(reason + ' reason here')
+                    })
                 }
             ).catch(function (error) {
             if (error.response) {

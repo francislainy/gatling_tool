@@ -65,23 +65,33 @@ class Api {
     submitJsonStats(id, file) {
         console.log('entered submit file')
 
-        const formData = new FormData().append(
+        const formData = new FormData()
+
+        formData.append(
             "file",
             file[1].originFileObj,
             file[1].originFileObj.name
         );
 
+        console.log('after formData')
+
         return axios.post(`http://localhost:8081/api/gatling-tool/json/import/${id}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
+        }).then(result => {
+            console.log(result)
+        }).catch(reason => {
+            console.log(reason)
         })
     }
 
     submitHtmlIndex(id, file) {
         console.log('entered submit file')
 
-        const formData = new FormData().append(
+        const formData = new FormData()
+
+        formData.append(
             "file",
             file[0].originFileObj,
             file[0].originFileObj.name
@@ -91,6 +101,10 @@ class Api {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
+        }).then(result => {
+            console.log(result)
+        }).catch(reason => {
+            console.log(reason)
         })
     }
 
