@@ -29,8 +29,9 @@ function FileUpload(props) {
         beforeUpload: file => {
             if (allowedFiles.includes(file.name)) {
                 setList(prev => [...prev, file])
-                return false;
             }
+
+            return false;
         },
 
     };
